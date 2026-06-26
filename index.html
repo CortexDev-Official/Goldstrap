@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goldstrap | Roblox Bootstrapper</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            light: '#FFF3B0',
+                            DEFAULT: '#D4AF37',
+                            dark: '#AA7C11',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #010103;
+            overflow-x: hidden;
+        }
+        
+        
+        .premium-grid {
+            background-image: linear-gradient(rgba(212, 175, 55, 0.012) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(212, 175, 55, 0.012) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center center;
+        }
+
+        
+        @keyframes goldShimmer {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+        .gold-shine-animated {
+            background: linear-gradient(90deg, #70500B 0%, #D4AF37 25%, #FFFDF0 50%, #D4AF37 75%, #70500B 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldShimmer 6s linear infinite;
+        }
+
+        
+        .liquid-glass-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 3.5rem;
+            padding-left: 2.75rem;
+            padding-right: 2.75rem;
+            border-radius: 9999px;
+            background: transparent;
+            cursor: pointer;
+            outline: none;
+            user-select: none;
+            overflow: hidden;
+            transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 400ms ease;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+        }
+        .liquid-glass-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 20px 40px -15px rgba(212, 175, 55, 0.35), 0 0 25px rgba(255, 255, 255, 0.15);
+        }
+        .liquid-glass-btn:active {
+            transform: scale(0.97) translateY(1px);
+        }
+        
+        
+        .liquid-layer-shadow {
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            pointer-events: none;
+            z-index: 2;
+            box-shadow: 0 0 8px rgba(0,0,0,0.03),
+                        0 2px 6px rgba(0,0,0,0.08),
+                        inset 3px 3px 1px -3.5px rgba(255,255,255,0.25),
+                        inset -3px -3px 1px -3.5px rgba(255,255,255,0.9),
+                        inset 1px 1px 1px -0.5px rgba(255,255,255,0.7),
+                        inset -1px -1px 1px -0.5px rgba(255,255,255,0.7),
+                        inset 0 0 10px 10px rgba(255,255,255,0.14),
+                        inset 0 0 4px 4px rgba(255,255,255,0.08);
+        }
+        
+        .liquid-layer-backdrop {
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            overflow: hidden;
+            backdrop-filter: url("#container-glass") blur(10px);
+            -webkit-backdrop-filter: url("#container-glass") blur(10px);
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 300ms ease;
+        }
+        .liquid-glass-btn:hover .liquid-layer-backdrop {
+            border-color: rgba(212, 175, 55, 0.4);
+            background: rgba(212, 175, 55, 0.05);
+        }
+        
+        
+        .liquid-btn-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            transition: all 300ms ease;
+        }
+        .liquid-glass-btn:hover .liquid-btn-content {
+            color: #FFF3B0;
+            text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+        }
+
+        
+        .liquid-glass-shine {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: translateX(-100%);
+            z-index: 3;
+            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .liquid-glass-btn:hover .liquid-glass-shine {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body class="text-neutral-400 antialiased selection:bg-gold selection:text-black premium-grid min-h-screen flex flex-col justify-between">
+
+    
+    <canvas id="shader-canvas" class="fixed top-0 left-0 w-full h-full -z-10 block pointer-events-none opacity-40"></canvas>
+
+    
+    <header class="w-full border-b border-neutral-900/50 bg-black/30 backdrop-blur-xl sticky top-0 z-50 shadow-[0_1px_15px_rgba(0,0,0,0.9)]">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            
+            <div class="flex items-center gap-2 font-extrabold text-white text-lg tracking-wider select-none group cursor-pointer">
+                <span class="w-2 h-2 rounded-full bg-gold shadow-[0_0_15px_#D4AF37] group-hover:scale-125 transition-transform duration-300"></span>
+                <span class="gold-shine-animated">Goldstrap</span>
+            </div>
+            <nav class="flex items-center gap-6 text-xs font-bold tracking-widest uppercase">
+                <a href="https://github.com/CortexDev-Official" target="_blank" rel="noreferrer" class="text-neutral-300 hover:text-gold transition-colors duration-200">CortexDev GitHub</a>
+                <a href="https://github.com/fishstrap/fishstrap" target="_blank" rel="noreferrer" class="text-neutral-500 hover:text-gold transition-colors duration-200">Fishstrap Upstream</a>
+            </nav>
+        </div>
+    </header>
+
+    
+    <div class="max-w-5xl mx-auto px-4 pt-20 pb-24 w-full">
+        
+        
+        <div class="relative border border-neutral-800/30 p-1.5 w-full mx-auto backdrop-blur-md bg-neutral-950/10 rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.95)]">
+            <div class="relative border border-neutral-900/80 py-24 px-4 sm:px-8 overflow-hidden rounded-2xl bg-gradient-to-b from-neutral-950/90 via-neutral-950/95 to-black">
+                
+                <h1 class="mb-6 text-center text-6xl font-extrabold tracking-tight sm:text-7xl md:text-8xl">
+                    <span class="gold-shine-animated drop-shadow-[0_2px_35px_rgba(212,175,55,0.3)] select-none">Goldstrap</span>
+                </h1>
+                
+                <p class="text-neutral-400 px-4 text-center text-xs sm:text-sm max-w-xl mx-auto leading-relaxed font-semibold antialiased">
+                    An advanced, open-source Roblox bootstrapper built for speed and complete client control. Experience unthrottled performance, custom typography, and deep FastFlag integration natively on Windows.
+                </p>
+                
+                <div class="mt-12 flex flex-col items-center justify-center gap-4"> 
+                    
+                    <button class="liquid-glass-btn antialiased" onclick="window.open('https://github.com/CortexDev-Official', '_blank')">
+                        <div class="liquid-layer-shadow"></div>
+                        <div class="liquid-layer-backdrop"></div>
+                        <div class="liquid-glass-shine"></div>
+                        <div class="liquid-btn-content">
+                            <i data-lucide="github" class="w-4 h-4"></i>
+                            <span>Follow on GitHub</span>
+                        </div>
+                    </button>
+
+                    
+                    <span class="text-[10px] font-bold tracking-[0.35em] text-gold/40 uppercase animate-pulse drop-shadow-[0_0_10px_rgba(212,175,55,0.15)] select-none mt-3">
+                        Coming Soon
+                    </span>
+                </div> 
+
+            </div>
+        </div>
+
+        
+        <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          
+          <div class="border border-neutral-900/80 bg-neutral-950/30 backdrop-blur-md p-6 rounded-xl hover:border-gold/30 hover:bg-neutral-950/50 transition-all duration-300 group shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+            <div class="w-10 h-10 rounded-lg bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/80 mb-4 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.15)] group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
+              <i data-lucide="shield" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm mb-1.5 tracking-tight">Custom Mods</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">Apply tailored filesystem patches and custom modifications directly to your runtime client environment.</p>
+          </div>
+
+          
+          <div class="border border-neutral-900/80 bg-neutral-950/30 backdrop-blur-md p-6 rounded-xl hover:border-gold/30 hover:bg-neutral-950/50 transition-all duration-300 group shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+            <div class="w-10 h-10 rounded-lg bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/80 mb-4 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.15)] group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
+              <i data-lucide="type" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm mb-1.5 tracking-tight">Custom Font</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">Inject custom typography files or force native system typography overrides onto the game interface completely.</p>
+          </div>
+
+          
+          <div class="border border-neutral-900/80 bg-neutral-950/30 backdrop-blur-md p-6 rounded-xl hover:border-gold/30 hover:bg-neutral-950/50 transition-all duration-300 group shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+            <div class="w-10 h-10 rounded-lg bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/80 mb-4 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.15)] group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
+              <i data-lucide="zap" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm mb-1.5 tracking-tight">FPS Unlocking</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">Bypass engine restrictions automatically to experience higher, fully unthrottled display refresh rates.</p>
+          </div>
+
+          
+          <div class="border border-neutral-900/80 bg-neutral-950/30 backdrop-blur-md p-6 rounded-xl hover:border-gold/30 hover:bg-neutral-950/50 transition-all duration-300 group shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+            <div class="w-10 h-10 rounded-lg bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/80 mb-4 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.15)] group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
+              <i data-lucide="sliders" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm mb-1.5 tracking-tight">FastFlag Editor</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">Take full control of internal client engine variables and experiment with advanced feature configurations safely.</p>
+          </div>
+
+          
+          <div class="border border-neutral-900/80 bg-neutral-950/30 backdrop-blur-md p-6 rounded-xl hover:border-gold/30 hover:bg-neutral-950/50 transition-all duration-300 group shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+            <div class="w-10 h-10 rounded-lg bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/80 mb-4 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.15)] group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
+              <i data-lucide="monitor" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm mb-1.5 tracking-tight">Discord Rich Presence</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">Broadcast active placement data, game statistics, and active session timers straight to your profile rich presence.</p>
+          </div>
+
+          
+          <div class="border border-neutral-900/80 bg-neutral-950/30 backdrop-blur-md p-6 rounded-xl hover:border-gold/30 hover:bg-neutral-950/50 transition-all duration-300 group shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+            <div class="w-10 h-10 rounded-lg bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/80 mb-4 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.15)] group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
+              <i data-lucide="layers" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm mb-1.5 tracking-tight">Multi-Instance Selection</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">Launch multiple client scopes cleanly, switch deployment channels, and manage separate setups concurrently.</p>
+          </div>
+
+          
+          <div class="border border-neutral-900/80 bg-neutral-950/30 backdrop-blur-md p-6 rounded-xl hover:border-gold/30 hover:bg-neutral-950/50 transition-all duration-300 group shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+            <div class="w-10 h-10 rounded-lg bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/80 mb-4 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.15)] group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
+              <i data-lucide="git-branch" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm mb-1.5 tracking-tight">Channel Deployment Selector</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">Instantly swap between live, beta, and custom development backend deployment channels smoothly.</p>
+          </div>
+
+          
+          <div class="border border-neutral-900/80 bg-neutral-950/30 backdrop-blur-md p-6 rounded-xl hover:border-gold/30 hover:bg-neutral-950/50 transition-all duration-300 group shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+            <div class="w-10 h-10 rounded-lg bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/80 mb-4 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.15)] group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
+              <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm mb-1.5 tracking-tight">Automated Cache Optimization</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">Periodically wipe corrupt caches and unneeded logging bloat to prevent heavy stutter frame drops.</p>
+          </div>
+
+          
+          <div class="border border-neutral-900/80 bg-neutral-950/30 backdrop-blur-md p-6 rounded-xl hover:border-gold/30 hover:bg-neutral-950/50 transition-all duration-300 group shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+            <div class="w-10 h-10 rounded-lg bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/80 mb-4 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.15)] group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
+              <i data-lucide="terminal" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm mb-1.5 tracking-tight">Custom Boot Scripts</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">Automate your environment routines by forcing environment initialization setups natively at game boot.</p>
+          </div>
+
+        </div>
+
+        
+        <div class="mt-14 text-center">
+            <span class="text-[10px] sm:text-[11px] font-extrabold tracking-[0.4em] text-neutral-500/80 hover:text-gold/60 transition-colors duration-300 uppercase select-none drop-shadow-[0_0_5px_rgba(0,0,0,0.5)] cursor-default">
+                And Even More Coming Soon
+            </span>
+        </div>
+    </div>
+
+    
+    <footer class="w-full border-t border-neutral-900/50 bg-black/60 backdrop-blur-sm py-8 text-[11px] text-neutral-600">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>&copy; 2026 Goldstrap Project. Crafted by <a href="https://github.com/CortexDev-Official" target="_blank" rel="noreferrer" class="text-neutral-400 hover:text-gold transition-colors">CortexDev</a>.</p>
+          <p>Upstream base credits to <a href="https://github.com/fishstrap/fishstrap" target="_blank" rel="noreferrer" class="hover:text-gold transition-colors">Fishstrap</a>.</p>
+        </div>
+    </footer>
+
+    
+    <svg class="hidden">
+      <defs>
+        <filter id="container-glass" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.04 0.04" numOctaves="1" seed="1" result="turbulence" />
+          <feGaussianBlur in="turbulence" stdDeviation="1.5" result="blurredNoise" />
+          <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="12" xChannelSelector="R" yChannelSelector="B" result="displaced" />
+          <feGaussianBlur in="displaced" stdDeviation="0.5" result="finalBlur" />
+          <feComposite in="finalBlur" in2="finalBlur" operator="over" />
+        </filter>
+      </defs>
+    </svg>
+
+    <script>
+        
+        lucide.createIcons();
+
+        
+        const canvas = document.getElementById('shader-canvas');
+        const scene = new THREE.Scene();
+        
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        
+        const initialWidth = window.innerWidth;
+        const initialHeight = window.innerHeight;
+        renderer.setSize(initialWidth, initialHeight, false);
+
+        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1);
+
+        const vertexShader = `
+            attribute vec3 position;
+            void main() {
+                gl_Position = vec4(position, 1.0);
+            }
+        `;
+
+        const fragmentShader = `
+            precision highp float;
+            uniform vec2 resolution;
+            uniform float time;
+            uniform float xScale;
+            uniform float yScale;
+            uniform float distortion;
+
+            void main() {
+                vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
+                float d = length(p) * distortion;
+                
+                float rx = p.x * (1.0 + d);
+                float gx = p.x;
+                float bx = p.x * (1.0 - d);
+
+                float r = 0.05 / abs(p.y + sin((rx + time) * xScale) * yScale);
+                float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);
+                float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);
+                
+                gl_FragColor = vec4(r, g, b, 1.0);
+            }
+        `;
+
+        const uniforms = {
+            resolution: { value: new THREE.Vector2(initialWidth, initialHeight) },
+            time: { value: 0.0 },
+            xScale: { value: 1.0 },
+            yScale: { value: 0.5 },
+            distortion: { value: 0.05 }
+        };
+
+        const vertices = new Float32Array([
+            -1.0, -1.0, 0.0,
+             1.0, -1.0, 0.0,
+            -1.0,  1.0, 0.0,
+             1.0, -1.0, 0.0,
+            -1.0,  1.0, 0.0,
+             1.0,  1.0, 0.0,
+        ]);
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+
+        const material = new THREE.RawShaderMaterial({
+            vertexShader: vertexShader,
+            fragmentShader: fragmentShader,
+            uniforms: uniforms,
+            side: THREE.DoubleSide
+        });
+
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+        function resize() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            renderer.setSize(width, height, false);
+            uniforms.resolution.value.set(width, height);
+        }
+
+        resize();
+        window.addEventListener('resize', resize);
+
+        function animate() {
+            uniforms.time.value += 0.01;
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
