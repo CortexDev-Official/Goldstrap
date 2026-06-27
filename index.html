@@ -28,11 +28,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #010103;
             overflow-x: hidden;
         }
@@ -58,98 +58,108 @@
             animation: goldShimmer 6s linear infinite;
         }
 
-        
-        .liquid-glass-btn {
-            position: relative;
+        .hero-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            line-height: 1.2;
+            letter-spacing: -0.015em;
+            background: linear-gradient(90deg, #8B6914 0%, #FFD700 15%, #FFFACD 30%, #FFD700 50%, #FFFACD 70%, #FFD700 85%, #8B6914 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: goldShimmer 6s linear infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6)) drop-shadow(0 0 15px rgba(212, 175, 55, 0.5));
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .github-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            height: 3.5rem;
-            padding-left: 2.75rem;
-            padding-right: 2.75rem;
-            border-radius: 9999px;
-            background: transparent;
-            cursor: pointer;
-            outline: none;
-            user-select: none;
-            overflow: hidden;
-            transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 400ms ease;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
-        }
-        .liquid-glass-btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 20px 40px -15px rgba(212, 175, 55, 0.35), 0 0 25px rgba(255, 255, 255, 0.15);
-        }
-        .liquid-glass-btn:active {
-            transform: scale(0.97) translateY(1px);
-        }
-        
-        
-        .liquid-layer-shadow {
-            position: absolute;
-            inset: 0;
-            border-radius: 9999px;
-            pointer-events: none;
-            z-index: 2;
-            box-shadow: 0 0 8px rgba(0,0,0,0.03),
-                        0 2px 6px rgba(0,0,0,0.08),
-                        inset 3px 3px 1px -3.5px rgba(255,255,255,0.25),
-                        inset -3px -3px 1px -3.5px rgba(255,255,255,0.9),
-                        inset 1px 1px 1px -0.5px rgba(255,255,255,0.7),
-                        inset -1px -1px 1px -0.5px rgba(255,255,255,0.7),
-                        inset 0 0 10px 10px rgba(255,255,255,0.14),
-                        inset 0 0 4px 4px rgba(255,255,255,0.08);
-        }
-        
-        .liquid-layer-backdrop {
-            position: absolute;
-            inset: 0;
-            border-radius: 9999px;
-            overflow: hidden;
-            backdrop-filter: url("#container-glass") blur(10px);
-            -webkit-backdrop-filter: url("#container-glass") blur(10px);
-            z-index: 1;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            background: rgba(255, 255, 255, 0.02);
-            transition: all 300ms ease;
-        }
-        .liquid-glass-btn:hover .liquid-layer-backdrop {
-            border-color: rgba(212, 175, 55, 0.4);
-            background: rgba(212, 175, 55, 0.05);
-        }
-        
-        
-        .liquid-btn-content {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            color: #ffffff;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
             font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            transition: all 300ms ease;
-        }
-        .liquid-glass-btn:hover .liquid-btn-content {
-            color: #FFF3B0;
-            text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.06) 100%);
+            border: 1.5px solid rgba(212, 175, 55, 0.35);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: transform, box-shadow, border-color, background;
+            position: relative;
+            overflow: hidden;
         }
 
-        
-        .liquid-glass-shine {
+        .github-btn::before {
+            content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-            transform: translateX(-100%);
-            z-index: 3;
-            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 0;
         }
-        .liquid-glass-btn:hover .liquid-glass-shine {
-            transform: translateX(100%);
+
+        .github-btn:hover::before {
+            left: 100%;
         }
+
+        .github-btn:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.12) 100%);
+            border-color: rgba(212, 175, 55, 0.75);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5), 
+                        0 8px 32px -8px rgba(212, 175, 55, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .github-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+        }
+
+        .github-btn svg,
+        .github-btn span {
+            position: relative;
+            z-index: 1;
+            transition: all 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .github-btn:hover svg {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
+        }
+
+        .github-btn:hover span {
+            color: #FFD700;
+            text-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+        }
+
+        .github-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
     </style>
 </head>
 <body class="text-neutral-400 antialiased selection:bg-gold selection:text-black premium-grid min-h-screen flex flex-col justify-between">
@@ -179,24 +189,24 @@
         <div class="relative border border-neutral-800/30 p-1.5 w-full mx-auto backdrop-blur-md bg-neutral-950/10 rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.95)]">
             <div class="relative border border-neutral-900/80 py-24 px-4 sm:px-8 overflow-hidden rounded-2xl bg-gradient-to-b from-neutral-950/90 via-neutral-950/95 to-black">
                 
-                <h1 class="mb-6 text-center text-6xl font-extrabold tracking-tight sm:text-7xl md:text-8xl">
-                    <span class="gold-shine-animated drop-shadow-[0_2px_35px_rgba(212,175,55,0.3)] select-none">Goldstrap</span>
-                </h1>
+                <div class="text-center mb-8">
+                    <h1 class="hero-title select-none">
+                        Make Roblox<br />truly yours.
+                    </h1>
+                    <p class="hero-subtitle select-none">
+                        Goldstrap
+                    </p>
+                </div>
                 
-                <p class="text-neutral-400 px-4 text-center text-xs sm:text-sm max-w-xl mx-auto leading-relaxed font-semibold antialiased">
+                <p class="text-neutral-400 px-4 text-center text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed font-medium antialiased mb-12">
                     An advanced, open-source Roblox bootstrapper built for speed and complete client control. Experience unthrottled performance, custom typography, and deep FastFlag integration natively on Windows.
                 </p>
                 
-                <div class="mt-12 flex flex-col items-center justify-center gap-4"> 
+                <div class="mt-8 flex flex-col items-center justify-center gap-4"> 
                     
-                    <button class="liquid-glass-btn antialiased" onclick="window.open('https://github.com/CortexDev-Official', '_blank')">
-                        <div class="liquid-layer-shadow"></div>
-                        <div class="liquid-layer-backdrop"></div>
-                        <div class="liquid-glass-shine"></div>
-                        <div class="liquid-btn-content">
-                            <i data-lucide="github" class="w-4 h-4"></i>
-                            <span>Follow on GitHub</span>
-                        </div>
+                    <button class="github-btn" onclick="window.open('https://github.com/CortexDev-Official/Goldstrap', '_blank')">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span>Follow on GitHub</span>
                     </button>
 
                     
@@ -303,10 +313,10 @@
           
           <div class="border border-neutral-900/80 bg-neutral-950/30 backdrop-blur-md p-6 rounded-xl hover:border-gold/30 hover:bg-neutral-950/50 transition-all duration-300 group shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
             <div class="w-10 h-10 rounded-lg bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/80 mb-4 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.15)] group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
-              <i data-lucide="download" class="w-5 h-5"></i>
+              <i data-lucide="volume-2" class="w-5 h-5"></i>
             </div>
-            <h3 class="text-white font-bold text-sm mb-1.5 tracking-tight">Download Manager</h3>
-            <p class="text-xs text-neutral-500 leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">Accelerates Roblox download speeds by approximately 40% for a noticeably faster setup and update experience.</p>
+            <h3 class="text-white font-bold text-sm mb-1.5 tracking-tight">Custom Startup Sound</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">Add personalized audio notifications that play when Roblox launches, customizing your gaming startup experience.</p>
           </div>
 
         </div>
