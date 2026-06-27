@@ -763,7 +763,7 @@
         function typeWriter(text, i, cb) {
             if (i < text.length) {
                 cursor.before(document.createTextNode(text.charAt(i)));
-                setTimeout(function() { typeWriter(text, i + 1, cb); }, 70 + Math.random() * 40);
+                setTimeout(function() { typeWriter(text, i + 1, cb); }, 35 + Math.random() * 25);
             } else {
                 setTimeout(function() {
                     cursor.style.animation = 'none';
