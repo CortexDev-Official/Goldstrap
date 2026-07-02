@@ -474,7 +474,7 @@
         }
         .perf-chart-col-header:hover .perf-chart-icon { transform: scale(1.2); }
         .perf-chart-col-header:nth-child(2):hover .perf-chart-icon { box-shadow: 0 0 15px rgba(212,175,55,0.5); }
-        .perf-chart-col-header:nth-child(3):hover .perf-chart-icon { box-shadow: 0 0 15px rgba(255,59,59,0.5); }
+        .perf-chart-col-header:nth-child(3):hover .perf-chart-icon { box-shadow: 0 0 15px rgba(30,80,200,0.5); }
         .perf-chart-col-header:nth-child(4):hover .perf-chart-icon { box-shadow: 0 0 15px rgba(170,102,255,0.5); }
         .perf-chart-col-name {
             font-family: 'JetBrains Mono', monospace;
@@ -488,7 +488,7 @@
         .perf-chart-col-header:nth-child(2) { cursor: default; }
         .perf-chart-col-header:nth-child(2):hover .perf-chart-col-name { color: #FFD700; text-shadow: 0 0 12px rgba(255,215,0,0.5); }
         .perf-chart-col-header:nth-child(3) { cursor: default; }
-        .perf-chart-col-header:nth-child(3):hover .perf-chart-col-name { color: #FF3B3B; text-shadow: 0 0 12px rgba(255,59,59,0.5); }
+        .perf-chart-col-header:nth-child(3):hover .perf-chart-col-name { color: #4A7CFF; text-shadow: 0 0 12px rgba(74,124,255,0.5); }
         .perf-chart-col-header:nth-child(4) { cursor: default; }
         .perf-chart-col-header:nth-child(4):hover .perf-chart-col-name { color: #AA66FF; text-shadow: 0 0 12px rgba(170,102,255,0.5); }
         .perf-chart-crown svg {
@@ -507,7 +507,7 @@
         .perf-chart-row:hover { background: rgba(212,175,55,0.03); }
         .perf-chart-row .perf-rect-fill { transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease, box-shadow 0.3s ease; }
         .perf-chart-row:hover .perf-rect-fill.gold { filter: brightness(1.2); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 25px rgba(212,175,55,0.5); }
-        .perf-chart-row:hover .perf-rect-fill.fish { filter: brightness(1.2); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 25px rgba(229,57,53,0.5); }
+        .perf-chart-row:hover .perf-rect-fill.fish { filter: brightness(1.2); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 25px rgba(30,80,200,0.5); }
         .perf-chart-row:hover .perf-rect-fill.blox { filter: brightness(1.2); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 25px rgba(170,102,255,0.5); }
         .perf-chart-metric { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
         .perf-chart-cell {
@@ -529,16 +529,43 @@
             height: 100%;
             border-radius: 2px;
             width: 0%;
-            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease, box-shadow 0.4s ease;
             display: flex;
             align-items: center;
             justify-content: flex-end;
             padding-right: 10px;
             min-width: 0;
+            position: relative;
+            overflow: hidden;
         }
-        .perf-rect-fill.gold { background: linear-gradient(90deg, #8B6914 0%, #D4AF37 40%, #FFD700 70%, #FFF3B0 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(212,175,55,0.3); }
-        .perf-rect-fill.fish { background: linear-gradient(90deg, #8B0000 0%, #E53935 40%, #FF5252 70%, #FF8A80 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(229,57,53,0.3); }
-        .perf-rect-fill.blox { background: linear-gradient(90deg, #4A148C 0%, #7B1FA2 40%, #AA66FF 70%, #CE93D8 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(170,102,255,0.3); }
+        .perf-rect-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+            animation: barShimmer 3s ease-in-out infinite;
+        }
+        @keyframes barShimmer {
+            0%, 100% { left: -50%; }
+            50% { left: 100%; }
+        }
+        .perf-rect-fill.gold { background: linear-gradient(90deg, #8B6914 0%, #D4AF37 40%, #FFD700 70%, #FFF3B0 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(212,175,55,0.3); animation: goldPulse 3s ease-in-out infinite; }
+        .perf-rect-fill.fish { background: linear-gradient(90deg, #0A1D56 0%, #1A3FA8 40%, #3D6DF5 70%, #7B9EFF 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(30,80,200,0.3); animation: fishPulse 3s ease-in-out infinite; animation-delay: 0.5s; }
+        .perf-rect-fill.blox { background: linear-gradient(90deg, #4A148C 0%, #7B1FA2 40%, #AA66FF 70%, #CE93D8 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(170,102,255,0.3); animation: bloxPulse 3s ease-in-out infinite; animation-delay: 1s; }
+        @keyframes goldPulse {
+            0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(212,175,55,0.3); }
+            50% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 30px rgba(212,175,55,0.5); }
+        }
+        @keyframes fishPulse {
+            0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(30,80,200,0.3); }
+            50% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 30px rgba(30,80,200,0.5); }
+        }
+        @keyframes bloxPulse {
+            0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(170,102,255,0.3); }
+            50% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 30px rgba(170,102,255,0.5); }
+        }
         .perf-rect-val {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
