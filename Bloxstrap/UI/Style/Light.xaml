@@ -1,0 +1,110 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         GOLDSTRAP — Warm Gold Light Theme
+     ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- Gold Accent Palette — warm amber tones -->
+    <SolidColorBrush x:Key="GoldPrimaryBrush" Color="#A07D2E" />
+    <SolidColorBrush x:Key="GoldDarkBrush" Color="#8A6B24" />
+    <SolidColorBrush x:Key="GoldLightBrush" Color="#C4A04E" />
+    <SolidColorBrush x:Key="GoldMutedBrush" Color="#B89A50" />
+    <SolidColorBrush x:Key="GoldShimmerBrush" Color="#D4B860" />
+
+    <!-- Button hover/pressed states — very subtle gold tints -->
+    <SolidColorBrush x:Key="GoldHoverBrush" Color="#15A07D2E" />
+    <SolidColorBrush x:Key="GoldPressedBrush" Color="#20A07D2E" />
+
+    <!-- Background Palette — warm gold-tinted Mica glass -->
+<SolidColorBrush x:Key="MainWindowBackgroundBrush" Color="#1CFBF7EE" />
+<SolidColorBrush x:Key="SurfaceBrush" Color="#18F6F2EA" />
+<SolidColorBrush x:Key="SurfaceElevatedBrush" Color="#22FFFFFF" />
+<SolidColorBrush x:Key="CardBackgroundBrush" Color="#14FDF9F2" />
+    <SolidColorBrush x:Key="CardBorderBrush" Color="#25E8E0D0" />
+    <SolidColorBrush x:Key="SeparatorBrush" Color="#18E8E0D0" />
+
+    <!-- Text Editor -->
+    <SolidColorBrush x:Key="NewTextEditorBackground" Color="#FDFCFA" />
+    <SolidColorBrush x:Key="NewTextEditorForeground" Color="#1A1816" />
+    <SolidColorBrush x:Key="NewTextEditorLink" Color="#8A6B24" />
+
+    <!-- ═══════════════ Gold Progress Bar ═══════════════ -->
+    <Style x:Key="SquareProgressBarStyle" TargetType="ProgressBar" BasedOn="{StaticResource {x:Type ProgressBar}}">
+        <Setter Property="Foreground" Value="{DynamicResource GoldPrimaryBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Grid Name="TemplateRoot" SnapsToDevicePixels="True">
+                        <Border Background="#E6E0D4"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            CornerRadius="4" />
+                        <Rectangle Name="PART_Track" />
+                        <Border Name="PART_Indicator"
+                            HorizontalAlignment="Left"
+                            CornerRadius="4">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#8A6B24" Offset="0" />
+                                    <GradientStop Color="#A07D2E" Offset="0.5" />
+                                    <GradientStop Color="#C4A04E" Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsIndeterminate" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ProgressBar">
+                            <ControlTemplate.Resources>
+                                <Storyboard x:Key="IndeterminateAnim" RepeatBehavior="Forever">
+                                    <DoubleAnimation Storyboard.TargetName="PART_GlowRect"
+                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                 From="-200" To="800" Duration="0:0:2">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseInOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </ControlTemplate.Resources>
+                            <Grid Name="TemplateRoot" ClipToBounds="True">
+                                <Border Background="#E6E0D4"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    CornerRadius="4" />
+                                <Grid Name="AnimationContainer" ClipToBounds="True">
+                                    <Border Name="PART_GlowRect"
+                                        Width="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue=100}"
+                                        Height="{TemplateBinding Height}"
+                                        HorizontalAlignment="Left"
+                                        CornerRadius="4">
+                                        <Border.RenderTransform>
+                                            <TranslateTransform X="-200" />
+                                        </Border.RenderTransform>
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="#8A6B24" Offset="0" />
+                                                <GradientStop Color="#A07D2E" Offset="0.5" />
+                                                <GradientStop Color="#C4A04E" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard Storyboard="{StaticResource IndeterminateAnim}" />
+                                </EventTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

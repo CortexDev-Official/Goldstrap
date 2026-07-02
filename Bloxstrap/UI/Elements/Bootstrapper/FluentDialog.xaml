@@ -1,0 +1,126 @@
+﻿<base:WpfUiWindow
+    x:Class="Bloxstrap.UI.Elements.Bootstrapper.FluentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Bloxstrap.Resources"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:vms="clr-namespace:Bloxstrap.UI.ViewModels.Bootstrapper"
+    xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+    Width="500"
+    Height="280"
+    MinHeight="0"
+    d:DataContext="{d:DesignInstance vms:FluentDialogViewModel,
+                                     IsDesignTimeCreatable=True}"
+    Background="{DynamicResource MainWindowBackgroundBrush}"
+    Closing="UiWindow_Closing"
+    ExtendsContentIntoTitleBar="True"
+    ResizeMode="NoResize"
+    WindowBackdropType="{Binding Path=WindowBackdropType, Mode=OneTime}"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="{Binding Path=TaskbarProgressState}" ProgressValue="{Binding Path=TaskbarProgressValue}" />
+    </Window.TaskbarItemInfo>
+
+    <!--  Background is for Aero theme only  -->
+    <Grid x:Name="ContentGrid" Background="{DynamicResource MainWindowBackgroundBrush}">
+        <!--  Allow for drag  -->
+        <TextBlock Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="10" FontFamily="{StaticResource Rubik}" Text="{Binding VersionText}" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+        <TextBlock Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="10" FontFamily="{StaticResource Rubik}" Text="{Binding ChannelText}" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+        <ui:TitleBar
+            VerticalAlignment="Top"
+            CanMaximize="False"
+            ShowClose="False"
+            ShowMaximize="False"
+            ShowMinimize="False" />
+
+        <Grid Margin="32,16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border
+                Grid.Row="0"
+                Width="80"
+                Height="80"
+                Margin="0,30,0,0"
+                CornerRadius="16"
+                ClipToBounds="True"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Background="Transparent">
+                <Image
+                    Width="80"
+                    Height="80"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Stretch="UniformToFill"
+                    Source="{Binding Icon, Mode=OneWay}" />
+            </Border>
+
+            <TextBlock
+                Grid.Row="1"
+                Margin="0,0,0,8"
+                HorizontalAlignment="Center"
+                TextAlignment="Center"
+                FontSize="18"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Text="{Binding Message, Mode=OneWay}"
+                TextWrapping="Wrap" />
+
+            <Border
+                Grid.Row="2"
+                Width="28"
+                Height="28"
+                Margin="0,0,8,4"
+                HorizontalAlignment="Right"
+                CornerRadius="6"
+                ClipToBounds="True"
+                Background="Transparent">
+                <Grid>
+                    <Image
+                        x:Name="GifImage1"
+                        Width="28"
+                        Height="28"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Stretch="UniformToFill"
+                        gif:AnimationBehavior.SourceUri="/Resources/Loading.GIF" />
+                    <Image
+                        x:Name="GifImage2"
+                        Width="28"
+                        Height="28"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Stretch="UniformToFill"
+                        gif:AnimationBehavior.SourceUri="/Resources/2Loading.GIF"
+                        Visibility="Collapsed" />
+                </Grid>
+            </Border>
+
+            <ProgressBar
+                Grid.Row="3"
+                Margin="0,0,0,16"
+                Style="{DynamicResource SquareProgressBarStyle}"
+                IsIndeterminate="{Binding ProgressIndeterminate, Mode=OneWay}"
+                Maximum="{Binding ProgressMaximum, Mode=OneWay}"
+                Value="{Binding ProgressValue, Mode=OneWay}" />
+
+            <Button
+                Grid.Row="4"
+                Width="120"
+                Padding="4"
+                HorizontalAlignment="Center"
+                Command="{Binding CancelInstallCommand}"
+                Content="{x:Static resources:Strings.Common_Cancel}"
+                FontSize="14"
+                IsEnabled="{Binding CancelEnabled, Mode=OneWay}" />
+        </Grid>
+    </Grid>
+</base:WpfUiWindow>
