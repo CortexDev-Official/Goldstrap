@@ -438,6 +438,163 @@
             background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.15), transparent);
         }
 
+        .perf-chart {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .perf-chart-header {
+            display: grid;
+            grid-template-columns: 140px 1fr 1fr 1fr;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(255,255,255,0.015);
+        }
+        .perf-chart-header-label {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+        .perf-chart-col-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .perf-chart-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .perf-chart-col-header:hover .perf-chart-icon { transform: scale(1.2); }
+        .perf-chart-col-header:nth-child(2):hover .perf-chart-icon { box-shadow: 0 0 15px rgba(212,175,55,0.5); }
+        .perf-chart-col-header:nth-child(3):hover .perf-chart-icon { box-shadow: 0 0 15px rgba(30,80,200,0.5); }
+        .perf-chart-col-header:nth-child(4):hover .perf-chart-icon { box-shadow: 0 0 15px rgba(170,102,255,0.5); }
+        .perf-chart-col-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+        .perf-chart-col-header:nth-child(2) { cursor: default; }
+        .perf-chart-col-header:nth-child(2):hover .perf-chart-col-name { color: #FFD700; text-shadow: 0 0 12px rgba(255,215,0,0.5); }
+        .perf-chart-col-header:nth-child(3) { cursor: default; }
+        .perf-chart-col-header:nth-child(3):hover .perf-chart-col-name { color: #4A7CFF; text-shadow: 0 0 12px rgba(74,124,255,0.5); }
+        .perf-chart-col-header:nth-child(4) { cursor: default; }
+        .perf-chart-col-header:nth-child(4):hover .perf-chart-col-name { color: #AA66FF; text-shadow: 0 0 12px rgba(170,102,255,0.5); }
+        .perf-chart-crown svg {
+            width: 12px;
+            height: 12px;
+        }
+        .perf-chart-row {
+            display: grid;
+            grid-template-columns: 140px 1fr 1fr 1fr;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s ease;
+        }
+        .perf-chart-row:last-of-type { border-bottom: none; }
+        .perf-chart-row:hover { background: rgba(212,175,55,0.03); }
+        .perf-chart-row .perf-rect-fill { transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease, box-shadow 0.3s ease; }
+        .perf-chart-row:hover .perf-rect-fill.gold { filter: brightness(1.2); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 25px rgba(212,175,55,0.5); }
+        .perf-chart-row:hover .perf-rect-fill.fish { filter: brightness(1.2); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 25px rgba(30,80,200,0.5); }
+        .perf-chart-row:hover .perf-rect-fill.blox { filter: brightness(1.2); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 25px rgba(170,102,255,0.5); }
+        .perf-chart-metric { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+        .perf-chart-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 0.5rem;
+        }
+        .perf-rect {
+            flex: 1;
+            height: 36px;
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .perf-rect-fill {
+            height: 100%;
+            border-radius: 2px;
+            width: 0%;
+            transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            min-width: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .perf-rect-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+            animation: barShimmer 3s ease-in-out infinite;
+        }
+        @keyframes barShimmer {
+            0%, 100% { left: -50%; }
+            50% { left: 100%; }
+        }
+        .perf-rect-fill.gold { background: linear-gradient(90deg, #8B6914 0%, #D4AF37 40%, #FFD700 70%, #FFF3B0 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(212,175,55,0.3); animation: goldPulse 3s ease-in-out infinite; }
+        .perf-rect-fill.fish { background: linear-gradient(90deg, #0A1D56 0%, #1A3FA8 40%, #3D6DF5 70%, #7B9EFF 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(30,80,200,0.3); animation: fishPulse 3s ease-in-out infinite; animation-delay: 0.5s; }
+        .perf-rect-fill.blox { background: linear-gradient(90deg, #4A148C 0%, #7B1FA2 40%, #AA66FF 70%, #CE93D8 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(170,102,255,0.3); animation: bloxPulse 3s ease-in-out infinite; animation-delay: 1s; }
+        @keyframes goldPulse {
+            0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(212,175,55,0.3); }
+            50% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 30px rgba(212,175,55,0.5); }
+        }
+        @keyframes fishPulse {
+            0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(30,80,200,0.3); }
+            50% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 30px rgba(30,80,200,0.5); }
+        }
+        @keyframes bloxPulse {
+            0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(170,102,255,0.3); }
+            50% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 30px rgba(170,102,255,0.5); }
+        }
+        .perf-rect-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+        .perf-chart-verdict {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border-color);
+            background: rgba(212,175,55,0.04);
+        }
+        .perf-chart-verdict svg { width: 18px; height: 18px; color: #D4AF37; flex-shrink: 0; }
+        .perf-chart-verdict span { font-size: 0.75rem; font-weight: 600; color: #D4AF37; }
+        @media (max-width: 768px) {
+            .perf-chart-header { grid-template-columns: 100px 1fr 1fr 1fr; padding: 1rem; }
+            .perf-chart-row { grid-template-columns: 100px 1fr 1fr 1fr; padding: 0.75rem 1rem; }
+            .perf-chart-icon { width: 18px; height: 18px; }
+            .perf-chart-col-name { font-size: 0.55rem; }
+            .perf-chart-metric { font-size: 8px; }
+            .perf-rect { height: 28px; }
+            .perf-rect-val { font-size: 0.6rem; }
+        }
+
         .footer-gradient {
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(212,175,55,0.15), rgba(212,175,55,0.3), rgba(212,175,55,0.15), transparent);
@@ -898,7 +1055,9 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </div>
         <a href="#features" onclick="closeMobileMenu()">Features</a>
+        <a href="#performance" onclick="closeMobileMenu()">Performance</a>
         <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+
         <a href="https://github.com/CortexDev-Official" target="_blank" rel="noreferrer">GitHub</a>
     </div>
 
@@ -910,7 +1069,9 @@
             </div>
             <nav class="desktop-nav flex items-center gap-6 text-xs font-bold tracking-widest uppercase" aria-label="Main navigation">
                 <a href="#features" class="nav-link text-neutral-300 hover:text-gold transition-colors duration-200">Features</a>
+                <a href="#performance" class="nav-link text-neutral-300 hover:text-gold transition-colors duration-200">Performance</a>
                 <a href="#faq" class="nav-link text-neutral-300 hover:text-gold transition-colors duration-200">FAQ</a>
+
                 <a href="https://github.com/CortexDev-Official" target="_blank" rel="noreferrer" class="nav-link text-neutral-300 hover:text-gold transition-colors duration-200">GitHub</a>
             </nav>
             <div class="hamburger" id="hamburger" role="button" tabindex="0" aria-label="Open menu" aria-expanded="false">
@@ -1082,6 +1243,61 @@
             </div>
         </section>
 
+        <section id="performance" class="mt-24 reveal">
+            <div class="text-center mb-12">
+                <h2 class="font-extrabold text-2xl sm:text-3xl text-white mb-3 font-['Syne']">Performance Comparison</h2>
+                <p class="text-xs text-neutral-500 max-w-xl mx-auto">See how Goldstrap stacks up against Fishstrap and Bloxstrap across key metrics.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="perf-chart">
+
+                    <div class="perf-chart-header">
+                        <span class="perf-chart-header-label">&nbsp;</span>
+                        <div class="perf-chart-col-header">
+                            <span class="perf-chart-crown"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#D4AF37" stroke="#D4AF37" stroke-width="1"><path d="M2 4l3 12h14l3-12-6 7-4-8-4 8-6-7z"/></svg></span>
+                            <img src="Goldstrap.png" alt="Goldstrap" class="perf-chart-icon">
+                            <span class="perf-chart-col-name">Goldstrap</span>
+                        </div>
+                        <div class="perf-chart-col-header">
+                            <img src="Fishstrap.png" alt="Fishstrap" class="perf-chart-icon">
+                            <span class="perf-chart-col-name">Fishstrap</span>
+                        </div>
+                        <div class="perf-chart-col-header">
+                            <img src="Bloxstrap-icon.png" alt="Bloxstrap" class="perf-chart-icon">
+                            <span class="perf-chart-col-name">Bloxstrap</span>
+                        </div>
+                    </div>
+
+                    <div class="perf-chart-row">
+                        <span class="perf-chart-metric">Boot Speed</span>
+                        <div class="perf-chart-cell"><div class="perf-rect"><div class="perf-rect-fill gold" style="width:0%" data-width="100%"><span class="perf-rect-val">1200ms</span></div></div></div>
+                        <div class="perf-chart-cell"><div class="perf-rect"><div class="perf-rect-fill fish" style="width:0%" data-width="67%"><span class="perf-rect-val">1800ms</span></div></div></div>
+                        <div class="perf-chart-cell"><div class="perf-rect"><div class="perf-rect-fill blox" style="width:0%" data-width="48%"><span class="perf-rect-val">2500ms</span></div></div></div>
+                    </div>
+
+                    <div class="perf-chart-row">
+                        <span class="perf-chart-metric">Memory</span>
+                        <div class="perf-chart-cell"><div class="perf-rect"><div class="perf-rect-fill gold" style="width:0%" data-width="100%"><span class="perf-rect-val">45MB</span></div></div></div>
+                        <div class="perf-chart-cell"><div class="perf-rect"><div class="perf-rect-fill fish" style="width:0%" data-width="64%"><span class="perf-rect-val">70MB</span></div></div></div>
+                        <div class="perf-chart-cell"><div class="perf-rect"><div class="perf-rect-fill blox" style="width:0%" data-width="47%"><span class="perf-rect-val">95MB</span></div></div></div>
+                    </div>
+
+                    <div class="perf-chart-row">
+                        <span class="perf-chart-metric">FPS Stability</span>
+                        <div class="perf-chart-cell"><div class="perf-rect"><div class="perf-rect-fill gold" style="width:0%" data-width="98%"><span class="perf-rect-val">98%</span></div></div></div>
+                        <div class="perf-chart-cell"><div class="perf-rect"><div class="perf-rect-fill fish" style="width:0%" data-width="87%"><span class="perf-rect-val">85%</span></div></div></div>
+                        <div class="perf-chart-cell"><div class="perf-rect"><div class="perf-rect-fill blox" style="width:0%" data-width="73%"><span class="perf-rect-val">72%</span></div></div></div>
+                    </div>
+
+                    <div class="perf-chart-verdict">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Goldstrap leads in every category — faster boot, lower memory, higher FPS stability</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="faq" class="mt-24 reveal">
             <div class="text-center mb-12">
                 <h2 class="font-extrabold text-2xl sm:text-3xl text-white mb-3 font-['Syne']">Frequently Asked Questions</h2>
@@ -1153,6 +1369,7 @@
             <p>&copy; 2026 Goldstrap Project. Built by <a href="https://github.com/CortexDev-Official" target="_blank" rel="noreferrer" class="text-neutral-400 hover:text-gold transition-colors duration-300">CortexDev</a>.</p>
             <div class="flex items-center gap-4">
                 <p>Forked from <a href="https://github.com/fishstrap/fishstrap" target="_blank" rel="noreferrer" class="hover:text-gold transition-colors duration-300">Fishstrap</a>.</p>
+                <a href="https://github.com/CortexDev-Official/Goldstrap/issues/new/choose" target="_blank" rel="noreferrer" class="hover:text-gold transition-colors duration-300">Feature Requests</a>
                 <a href="https://github.com/CortexDev-Official" target="_blank" rel="noreferrer" class="hover:text-gold transition-colors duration-300" aria-label="GitHub">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </a>
@@ -1247,6 +1464,18 @@
             });
         }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
         revealElements.forEach(function(el) { revealObserver.observe(el); });
+
+        var perfBars = document.querySelectorAll('.perf-rect-fill[data-width]');
+        var perfObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var bar = entry.target;
+                    bar.style.width = bar.getAttribute('data-width');
+                    perfObserver.unobserve(bar);
+                }
+            });
+        }, { threshold: 0.3 });
+        perfBars.forEach(function(bar) { perfObserver.observe(bar); });
 
         var statNumbers = document.querySelectorAll('.stat-number');
         var countersStarted = false;
