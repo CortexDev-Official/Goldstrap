@@ -246,7 +246,33 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         }
 
         // refresh list on page load to synchronize with preset page
-        private void Page_Loaded(object sender, RoutedEventArgs e) => ReloadList();
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            SyncBuiltInFlagToggles();
+            ReloadList();
+        }
+
+        private void SyncBuiltInFlagToggles()
+        {
+            Flag_MeshLOD0.IsChecked = App.FastFlags.GetValue("DFIntCSGLevelOfDetailSwitchingDistance") != null;
+            Flag_MeshLOD12.IsChecked = App.FastFlags.GetValue("DFIntCSGLevelOfDetailSwitchingDistanceL12") != null;
+            Flag_MeshLOD23.IsChecked = App.FastFlags.GetValue("DFIntCSGLevelOfDetailSwitchingDistanceL23") != null;
+            Flag_MeshLOD34.IsChecked = App.FastFlags.GetValue("DFIntCSGLevelOfDetailSwitchingDistanceL34") != null;
+
+            Flag_ManualFullscreen.IsChecked = App.FastFlags.GetValue("FFlagHandleAltEnterFullscreenManually") != null;
+            Flag_TextureQuality.IsChecked = App.FastFlags.GetValue("DFIntTextureQualityOverrideEnabled") != null;
+            Flag_MSAA.IsChecked = App.FastFlags.GetValue("FIntDebugForceMSAASamples") != null;
+            Flag_DisableDPI.IsChecked = App.FastFlags.GetValue("DFFlagDisableDPIScale") != null;
+            Flag_D3D11.IsChecked = App.FastFlags.GetValue("FFlagDebugGraphicsPreferD3D11") != null;
+            Flag_SkyGray.IsChecked = App.FastFlags.GetValue("FFlagDebugSkyGray") != null;
+            Flag_Voxelizer.IsChecked = App.FastFlags.GetValue("DFFlagDebugPauseVoxelizer") != null;
+            Flag_FRMQuality.IsChecked = App.FastFlags.GetValue("DFIntDebugFRMQualityLevelOverride") != null;
+            Flag_GrassMax.IsChecked = App.FastFlags.GetValue("FIntFRMMaxGrassDistance") != null;
+            Flag_GrassMin.IsChecked = App.FastFlags.GetValue("FIntFRMMinGrassDistance") != null;
+            Flag_Vulkan.IsChecked = App.FastFlags.GetValue("FFlagDebugGraphicsPreferVulkan") != null;
+            Flag_OpenGL.IsChecked = App.FastFlags.GetValue("FFlagDebugGraphicsPreferOpenGL") != null;
+            Flag_ReducedMotion.IsChecked = App.FastFlags.GetValue("FIntGrassMovementReducedMotionFactor") != null;
+        }
 
         private void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
@@ -353,6 +379,24 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 return;
 
             _searchFilter = textbox.Text;
+            ReloadList();
+        }
+
+        private void BuiltInFlag_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is not Wpf.Ui.Controls.ToggleSwitch toggle) return;
+            var flagName = toggle.Content?.ToString();
+            if (flagName is null) return;
+            App.FastFlags.SetValue(flagName, "True");
+            ReloadList();
+        }
+
+        private void BuiltInFlag_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (sender is not Wpf.Ui.Controls.ToggleSwitch toggle) return;
+            var flagName = toggle.Content?.ToString();
+            if (flagName is null) return;
+            App.FastFlags.SetValue(flagName, null);
             ReloadList();
         }
     }

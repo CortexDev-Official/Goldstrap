@@ -32,7 +32,7 @@
         <StackPanel Grid.Row="1" Margin="12">
             <TextBlock FontSize="20" FontWeight="SemiBold" Text="{x:Static resources:Strings.Uninstaller_Title}" />
             <controls:MarkdownTextBlock FontSize="14" Margin="0,0,0,16" MarkdownText="{Binding Text, Mode=OneTime}" TextWrapping="Wrap" />
-            <CheckBox Foreground="{DynamicResource GoldPrimaryBrush}" IsChecked="{Binding KeepData, Mode=TwoWay}" Content="{x:Static resources:Strings.Uninstaller_KeepData_Label}" />
+            <CheckBox IsChecked="{Binding KeepData, Mode=TwoWay}" Content="{x:Static resources:Strings.Uninstaller_KeepData_Label}" />
             <TextBlock FontSize="14" Text="{x:Static resources:Strings.Uninstaller_KeepData_Description}" TextWrapping="Wrap">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">

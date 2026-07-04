@@ -18,7 +18,7 @@
     Closing="UiWindow_Closing"
     ExtendsContentIntoTitleBar="True"
     ResizeMode="NoResize"
-    WindowBackdropType="{Binding Path=WindowBackdropType, Mode=OneTime}"
+    WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">

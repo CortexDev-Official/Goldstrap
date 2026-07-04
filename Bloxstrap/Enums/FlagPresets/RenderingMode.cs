@@ -6,5 +6,6 @@
         Default,
         Vulkan,
         D3D11,
+        OpenGL,
     }
 }

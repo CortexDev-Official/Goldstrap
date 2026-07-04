@@ -36,7 +36,7 @@
                         Content="{TemplateBinding RawSymbol}"
                         TextElement.FontFamily="{DynamicResource FluentSystemIcons}"
                         TextElement.FontSize="{TemplateBinding FontSize}"
-                        TextElement.Foreground="{TemplateBinding Foreground}" />
+                        TextElement.Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="Filled" Value="True">
                             <Setter TargetName="ContentPresenter" Property="TextElement.FontFamily" Value="{DynamicResource FluentSystemIconsFilled}" />

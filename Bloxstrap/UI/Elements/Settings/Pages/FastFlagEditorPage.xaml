@@ -7,9 +7,10 @@
       xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Settings.Pages"
       xmlns:resources="clr-namespace:Bloxstrap.Resources"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="FastFlagEditorPage"
-      Loaded="Page_Loaded">
+       d:DesignHeight="450" d:DesignWidth="800"
+       Title="FastFlagEditorPage"
+       Scrollable="True"
+       Loaded="Page_Loaded">
     <Grid Margin="0,0,14,14">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -22,8 +23,45 @@
         <TextBlock Grid.Row="0" Margin="0,0,0,16" Text="{x:Static resources:Strings.Menu_FastFlagEditor_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
         <ui:InfoBar Grid.Row="1" Margin="0,0,0,16" Padding="8" Title="{x:Static resources:Strings.Common_Warning}" Message="{x:Static resources:Strings.Menu_FastFlags_EditorInfo}" Severity="Warning" IsOpen="True" IsClosable="False"></ui:InfoBar>
+
+        <!-- Built-in FFlags -->
+        <ui:CardExpander x:Name="BuiltInFlagsExpander" Grid.Row="2" Margin="0,0,0,12" IsExpanded="False">
+            <ui:CardExpander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Built-in FFlags" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <Border Margin="8,0,0,0" Padding="5,2,5,3" CornerRadius="4" Background="#D83435" VerticalAlignment="Center">
+                        <TextBlock Text="Alpha" FontSize="10" FontWeight="SemiBold" Foreground="White" />
+                    </Border>
+                </StackPanel>
+            </ui:CardExpander.Header>
+            <StackPanel Margin="0,8,0,0">
+                <TextBlock Text="Toggle flags to enable or disable them. Changes apply immediately." FontSize="12" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,0,0,8" />
+                <TextBlock Text="Geometry" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,6" />
+                <ui:ToggleSwitch x:Name="Flag_MeshLOD0" Content="DFIntCSGLevelOfDetailSwitchingDistance" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_MeshLOD12" Content="DFIntCSGLevelOfDetailSwitchingDistanceL12" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_MeshLOD23" Content="DFIntCSGLevelOfDetailSwitchingDistanceL23" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_MeshLOD34" Content="DFIntCSGLevelOfDetailSwitchingDistanceL34" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+
+                <TextBlock Text="Rendering" FontSize="15" FontWeight="SemiBold" Margin="0,12,0,6" />
+                <ui:ToggleSwitch x:Name="Flag_ManualFullscreen" Content="FFlagHandleAltEnterFullscreenManually" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_TextureQuality" Content="DFIntTextureQualityOverrideEnabled" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_MSAA" Content="FIntDebugForceMSAASamples" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_DisableDPI" Content="DFFlagDisableDPIScale" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_D3D11" Content="FFlagDebugGraphicsPreferD3D11" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_SkyGray" Content="FFlagDebugSkyGray" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_Voxelizer" Content="DFFlagDebugPauseVoxelizer" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_FRMQuality" Content="DFIntDebugFRMQualityLevelOverride" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_GrassMax" Content="FIntFRMMaxGrassDistance" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_GrassMin" Content="FIntFRMMinGrassDistance" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_Vulkan" Content="FFlagDebugGraphicsPreferVulkan" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+                <ui:ToggleSwitch x:Name="Flag_OpenGL" Content="FFlagDebugGraphicsPreferOpenGL" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+
+                <TextBlock Text="User Interface" FontSize="15" FontWeight="SemiBold" Margin="0,12,0,6" />
+                <ui:ToggleSwitch x:Name="Flag_ReducedMotion" Content="FIntGrassMovementReducedMotionFactor" Margin="0,4,0,0" Checked="BuiltInFlag_Checked" Unchecked="BuiltInFlag_Unchecked" />
+            </StackPanel>
+        </ui:CardExpander>
         
-        <WrapPanel Grid.Row="2" Orientation="Horizontal">
+        <WrapPanel Grid.Row="3" Orientation="Horizontal">
 
             <ui:Button Icon="ArrowLeft48" Content="{x:Static resources:Strings.Menu_FastFlagEditor_Back}" Click="BackButton_Click" Margin="0,0,12,16" />
             <ui:Button Icon="Add28" Content="{x:Static resources:Strings.Menu_FastFlagEditor_AddNew}" Click="AddButton_Click" Margin="0,0,12,16" />
@@ -42,9 +80,9 @@
             <ui:Button Icon="ArrowExportRtl24" Content="{x:Static resources:Strings.Menu_FastFlagEditor_ExportJson}" Click="ExportJSONButton_Click" Margin="0,0,12,16" />
         </WrapPanel>
 
-        <ui:TextBox x:Name="SearchTextBox" Grid.Row="3" Margin="0,0,0,16" Icon="Search32" PlaceholderText="{x:Static resources:Strings.Menu_FastFlagEditor_Search}" TextChanged="SearchTextBox_TextChanged" />
+        <ui:TextBox x:Name="SearchTextBox" Grid.Row="4" Margin="0,0,0,16" Icon="Search32" PlaceholderText="{x:Static resources:Strings.Menu_FastFlagEditor_Search}" TextChanged="SearchTextBox_TextChanged" />
 
-        <DataGrid Name="DataGrid" Grid.Row="4" HeadersVisibility="Column" GridLinesVisibility="Horizontal" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CellEditEnding="DataGrid_CellEditEnding" CanUserReorderColumns="False">
+        <DataGrid Name="DataGrid" Grid.Row="5" HeadersVisibility="Column" GridLinesVisibility="Horizontal" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CellEditEnding="DataGrid_CellEditEnding" CanUserReorderColumns="False">
             <DataGrid.Style>
                 <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
                     <Setter Property="Background" Value="Transparent" />

@@ -1,5 +1,5 @@
 > [!CAUTION]
-> The only official place to download Goldstrap is this GitHub repository(And [Goldstrap.xyz](https://goldstrap.xyz) )
+> The only official place to download Goldstrap is this GitHub repository.
 > Any other websites offering downloads or claiming to be us are not controlled
 > by us, do not download from them.
 
@@ -31,8 +31,8 @@ If you found any bugs, please [open an issue here][repo-new-issue]
     affect Roblox Studio. [Learn more][devforum-fflags]
 - Global Basic Settings editor
   - Ability to increase frame rate cap, toggle quality levels and more
+- Goldstrap's own game invites
 - Cache cleaner, channel switcher and many more
-- And even more...
 
 ## Special thanks
 

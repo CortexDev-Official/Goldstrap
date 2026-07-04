@@ -22,17 +22,27 @@ namespace Bloxstrap
             { "Rendering.DisableScaling", "DFFlagDisableDPIScale" },
             { "Rendering.MSAA", "FIntDebugForceMSAASamples" },
             { "Rendering.FRMQualityOverride", "DFIntDebugFRMQualityLevelOverride" },
+            { "Rendering.TextureQuality.Enabled", "DFIntTextureQualityOverrideEnabled" },
+            { "Rendering.TextureQuality.Override", "DFIntTextureQualityOverride" },
+            { "Rendering.SkyGray", "FFlagDebugSkyGray" },
+            { "Rendering.PauseVoxelizer", "DFFlagDebugPauseVoxelizer" },
+            { "Rendering.GrassMaxDistance", "FIntFRMMaxGrassDistance" },
+            { "Rendering.GrassMinDistance", "FIntFRMMinGrassDistance" },
 
             // Rendering engines
             { "Rendering.Mode.D3D11", "FFlagDebugGraphicsPreferD3D11" },
             { "Rendering.Mode.Vulkan", "FFlagDebugGraphicsPreferVulkan" },
+            { "Rendering.Mode.OpenGL", "FFlagDebugGraphicsPreferOpenGL" },
 
             // Geometry
-            { "Geometry.MeshLOD.Static", "DFIntCSGLevelOfDetailSwitchingDistanceStatic" }, // this isnt actually a flag, we use it to determine current value, not the best way of doing that :sob:
+            { "Geometry.MeshLOD.Static", "DFIntCSGLevelOfDetailSwitchingDistanceStatic" },
             { "Geometry.MeshLOD.L0", "DFIntCSGLevelOfDetailSwitchingDistance" },
             { "Geometry.MeshLOD.L12", "DFIntCSGLevelOfDetailSwitchingDistanceL12" },
             { "Geometry.MeshLOD.L23", "DFIntCSGLevelOfDetailSwitchingDistanceL23" },
             { "Geometry.MeshLOD.L34", "DFIntCSGLevelOfDetailSwitchingDistanceL34" },
+
+            // User Interface
+            { "UI.ReducedMotion", "FIntGrassMovementReducedMotionFactor" },
         };
 
         public static IReadOnlyDictionary<RenderingMode, string> RenderingModes => new Dictionary<RenderingMode, string>
@@ -40,6 +50,7 @@ namespace Bloxstrap
             { RenderingMode.Default, "None" },
             { RenderingMode.Vulkan, "Vulkan" },
             { RenderingMode.D3D11, "D3D11" },
+            { RenderingMode.OpenGL, "OpenGL" },
         };
 
         public static IReadOnlyDictionary<MSAAMode, string?> MSAAModes => new Dictionary<MSAAMode, string?>

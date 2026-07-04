@@ -32,11 +32,7 @@ namespace Bloxstrap.UI.Elements.Base
 
             this.Loaded += (_, _) =>
             {
-                // re-set fallback after WPF UI's RemoveContentBackground clears it
-                if (App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Dark)
-                    this.Background = new SolidColorBrush(Color.FromArgb(80, 30, 26, 20));
-                else
-                    this.Background = new SolidColorBrush(Color.FromArgb(80, 251, 247, 238));
+                SetFallbackBackground();
 
                 var fadeIn = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(400));
                 fadeIn.EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut };
@@ -44,11 +40,19 @@ namespace Bloxstrap.UI.Elements.Base
             };
         }
 
+        private void SetFallbackBackground()
+        {
+            if (App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Dark)
+                this.Background = new SolidColorBrush(Color.FromArgb(80, 30, 26, 20));
+            else
+                this.Background = new SolidColorBrush(Color.FromArgb(80, 251, 247, 238));
+        }
+
         public void ApplyTheme(bool useAcrylic = false)
         {
             const int customThemeIndex = 2; // index for CustomTheme merged dictionary
 
-            bool isDark = App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Dark;
+            bool isDark = App.Settings.Prop.Theme.GetFinal() != Enums.Theme.Light;
 
             _themeService.SetTheme(isDark ? ThemeType.Dark : ThemeType.Light);
             _themeService.SetSystemAccent();
