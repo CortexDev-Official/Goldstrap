@@ -95,10 +95,11 @@ namespace Bloxstrap.Models.Entities
             // we need useRobloxUri for rejoin feature
             string deeplink = $"{(useRobloxUri ? "roblox://experiences/start" : App.RemoteData.Prop.DeeplinkUrl)}?placeId={PlaceId}";
 
+            // values come from Roblox log parsing - encode to keep the URI well-formed
             if (ServerType == ServerType.Private) // thats not going to work
-                deeplink += "&accessCode=" + AccessCode;
+                deeplink += "&accessCode=" + HttpUtility.UrlEncode(AccessCode);
             else
-                deeplink += "&gameInstanceId=" + JobId;
+                deeplink += "&gameInstanceId=" + HttpUtility.UrlEncode(JobId);
 
             if (launchData && !string.IsNullOrEmpty(RPCLaunchData))
                 deeplink += "&launchData=" + HttpUtility.UrlEncode(RPCLaunchData);

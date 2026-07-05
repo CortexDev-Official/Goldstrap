@@ -33,11 +33,13 @@
     <StackPanel Margin="0,0,14,14">
 
         <Border Background="{DynamicResource MainWindowBackgroundBrush}"
-                BorderBrush="{DynamicResource CardBorderBrush}"
                 BorderThickness="1"
                 CornerRadius="10"
                 Padding="24,20"
                 Margin="0,0,0,20">
+            <Border.BorderBrush>
+                <SolidColorBrush Color="#D4A847" Opacity="0.35" />
+            </Border.BorderBrush>
             <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -57,7 +59,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Goldstrap" Margin="0,0,4,0" FontSize="24" FontWeight="SemiBold" />
+                        <TextBlock Grid.Column="0" Text="Goldstrap" Margin="0,0,4,0" FontSize="24" FontWeight="SemiBold" Foreground="{DynamicResource GoldPrimaryBrush}" />
                         <TextBlock Grid.Column="1" Margin="4,0,0,2" VerticalAlignment="Bottom" FontSize="14" Foreground="{DynamicResource TextFillColorTertiaryBrush}">
                             <Run Text="{Binding VersionPrefix, Mode=OneTime}" />
                             <Run Text="{Binding VersionSuffix, Mode=OneTime}" Foreground="#FF4444" />
@@ -76,7 +78,7 @@
         </WrapPanel>
 
         <!-- Contributors -->
-        <TextBlock Text="{x:Static resources:Strings.Menu_About_Contributors}" FontWeight="Medium" FontSize="18" Margin="0,16,0,0" />
+        <TextBlock Text="{x:Static resources:Strings.Menu_About_Contributors}" FontWeight="Medium" FontSize="18" Margin="0,16,0,0" Foreground="{DynamicResource GoldLightBrush}" />
         <TextBlock Text="{x:Static resources:Strings.Menu_About_Contributors_Description}" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
         <Grid Margin="0,8,0,0">
             <Grid.ColumnDefinitions>

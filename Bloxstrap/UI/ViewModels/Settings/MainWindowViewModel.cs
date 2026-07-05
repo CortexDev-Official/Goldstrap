@@ -20,6 +20,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public EventHandler? RequestCloseWindowEvent;
 
+        public bool LaunchAfterClose { get; private set; }
+
         public bool GBSEnabled = App.GlobalSettings.Loaded;
 
         public bool TestModeEnabled
@@ -74,7 +76,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             SaveSettings();
 
             if (!App.LaunchSettings.TestModeFlag.Active)
-                Process.Start(Paths.Application, "-player");
+                LaunchAfterClose = true;
 
             CloseWindow();
         }

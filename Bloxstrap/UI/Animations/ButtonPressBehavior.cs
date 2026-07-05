@@ -40,7 +40,7 @@ namespace Bloxstrap.UI.Animations
             var transform = element.RenderTransform as ScaleTransform ?? new ScaleTransform(1, 1);
             element.RenderTransform = transform;
 
-            var anim = new DoubleAnimation(0.97, TimeSpan.FromMilliseconds(0.12))
+            var anim = new DoubleAnimation(0.96, TimeSpan.FromMilliseconds(110))
             {
                 EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
             };
@@ -53,9 +53,10 @@ namespace Bloxstrap.UI.Animations
             if (sender is not FrameworkElement element) return;
             if (element.RenderTransform is not ScaleTransform transform) return;
 
-            var anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(0.2))
+            // springy release - slight overshoot makes the button feel alive
+            var anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(330))
             {
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+                EasingFunction = new ElasticEase { EasingMode = EasingMode.EaseOut, Oscillations = 1, Springiness = 6 }
             };
             transform.BeginAnimation(ScaleTransform.ScaleXProperty, anim);
             transform.BeginAnimation(ScaleTransform.ScaleYProperty, anim);

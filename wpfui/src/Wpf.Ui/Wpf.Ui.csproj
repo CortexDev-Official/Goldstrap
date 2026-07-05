@@ -52,7 +52,8 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net461'">
-    <PackageReference Include="System.Drawing.Common" />
+    <!-- pinned: 4.0.0 has a critical RCE vulnerability (GHSA-rxg9-xrhp-64gj) -->
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">

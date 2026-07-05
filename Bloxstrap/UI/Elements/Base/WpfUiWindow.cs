@@ -26,6 +26,9 @@ namespace Bloxstrap.UI.Elements.Base
 
         private readonly IThemeService _themeService = new ThemeService();
 
+        private bool IsBootstrapperDialogWindow =>
+            GetType().Namespace?.EndsWith(".Bootstrapper", StringComparison.Ordinal) == true;
+
         public WpfUiWindow()
         {
             ApplyTheme();
@@ -42,6 +45,12 @@ namespace Bloxstrap.UI.Elements.Base
 
         private void SetFallbackBackground()
         {
+            if (IsBootstrapperDialogWindow)
+            {
+                this.Background = Brushes.Transparent;
+                return;
+            }
+
             if (App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Dark)
                 this.Background = new SolidColorBrush(Color.FromArgb(80, 30, 26, 20));
             else
@@ -85,12 +94,16 @@ namespace Bloxstrap.UI.Elements.Base
                 if (isDark)
                 {
                     this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(8, 30, 26, 20));
-                    this.Background = new SolidColorBrush(Color.FromArgb(80, 30, 26, 20));
+                    this.Background = IsBootstrapperDialogWindow ?
+                        Brushes.Transparent :
+                        new SolidColorBrush(Color.FromArgb(80, 30, 26, 20));
                 }
                 else
                 {
                     this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(14, 251, 247, 238));
-                    this.Background = new SolidColorBrush(Color.FromArgb(80, 251, 247, 238));
+                    this.Background = IsBootstrapperDialogWindow ?
+                        Brushes.Transparent :
+                        new SolidColorBrush(Color.FromArgb(80, 251, 247, 238));
                 }
             }
 

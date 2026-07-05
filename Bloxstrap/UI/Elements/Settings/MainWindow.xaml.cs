@@ -31,7 +31,8 @@ namespace Bloxstrap.UI.Elements.Settings
         {
             var viewModel = new MainWindowViewModel();
 
-            viewModel.RequestSaveNoticeEvent += (_, _) => SettingsSavedSnackbar.Show();
+            viewModel.RequestSaveNoticeEvent += (_, _) => SettingsSavedToast.Show(
+                Strings.Menu_SettingsSaved_Title, Strings.Menu_SettingsSaved_Message);
             viewModel.RequestCloseWindowEvent += (_, _) => Close();
 
             DataContext = viewModel;
@@ -165,6 +166,12 @@ namespace Bloxstrap.UI.Elements.Settings
 
         private void WpfUiWindow_Closed(object sender, EventArgs e)
         {
+            if (DataContext is MainWindowViewModel viewModel && viewModel.LaunchAfterClose)
+            {
+                LaunchHandler.LaunchRoblox(LaunchMode.Player);
+                return;
+            }
+
             if (App.LaunchSettings.TestModeFlag.Active)
                 LaunchHandler.LaunchRoblox(LaunchMode.Player);
             else

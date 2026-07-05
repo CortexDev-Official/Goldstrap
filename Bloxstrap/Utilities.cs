@@ -7,6 +7,17 @@ namespace Bloxstrap
     {
         public static void ShellExecute(string website)
         {
+            // only allow http/https URLs or existing local files/folders;
+            // anything else could be a command injection vector via the shell
+            bool isWebUrl = Uri.TryCreate(website, UriKind.Absolute, out var uri)
+                && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
+
+            if (!isWebUrl && !File.Exists(website) && !Directory.Exists(website))
+            {
+                App.Logger.WriteLine("Utilities::ShellExecute", $"Blocked attempt to open unrecognized target: {website}");
+                return;
+            }
+
             try
             {
                 Process.Start(new ProcessStartInfo 

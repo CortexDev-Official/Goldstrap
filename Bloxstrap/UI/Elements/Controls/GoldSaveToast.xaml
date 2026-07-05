@@ -1,0 +1,58 @@
+<UserControl x:Class="Bloxstrap.UI.Elements.Controls.GoldSaveToast"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             HorizontalAlignment="Center"
+             VerticalAlignment="Bottom"
+             Visibility="Collapsed"
+             IsHitTestVisible="False">
+    <Grid x:Name="ToastRoot" RenderTransformOrigin="0.5,1" Margin="0,0,0,20">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="ToastTranslate" Y="16" />
+        </Grid.RenderTransform>
+
+        <Border x:Name="ToastCard"
+                CornerRadius="10"
+                Padding="18,13,24,13"
+                BorderThickness="1">
+            <Border.Background>
+                <SolidColorBrush Color="#2B251C" Opacity="0.96" />
+            </Border.Background>
+            <Border.BorderBrush>
+                <SolidColorBrush Color="#D4A847" Opacity="0.45" />
+            </Border.BorderBrush>
+            <Border.Effect>
+                <DropShadowEffect Color="#000000" BlurRadius="18" ShadowDepth="3" Opacity="0.35" Direction="270" />
+            </Border.Effect>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <!-- checkmark that draws in -->
+                <Grid Width="26" Height="26" Margin="0,0,13,0" VerticalAlignment="Center">
+                    <Ellipse Fill="{DynamicResource GoldPrimaryBrush}" Opacity="0.15" />
+                    <Path x:Name="CheckMark"
+                          Data="M 7.5,13.5 L 11.5,17.5 L 19,9"
+                          StrokeThickness="2"
+                          StrokeStartLineCap="Round"
+                          StrokeEndLineCap="Round"
+                          StrokeLineJoin="Round"
+                          Stroke="{DynamicResource GoldPrimaryBrush}"
+                          StrokeDashArray="18 18"
+                          StrokeDashOffset="18" />
+                </Grid>
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock x:Name="TitleText"
+                               FontSize="14.5"
+                               FontWeight="SemiBold"
+                               Foreground="#F5F1E8" />
+                    <TextBlock x:Name="MessageText"
+                               FontSize="12.5"
+                               Margin="0,2,0,0"
+                               Foreground="#BFB7A6" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
