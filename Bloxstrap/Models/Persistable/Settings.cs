@@ -66,5 +66,6 @@ namespace Bloxstrap.Models.Persistable
         // launch sound
         public string LaunchSoundPath { get; set; } = "";
         public bool PlayLaunchSound { get; set; } = false;
+        public int LaunchSoundVolume { get; set; } = 100;
     }
 }

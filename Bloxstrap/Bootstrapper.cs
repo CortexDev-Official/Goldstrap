@@ -703,27 +703,7 @@ namespace Bloxstrap
             SetStatus(Strings.Bootstrapper_Status_Starting);
 
             if (App.Settings.Prop.PlayLaunchSound && !string.IsNullOrEmpty(App.Settings.Prop.LaunchSoundPath))
-            {
-                try
-                {
-                    if (File.Exists(App.Settings.Prop.LaunchSoundPath))
-                    {
-                        var mp3 = new NAudio.Wave.Mp3FileReader(App.Settings.Prop.LaunchSoundPath);
-                        var output = new NAudio.Wave.WaveOutEvent();
-                        output.Init(mp3);
-                        output.PlaybackStopped += (s, e) =>
-                        {
-                            output.Dispose();
-                            mp3.Dispose();
-                        };
-                        output.Play();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    App.Logger.WriteLine(LOG_IDENT, $"Failed to play launch sound: {ex.Message}");
-                }
-            }
+                LaunchSoundManager.Play(App.Settings.Prop.LaunchSoundPath, App.Settings.Prop.LaunchSoundVolume);
 
             if (_launchMode == LaunchMode.Player)
             {

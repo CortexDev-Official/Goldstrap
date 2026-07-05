@@ -50,24 +50,52 @@
                         Height="{TemplateBinding Height}"
                         MinWidth="{TemplateBinding MinWidth}"
                         MinHeight="{TemplateBinding MinHeight}"
-                        Padding="{TemplateBinding Padding}"
                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                         VerticalAlignment="{TemplateBinding VerticalAlignment}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding Border.CornerRadius}">
-                        <ContentPresenter
-                            x:Name="ContentPresenter"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{TemplateBinding Content}"
-                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                        <Grid>
+                            <!-- animated hover layer: fades instead of snapping -->
+                            <Border x:Name="HoverOverlay"
+                                    Background="{DynamicResource GoldHoverBrush}"
+                                    CornerRadius="{TemplateBinding Border.CornerRadius}"
+                                    Opacity="0" />
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                TextElement.Foreground="{TemplateBinding Foreground}" />
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource GoldHoverBrush}" />
                             <Setter Property="BorderBrush" Value="{DynamicResource GoldPrimaryBrush}" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="HoverOverlay" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="HoverOverlay" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="{DynamicResource GoldPressedBrush}" />
@@ -146,33 +174,39 @@
                         Height="{TemplateBinding Height}"
                         MinWidth="{TemplateBinding MinWidth}"
                         MinHeight="{TemplateBinding MinHeight}"
-                        Padding="{TemplateBinding Padding}"
                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                         VerticalAlignment="{TemplateBinding VerticalAlignment}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding Border.CornerRadius}">
-                        <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <ui:SymbolIcon
-                                x:Name="ControlIcon"
-                                Grid.Column="0"
-                                Margin="{StaticResource ButtonIconMargin}"
-                                VerticalAlignment="Center"
-                                Filled="{TemplateBinding IconFilled}"
-                                FontSize="{TemplateBinding FontSize}"
-                                FontWeight="{TemplateBinding FontWeight}"
-                                Foreground="{TemplateBinding IconForeground}"
-                                Symbol="{TemplateBinding Icon}" />
-                            <ContentPresenter
-                                x:Name="ContentPresenter"
-                                Grid.Column="1"
-                                Content="{TemplateBinding Content}"
-                                TextElement.Foreground="{TemplateBinding Foreground}" />
+                        <Grid>
+                            <!-- animated hover layer: fades instead of snapping -->
+                            <Border x:Name="HoverOverlay"
+                                    Background="{DynamicResource GoldHoverBrush}"
+                                    CornerRadius="{TemplateBinding Border.CornerRadius}"
+                                    Opacity="0" />
+                            <Grid Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ui:SymbolIcon
+                                    x:Name="ControlIcon"
+                                    Grid.Column="0"
+                                    Margin="{StaticResource ButtonIconMargin}"
+                                    VerticalAlignment="Center"
+                                    Filled="{TemplateBinding IconFilled}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    Foreground="{TemplateBinding IconForeground}"
+                                    Symbol="{TemplateBinding Icon}" />
+                                <ContentPresenter
+                                    x:Name="ContentPresenter"
+                                    Grid.Column="1"
+                                    Content="{TemplateBinding Content}"
+                                    TextElement.Foreground="{TemplateBinding Foreground}" />
+                            </Grid>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -181,9 +215,32 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsPressed" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="ContentBorder" Property="Background" Value="{DynamicResource GoldHoverBrush}" />
                             <Setter TargetName="ContentBorder" Property="BorderBrush" Value="{DynamicResource GoldPrimaryBrush}" />
                         </MultiTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="HoverOverlay" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="HoverOverlay" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True" />

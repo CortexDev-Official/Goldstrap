@@ -11,17 +11,20 @@
     <SolidColorBrush x:Key="GoldMutedBrush" Color="#B89A50" />
     <SolidColorBrush x:Key="GoldShimmerBrush" Color="#D4B860" />
 
-    <!-- Button hover/pressed states — very subtle gold tints -->
-    <SolidColorBrush x:Key="GoldHoverBrush" Color="#15A07D2E" />
-    <SolidColorBrush x:Key="GoldPressedBrush" Color="#20A07D2E" />
+    <!-- Button hover/pressed states — soft but noticeable gold tints -->
+    <SolidColorBrush x:Key="GoldHoverBrush" Color="#1FA07D2E" />
+    <SolidColorBrush x:Key="GoldPressedBrush" Color="#33A07D2E" />
 
     <!-- Background Palette — warm gold-tinted Mica glass -->
-<SolidColorBrush x:Key="MainWindowBackgroundBrush" Color="#1CFBF7EE" />
-<SolidColorBrush x:Key="SurfaceBrush" Color="#18F6F2EA" />
-<SolidColorBrush x:Key="SurfaceElevatedBrush" Color="#22FFFFFF" />
-<SolidColorBrush x:Key="CardBackgroundBrush" Color="#14FDF9F2" />
-    <SolidColorBrush x:Key="CardBorderBrush" Color="#25E8E0D0" />
-    <SolidColorBrush x:Key="SeparatorBrush" Color="#18E8E0D0" />
+<SolidColorBrush x:Key="MainWindowBackgroundBrush" Color="#28FDF9F0" />
+<SolidColorBrush x:Key="SurfaceBrush" Color="#20F8F4EC" />
+<SolidColorBrush x:Key="SurfaceElevatedBrush" Color="#30FFFFFF" />
+<SolidColorBrush x:Key="CardBackgroundBrush" Color="#1CFDF9F2" />
+    <SolidColorBrush x:Key="CardBorderBrush" Color="#38D8CDB4" />
+    <SolidColorBrush x:Key="SeparatorBrush" Color="#22DED4BE" />
+
+    <!-- Focus / selection accents -->
+    <SolidColorBrush x:Key="GoldFocusBrush" Color="#55A07D2E" />
 
     <!-- Text Editor -->
     <SolidColorBrush x:Key="NewTextEditorBackground" Color="#FDFCFA" />

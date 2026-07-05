@@ -238,47 +238,71 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
+        public bool LaunchSoundSelected => !string.IsNullOrEmpty(App.Settings.Prop.LaunchSoundPath);
+
+        public int LaunchSoundVolume
+        {
+            get => App.Settings.Prop.LaunchSoundVolume;
+            set
+            {
+                App.Settings.Prop.LaunchSoundVolume = Math.Clamp(value, 0, 100);
+                OnPropertyChanged(nameof(LaunchSoundVolume));
+            }
+        }
+
+        public ICommand TestLaunchSoundCommand => new RelayCommand(TestLaunchSound);
+        public ICommand ClearLaunchSoundCommand => new RelayCommand(ClearLaunchSound);
+
+        private void TestLaunchSound()
+        {
+            string path = App.Settings.Prop.LaunchSoundPath;
+
+            if (LaunchSoundManager.IsPlaying)
+            {
+                LaunchSoundManager.Stop();
+                return;
+            }
+
+            string? error = LaunchSoundManager.ValidateSoundFile(path);
+
+            if (error is not null)
+            {
+                Frontend.ShowMessageBox(error, MessageBoxImage.Warning);
+                return;
+            }
+
+            LaunchSoundManager.Play(path, App.Settings.Prop.LaunchSoundVolume);
+        }
+
+        private void ClearLaunchSound()
+        {
+            LaunchSoundManager.Stop();
+            App.Settings.Prop.LaunchSoundPath = "";
+            OnPropertyChanged(nameof(LaunchSoundFileName));
+            OnPropertyChanged(nameof(LaunchSoundSelected));
+        }
+
         private void BrowseLaunchSound()
         {
             var dialog = new OpenFileDialog
             {
-                Filter = "MP3 files|*.mp3|All files|*.*"
+                Filter = "Audio files|*.mp3;*.wav|MP3 files|*.mp3|WAV files|*.wav"
             };
 
-            if (dialog.ShowDialog() == true)
+            if (dialog.ShowDialog() != true)
+                return;
+
+            string? error = LaunchSoundManager.ValidateSoundFile(dialog.FileName);
+
+            if (error is not null)
             {
-                try
-                {
-                    using var reader = new NAudio.Wave.Mp3FileReader(dialog.FileName);
-                    var duration = reader.TotalTime;
-
-                    if (duration.TotalSeconds > 20)
-                    {
-                        int totalSec = (int)duration.TotalSeconds;
-                        int min = totalSec / 60;
-                        int sec = totalSec % 60;
-                        string timeStr = min > 0 ? $"{min}m {sec}s" : $"{sec}s";
-                        MessageBox.Show(
-                            $"The selected sound is {timeStr} long. The maximum allowed length is 20 seconds.",
-                            "Goldstrap",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Warning);
-                        return;
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show(
-                        "Could not read the audio file. Please select a valid MP3 file.",
-                        "Goldstrap",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error);
-                    return;
-                }
-
-                App.Settings.Prop.LaunchSoundPath = dialog.FileName;
-                OnPropertyChanged(nameof(LaunchSoundFileName));
+                Frontend.ShowMessageBox(error, MessageBoxImage.Warning);
+                return;
             }
+
+            App.Settings.Prop.LaunchSoundPath = dialog.FileName;
+            OnPropertyChanged(nameof(LaunchSoundFileName));
+            OnPropertyChanged(nameof(LaunchSoundSelected));
         }
 
         private void DeleteCustomThemeStructure(string name)

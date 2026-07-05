@@ -227,15 +227,15 @@
 
         <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
             <TextBlock Text="{x:Static resources:Strings.Menu_Appearance_LaunchSound_Title}" FontSize="20" FontWeight="Medium" VerticalAlignment="Center" />
-            <Border Margin="8,0,0,0" Padding="7,3,7,4" CornerRadius="5" Background="#D83435" VerticalAlignment="Center"
+            <Border Margin="8,0,0,0" Padding="5,1,5,2" CornerRadius="4" Background="#C8962E" VerticalAlignment="Center"
                     ToolTipService.InitialShowDelay="200" ToolTipService.ShowDuration="10000">
                 <Border.ToolTip>
-                    <ToolTip Content="This feature is under development... and it's Very Buggy"
+                    <ToolTip Content="This feature is in Beta... and may still have some bugs"
                              FontSize="12" Background="#CC1E1E1E" Foreground="White"
-                             BorderBrush="#D83435" BorderThickness="1"
+                             BorderBrush="#C8962E" BorderThickness="1"
                              Padding="10,6" HasDropShadow="False" />
                 </Border.ToolTip>
-                <TextBlock Text="Alpha" FontSize="10" FontWeight="SemiBold" Foreground="White" />
+                <TextBlock Text="Beta" FontSize="9" FontWeight="SemiBold" Foreground="White" />
             </Border>
         </StackPanel>
 
@@ -247,15 +247,28 @@
 
         <controls:OptionControl
             Header="Sound File"
-            Description="Select an MP3 file to play on launch.">
-            <Grid Width="300" HorizontalAlignment="Right">
+            Description="Select an MP3 or WAV file to play on launch (max 20 seconds).">
+            <Grid Width="340" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="{Binding LaunchSoundFileName, Mode=OneWay}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,0" />
-                <ui:Button Grid.Column="1" Width="34" Height="30" Icon="Folder16" ToolTip="Browse for MP3 file" Command="{Binding BrowseLaunchSoundCommand}" />
+                <ui:Button Grid.Column="1" Width="34" Height="30" Margin="0,0,4,0" Icon="Play16" ToolTip="Preview sound (click again to stop)" Command="{Binding TestLaunchSoundCommand}" IsEnabled="{Binding LaunchSoundSelected, Mode=OneWay}" />
+                <ui:Button Grid.Column="2" Width="34" Height="30" Margin="0,0,4,0" Icon="Delete16" ToolTip="Clear selected sound" Command="{Binding ClearLaunchSoundCommand}" IsEnabled="{Binding LaunchSoundSelected, Mode=OneWay}" />
+                <ui:Button Grid.Column="3" Width="34" Height="30" Icon="Folder16" ToolTip="Browse for a sound file" Command="{Binding BrowseLaunchSoundCommand}" />
             </Grid>
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Header="Volume"
+            Description="How loud the launch sound plays.">
+            <StackPanel Orientation="Horizontal">
+                <Slider Width="180" Minimum="0" Maximum="100" TickFrequency="5" IsSnapToTickEnabled="True" VerticalAlignment="Center" Value="{Binding LaunchSoundVolume, Mode=TwoWay}" />
+                <TextBlock Width="36" Margin="8,0,0,0" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding LaunchSoundVolume, Mode=OneWay, StringFormat={}{0}%}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+            </StackPanel>
         </controls:OptionControl>
     </StackPanel>
 </ui:UiPage>
