@@ -7,9 +7,9 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Goldstrap.ico</ApplicationIcon>
-    <Version>0.0.3</Version>
-    <FileVersion>0.0.3.0</FileVersion>
-    <InformationalVersion>0.0.3-alpha</InformationalVersion>
+    <Version>0.0.4</Version>
+    <FileVersion>0.0.4.0</FileVersion>
+    <InformationalVersion>0.0.4-alpha</InformationalVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
