@@ -35,7 +35,17 @@
     </script>
 
     <link rel="icon" href="Goldstrap.png">
-    
+
+    <script>
+        (function() {
+            var theme = localStorage.getItem('goldstrap-theme');
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -81,16 +91,16 @@
             --header-bg: rgba(1,1,3,0.3);
         }
         [data-theme="light"] {
-            --surface-0: #f8f8fa;
+            --surface-0: #f5f4f0;
             --surface-1: #ffffff;
-            --surface-2: #f0f0f2;
-            --surface-3: #e8e8ec;
+            --surface-2: #f0efe8;
+            --surface-3: #e8e6de;
             --text-primary: #0a0a0f;
-            --text-secondary: #525252;
-            --text-muted: #a3a3a3;
-            --border-color: rgba(0,0,0,0.08);
-            --card-bg: rgba(255,255,255,0.6);
-            --header-bg: rgba(248,248,250,0.6);
+            --text-secondary: #4a4a52;
+            --text-muted: #8a8a94;
+            --border-color: rgba(212, 175, 55, 0.12);
+            --card-bg: rgba(255, 255, 255, 0.72);
+            --header-bg: rgba(255, 255, 255, 0.78);
         }
 
         body {
@@ -102,7 +112,20 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            transition: background-color 0.85s cubic-bezier(0.4, 0, 0.2, 1), color 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html.theme-transitioning header,
+        html.theme-transitioning footer,
+        html.theme-transitioning .hero-card-outer,
+        html.theme-transitioning .feature-card,
+        html.theme-transitioning .faq-item,
+        html.theme-transitioning .perf-chart,
+        html.theme-transitioning .mobile-menu {
+            transition: background-color 0.85s cubic-bezier(0.4, 0, 0.2, 1),
+                        border-color 0.85s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.85s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 0.85s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
 
         .premium-grid {
@@ -642,9 +665,6 @@
             .cursor-dot, .cursor-ring { display: none; }
         }
 
-
-
-        
         #scroll-top {
             position: fixed;
             bottom: 2rem;
@@ -679,7 +699,6 @@
         }
         #scroll-top svg { width: 18px; height: 18px; }
 
-        
         .mobile-menu {
             position: fixed;
             inset: 0;
@@ -751,7 +770,6 @@
             .desktop-nav { display: none !important; }
         }
 
-        
         #skip-link {
             position: fixed;
             top: -100%;
@@ -770,66 +788,132 @@
             top: 0;
         }
 
-        
         *:focus-visible {
             outline: 2px solid #D4AF37;
             outline-offset: 2px;
         }
 
-        
         .faq-item {
+            position: relative;
             border: 1px solid var(--border-color);
             border-radius: 12px;
             overflow: hidden;
-            transition: all 0.3s ease;
             background: var(--card-bg);
             backdrop-filter: blur(12px);
+            transition:
+                border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .faq-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            bottom: 14px;
+            width: 2px;
+            border-radius: 2px;
+            background: linear-gradient(to bottom, transparent, #D4AF37, #FFD700, #D4AF37, transparent);
+            opacity: 0;
+            transform: scaleY(0.4);
+            transform-origin: center;
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1;
         }
         .faq-item:hover {
-            border-color: rgba(212,175,55,0.2);
+            border-color: rgba(212,175,55,0.22);
+            transform: translateY(-1px);
         }
         .faq-item.active {
-            border-color: rgba(212,175,55,0.3);
-            box-shadow: 0 0 30px rgba(212,175,55,0.05);
+            border-color: rgba(212,175,55,0.35);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2), 0 0 40px rgba(212,175,55,0.06);
+            transform: translateY(-2px);
+        }
+        .faq-item.active::before {
+            opacity: 1;
+            transform: scaleY(1);
         }
         .faq-question {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 1rem;
             padding: 1.25rem 1.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
             font-weight: 600;
             color: var(--text-primary);
+            position: relative;
+            z-index: 2;
         }
         .faq-question:hover {
-            background: rgba(212,175,55,0.03);
+            background: rgba(212,175,55,0.04);
+        }
+        .faq-item.active .faq-question {
+            color: #fff;
+            background: rgba(212,175,55,0.04);
+        }
+        [data-theme="light"] .faq-item.active .faq-question {
+            color: var(--text-primary);
+        }
+        .faq-icon-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(212,175,55,0.06);
+            border: 1px solid rgba(212,175,55,0.12);
+            flex-shrink: 0;
+            transition: background 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s ease, box-shadow 0.45s ease, transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .faq-item.active .faq-icon-wrap {
+            background: rgba(212,175,55,0.14);
+            border-color: rgba(212,175,55,0.35);
+            box-shadow: 0 0 16px rgba(212,175,55,0.15);
+            transform: rotate(180deg);
         }
         .faq-icon {
-            transition: transform 0.3s ease;
-            color: rgba(212,175,55,0.5);
+            transition: color 0.4s ease;
+            color: rgba(212,175,55,0.55);
             flex-shrink: 0;
         }
         .faq-item.active .faq-icon {
-            transform: rotate(180deg);
             color: #D4AF37;
         }
         .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s ease;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.55s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .faq-item.active .faq-answer {
-            max-height: 300px;
+            grid-template-rows: 1fr;
         }
         .faq-answer-inner {
-            padding: 0 1.5rem 1.25rem;
+            overflow: hidden;
+            min-height: 0;
+            padding: 0 1.5rem;
             color: var(--text-secondary);
             font-size: 0.875rem;
             line-height: 1.7;
+            opacity: 0;
+            transform: translateY(-6px);
+            transition:
+                opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .faq-item.active .faq-answer-inner {
+            padding: 0 1.5rem 1.35rem;
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.06s;
+        }
+        .faq-item.closing .faq-answer-inner {
+            transition-delay: 0s;
         }
 
-        
         .testimonial-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -871,7 +955,6 @@
             color: #D4AF37;
         }
 
-        
         .timeline-item {
             position: relative;
             padding-left: 2.5rem;
@@ -914,7 +997,6 @@
             margin-bottom: 0.5rem;
         }
 
-        
         .newsletter-input {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -935,7 +1017,6 @@
             box-shadow: 0 0 20px rgba(212,175,55,0.1);
         }
 
-        
         #toast-container {
             position: fixed;
             bottom: 2rem;
@@ -972,7 +1053,6 @@
             to { opacity: 0; transform: translateY(20px); }
         }
 
-        
         .showcase-window {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -1008,16 +1088,6 @@
             justify-content: center;
         }
 
-        
-        [data-theme="light"] .noise-overlay { opacity: 0.01; }
-        [data-theme="light"] header { background: var(--header-bg); }
-        [data-theme="light"] .hero-card-outer { box-shadow: 0 0 60px rgba(0,0,0,0.15), 0 0 80px rgba(212,175,55,0.03); }
-        [data-theme="light"] .feature-card { box-shadow: 0 4px 30px rgba(0,0,0,0.06); }
-        [data-theme="light"] .testimonial-card { box-shadow: 0 4px 30px rgba(0,0,0,0.06); }
-        [data-theme="light"] footer { background: rgba(255,255,255,0.6); }
-        [data-theme="light"] #shader-canvas { opacity: 0.15; }
-
-        
         @media print {
             #particles-canvas, #shader-canvas, .noise-overlay,
             .cursor-dot, .cursor-ring, #scroll-progress, #scroll-top,
@@ -1025,13 +1095,483 @@
             body { background: white !important; color: black !important; }
         }
 
-        
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
+        }
+
+        .theme-toggle {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .theme-toggle input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+        .theme-toggle-track {
+            --p: 0;
+            --knob-travel: 32px;
+            --knob-x: calc(var(--p) * var(--knob-travel));
+            position: relative;
+            display: block;
+            width: 62px;
+            height: 30px;
+            border-radius: 9px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            background: rgba(1, 1, 3, 0.45);
+            backdrop-filter: blur(10px);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            isolation: isolate;
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+                0 3px 14px rgba(0, 0, 0, 0.35),
+                0 0 20px rgba(212, 175, 55, 0.06);
+            transition:
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+        }
+        .theme-toggle-track::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            pointer-events: none;
+            z-index: 6;
+        }
+        .theme-toggle:hover .theme-toggle-track {
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.09),
+                inset 0 1px 0 rgba(255, 255, 255, 0.14),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+                0 6px 22px rgba(0, 0, 0, 0.4),
+                0 0 32px rgba(212, 175, 55, 0.14);
+        }
+        .theme-toggle:active .theme-toggle-knob {
+            transform: translateX(var(--knob-x)) rotate(calc(var(--p) * 180deg)) scale(calc(var(--knob-scale, 1) * 0.94));
+        }
+
+        .theme-toggle-scene {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+        }
+        .theme-toggle-scene--night {
+            background:
+                radial-gradient(ellipse 55% 80% at 88% 25%, rgba(212, 175, 55, 0.14) 0%, transparent 68%),
+                radial-gradient(ellipse 40% 60% at 72% 88%, rgba(90, 70, 180, 0.22) 0%, transparent 55%),
+                linear-gradient(148deg, #010103 0%, #08081e 38%, #10103a 72%, #0a0a28 100%);
+            opacity: calc(1 - var(--p) * 0.92);
+        }
+        .theme-toggle-scene--day {
+            background:
+                radial-gradient(ellipse 70% 90% at 18% 115%, rgba(255, 215, 0, 0.28) 0%, transparent 58%),
+                radial-gradient(ellipse 50% 70% at 82% 18%, rgba(255, 255, 255, 0.55) 0%, transparent 50%),
+                linear-gradient(155deg, #3d9fd9 0%, #6ec4f0 32%, #9ed8f8 58%, #fff6e0 100%);
+            clip-path: inset(0 calc((1 - var(--p)) * 100% + 1px) 0 0 round 9px);
+        }
+
+        .theme-toggle-horizon {
+            position: absolute;
+            top: 2px;
+            bottom: 2px;
+            left: calc(4px + var(--knob-x) + 11px);
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.75), rgba(255, 248, 220, 0.9), rgba(212, 175, 55, 0.75), transparent);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.45), 0 0 16px rgba(255, 215, 0, 0.2);
+            opacity: calc(min(var(--p), 1 - var(--p)) * 3.2);
+            z-index: 3;
+            pointer-events: none;
+            transition: opacity 0.15s ease;
+        }
+
+        .theme-toggle-stars {
+            position: absolute;
+            inset: 0;
+        }
+        .theme-toggle-star {
+            position: absolute;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+            opacity: calc((1 - var(--p)) * var(--star-opacity, 1));
+            transform: scale(calc(0.85 + (1 - var(--p)) * 0.15));
+            transition: opacity 0.2s ease;
+        }
+        .theme-toggle-star--gold {
+            background: #FFD700;
+            box-shadow: 0 0 4px rgba(255, 215, 0, 0.9), 0 0 8px rgba(212, 175, 55, 0.5);
+        }
+        .theme-toggle-star:nth-child(1) { --star-opacity: 1; width: 2px; height: 2px; top: 6px; right: 10px; animation: starTwinkle 2.8s ease-in-out infinite; }
+        .theme-toggle-star:nth-child(2) { --star-opacity: 0.85; width: 2px; height: 2px; top: 13px; right: 18px; animation: starTwinkle 3.4s ease-in-out infinite 0.4s; }
+        .theme-toggle-star:nth-child(3) { --star-opacity: 0.9; width: 2px; height: 2px; top: 19px; right: 9px; animation: starTwinkle 2.2s ease-in-out infinite 0.8s; }
+        .theme-toggle-star:nth-child(4) { --star-opacity: 0.75; width: 1.5px; height: 1.5px; top: 9px; right: 26px; animation: starTwinkle 3.8s ease-in-out infinite 1.2s; }
+        .theme-toggle-star:nth-child(5) { --star-opacity: 1; width: 2px; height: 2px; top: 21px; right: 21px; animation: starTwinkle 2.6s ease-in-out infinite 0.2s; }
+        .theme-toggle-star:nth-child(6) { --star-opacity: 0.8; width: 1.5px; height: 1.5px; top: 5px; right: 19px; animation: starTwinkle 3.1s ease-in-out infinite 1.6s; }
+        .theme-toggle-star:nth-child(7) { --star-opacity: 0.7; width: 1.5px; height: 1.5px; top: 15px; right: 30px; animation: starTwinkle 4s ease-in-out infinite 0.6s; }
+        .theme-toggle-star:nth-child(8) { --star-opacity: 0.95; width: 2px; height: 2px; top: 23px; right: 14px; animation: starTwinkle 2.4s ease-in-out infinite 1s; }
+        @keyframes starTwinkle {
+            0%, 100% { opacity: calc((1 - var(--p)) * 0.35); transform: scale(0.75); }
+            50% { opacity: calc((1 - var(--p)) * 1); transform: scale(1.15); }
+        }
+
+        .theme-toggle-shooting-star {
+            position: absolute;
+            top: 8px;
+            right: 6px;
+            width: 12px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.95) 70%, rgba(212, 175, 55, 0.8) 100%);
+            border-radius: 1px;
+            transform: rotate(-38deg);
+            opacity: 0;
+            animation: shootingStar 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        .theme-toggle-shooting-star::after {
+            content: '';
+            position: absolute;
+            right: -1px;
+            top: -1px;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 6px #fff, 0 0 10px rgba(212, 175, 55, 0.6);
+        }
+        @keyframes shootingStar {
+            0%, 68%, 100% { opacity: 0; transform: rotate(-38deg) translate(0, 0); }
+            72% { opacity: calc(0.9 * (1 - var(--p))); transform: rotate(-38deg) translate(-2px, 1px); }
+            80% { opacity: 0; transform: rotate(-38deg) translate(-12px, 6px); }
+        }
+
+        .theme-toggle-clouds {
+            position: absolute;
+            inset: 0;
+        }
+        .theme-toggle-cloud {
+            position: absolute;
+            opacity: calc(var(--p) * var(--cloud-opacity, 1));
+            transform: translateX(calc((1 - var(--p)) * -12px));
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
+        }
+        .theme-toggle-cloud--1 {
+            --cloud-opacity: 0.95;
+            width: 10px; height: 6px;
+            top: 9px; left: 6px;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 6px 1px 0 -1px #fff, 11px 1px 0 -1px rgba(255,255,255,0.92), 3px -2px 0 -1px rgba(255,255,255,0.88);
+        }
+        .theme-toggle-cloud--2 {
+            --cloud-opacity: 0.82;
+            width: 7px; height: 4px;
+            top: 17px; left: 14px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 4px;
+            box-shadow: 5px 0 0 -1px rgba(255,255,255,0.9);
+        }
+        .theme-toggle-cloud--3 {
+            --cloud-opacity: 0.65;
+            width: 6px; height: 4px;
+            top: 5px; left: 20px;
+            background: rgba(255,255,255,0.85);
+            border-radius: 4px;
+        }
+        .theme-toggle-cloud--4 {
+            --cloud-opacity: 0.5;
+            width: 5px; height: 3px;
+            top: 22px; left: 4px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 3px;
+            box-shadow: 4px 0 0 -1px rgba(255,255,255,0.75);
+        }
+
+        .theme-toggle-track--light .theme-toggle-scene--day {
+            animation: skyGlow 5s ease-in-out infinite;
+        }
+        @keyframes skyGlow {
+            0%, 100% { filter: brightness(1) saturate(1); }
+            50% { filter: brightness(1.1) saturate(1.08); }
+        }
+
+        .theme-toggle-track--light .theme-toggle-cloud--1 {
+            animation: cloudDrift1 8s ease-in-out infinite, cloudBob1 4s ease-in-out infinite;
+        }
+        .theme-toggle-track--light .theme-toggle-cloud--2 {
+            animation: cloudDrift2 10s ease-in-out infinite 0.8s, cloudBob2 5s ease-in-out infinite 0.4s;
+        }
+        .theme-toggle-track--light .theme-toggle-cloud--3 {
+            animation: cloudDrift3 7s ease-in-out infinite 1.4s, cloudBob3 3.5s ease-in-out infinite 1s;
+        }
+        .theme-toggle-track--light .theme-toggle-cloud--4 {
+            animation: cloudDrift4 9s ease-in-out infinite 2s, cloudBob4 4.5s ease-in-out infinite 1.6s;
+        }
+        @keyframes cloudDrift1 {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(4px) translateY(-1px); }
+            50% { transform: translateX(2px) translateY(0.5px); }
+            75% { transform: translateX(5px) translateY(-0.5px); }
+        }
+        @keyframes cloudDrift2 {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            33% { transform: translateX(3px) translateY(1px); }
+            66% { transform: translateX(-1px) translateY(-0.5px); }
+        }
+        @keyframes cloudDrift3 {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            40% { transform: translateX(2px) translateY(-1px); }
+            70% { transform: translateX(4px) translateY(0.5px); }
+        }
+        @keyframes cloudDrift4 {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(3px) translateY(-0.5px); }
+        }
+        @keyframes cloudBob1 {
+            0%, 100% { margin-top: 0; }
+            50% { margin-top: -1px; }
+        }
+        @keyframes cloudBob2 {
+            0%, 100% { margin-top: 0; }
+            50% { margin-top: 0.5px; }
+        }
+        @keyframes cloudBob3 {
+            0%, 100% { margin-top: 0; }
+            50% { margin-top: -0.5px; }
+        }
+        @keyframes cloudBob4 {
+            0%, 100% { margin-top: 0; }
+            50% { margin-top: 0.5px; }
+        }
+
+        .theme-toggle-track--light .theme-toggle-sun-rays {
+            animation: sunRaysSpin 10s linear infinite;
+        }
+        @keyframes sunFlare {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.15); }
+        }
+
+        .theme-toggle-track--light::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+            background-size: 200% 100%;
+            animation: skyShine 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 2;
+        }
+        @keyframes skyShine {
+            0%, 100% { background-position: 120% 0; opacity: 0; }
+            40%, 60% { background-position: 50% 0; opacity: 1; }
+        }
+
+        .theme-toggle-knob {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            transform: translateX(var(--knob-x)) rotate(calc(var(--p) * 180deg)) scale(var(--knob-scale, 1));
+            z-index: 4;
+            will-change: transform;
+        }
+        .theme-toggle-knob-inner {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .theme-toggle-knob-shadow {
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 65%, rgba(0,0,0,0.22) 0%, transparent 70%);
+            opacity: calc(0.35 + var(--p) * 0.15);
+            transform: translateY(2px);
+            filter: blur(2px);
+        }
+
+        .theme-toggle-moon {
+            position: absolute;
+            inset: -1px;
+            opacity: calc(1 - var(--p));
+            transform: scale(calc(1 - var(--p) * 0.12));
+            filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
+        }
+        .theme-toggle-moon-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .theme-toggle-sun {
+            position: absolute;
+            inset: -2px;
+            opacity: var(--p);
+            transform: scale(calc(0.62 + var(--p) * 0.38));
+        }
+        .theme-toggle-sun-rays {
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg, rgba(255, 215, 0, 0.5) 6deg, transparent 12deg,
+                transparent 22deg, rgba(255, 248, 200, 0.4) 28deg, transparent 34deg,
+                transparent 45deg, rgba(255, 180, 0, 0.45) 51deg, transparent 57deg,
+                transparent 67deg, rgba(255, 215, 0, 0.5) 73deg, transparent 79deg,
+                transparent 90deg, rgba(255, 248, 200, 0.4) 96deg, transparent 102deg,
+                transparent 112deg, rgba(255, 180, 0, 0.45) 118deg, transparent 124deg,
+                transparent 135deg, rgba(255, 215, 0, 0.5) 141deg, transparent 147deg,
+                transparent 157deg, rgba(255, 248, 200, 0.4) 163deg, transparent 169deg,
+                transparent 180deg, rgba(255, 180, 0, 0.45) 186deg, transparent 192deg,
+                transparent 202deg, rgba(255, 215, 0, 0.5) 208deg, transparent 214deg,
+                transparent 225deg, rgba(255, 248, 200, 0.4) 231deg, transparent 237deg,
+                transparent 247deg, rgba(255, 180, 0, 0.45) 253deg, transparent 259deg,
+                transparent 270deg, rgba(255, 215, 0, 0.5) 276deg, transparent 282deg,
+                transparent 292deg, rgba(255, 248, 200, 0.4) 298deg, transparent 304deg,
+                transparent 315deg, rgba(255, 180, 0, 0.45) 321deg, transparent 327deg,
+                transparent 337deg, rgba(255, 215, 0, 0.5) 343deg, transparent 349deg
+            );
+            animation: sunRaysSpin 24s linear infinite;
+            opacity: calc(var(--p) * 0.75);
+            z-index: 0;
+        }
+        @keyframes sunRaysSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .theme-toggle-sun-glow {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 220, 80, 0.55) 0%, rgba(255, 180, 0, 0.25) 45%, transparent 70%);
+            z-index: 0;
+            animation: coronaPulse 3.5s ease-in-out infinite;
+        }
+        @keyframes coronaPulse {
+            0%, 100% { transform: scale(1); opacity: calc(var(--p) * 0.85); }
+            50% { transform: scale(1.1); opacity: calc(var(--p) * 1); }
+        }
+        .theme-toggle-sun-svg {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 1;
+            filter: drop-shadow(0 0 4px rgba(255, 200, 0, 0.8)) drop-shadow(0 0 8px rgba(255, 160, 0, 0.4));
+        }
+        .theme-toggle-track--light .theme-toggle-sun-rays {
+            animation: sunRaysSpin 10s linear infinite;
+        }
+        .theme-toggle-track--light .theme-toggle-sun-glow {
+            animation: coronaPulse 2.5s ease-in-out infinite, sunFlare 4s ease-in-out infinite;
+        }
+        .theme-toggle-track--light .theme-toggle-sun-svg {
+            animation: sunSvgPulse 3s ease-in-out infinite;
+        }
+        @keyframes sunSvgPulse {
+            0%, 100% { filter: drop-shadow(0 0 4px rgba(255, 200, 0, 0.8)) drop-shadow(0 0 8px rgba(255, 160, 0, 0.4)); }
+            50% { filter: drop-shadow(0 0 6px rgba(255, 220, 0, 1)) drop-shadow(0 0 12px rgba(255, 180, 0, 0.55)); }
+        }
+
+        [data-theme="light"] .hero-title {
+            background: linear-gradient(to right, #0a0a0f 0%, #2a2a35 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        [data-theme="light"] header {
+            background: var(--header-bg);
+            border-color: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 1px 15px rgba(0,0,0,0.06), 0 0 40px rgba(212, 175, 55, 0.04);
+        }
+        [data-theme="light"] header.shrunk { box-shadow: 0 1px 30px rgba(0,0,0,0.08), 0 0 24px rgba(212, 175, 55, 0.05); }
+        [data-theme="light"] .mobile-menu { background: rgba(255, 255, 255, 0.96); }
+        [data-theme="light"] .hero-card-outer > div {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(250,249,244,0.98), #fff) !important;
+            border-color: rgba(212, 175, 55, 0.1) !important;
+        }
+        [data-theme="light"] .hero-card-outer {
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.08), 0 8px 40px rgba(0,0,0,0.06) !important;
+        }
+        [data-theme="light"] .feature-card {
+            background: rgba(255,255,255,0.82) !important;
+            border-color: rgba(212, 175, 55, 0.1) !important;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.05), 0 0 20px rgba(212, 175, 55, 0.03) !important;
+        }
+        [data-theme="light"] .feature-card:hover {
+            background: rgba(255,255,255,0.95) !important;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08), 0 0 30px rgba(212, 175, 55, 0.08) !important;
+        }
+        [data-theme="light"] .toast { background: rgba(255,255,255,0.96); color: #AA7C11; border-color: rgba(212,175,55,0.25); }
+        [data-theme="light"] .showcase-titlebar { background: rgba(212, 175, 55, 0.04); }
+        [data-theme="light"] .perf-chart-header { background: rgba(212, 175, 55, 0.03); }
+        [data-theme="light"] .perf-rect { background: rgba(212, 175, 55, 0.04); border-color: rgba(212, 175, 55, 0.08); }
+        [data-theme="light"] .perf-chart-verdict { background: rgba(212, 175, 55, 0.06); }
+        [data-theme="light"] .faq-item { border-color: rgba(212, 175, 55, 0.1); }
+        [data-theme="light"] .faq-item:hover { border-color: rgba(212, 175, 55, 0.22); }
+        [data-theme="light"] .faq-item.active {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06), 0 0 40px rgba(212,175,55,0.08);
+        }
+        [data-theme="light"] .faq-icon-wrap {
+            background: rgba(212,175,55,0.05);
+            border-color: rgba(212,175,55,0.1);
+        }
+        [data-theme="light"] .nav-link { color: var(--text-secondary) !important; }
+        [data-theme="light"] .header-brand-text { color: var(--text-primary); }
+        [data-theme="light"] .text-white { color: var(--text-primary) !important; }
+        [data-theme="light"] .text-neutral-300 { color: var(--text-secondary) !important; }
+        [data-theme="light"] .text-neutral-400 { color: var(--text-secondary) !important; }
+        [data-theme="light"] .text-neutral-500 { color: var(--text-muted) !important; }
+        [data-theme="light"] .text-neutral-600 { color: var(--text-muted) !important; }
+        [data-theme="light"] .border-neutral-900\/50,
+        [data-theme="light"] .border-neutral-900\/80 { border-color: var(--border-color) !important; }
+        [data-theme="light"] .bg-neutral-950\/30 { background-color: var(--card-bg) !important; }
+        [data-theme="light"] .bg-black\/30 { background-color: var(--header-bg) !important; }
+        [data-theme="light"] .bg-black\/60 { background-color: rgba(255,255,255,0.75) !important; }
+        [data-theme="light"] .github-btn {
+            color: var(--text-primary);
+            background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.03) 100%);
+            border-color: rgba(212,175,55,0.28);
+        }
+        [data-theme="light"] .github-btn:hover {
+            background: linear-gradient(135deg, rgba(212,175,55,0.16) 0%, rgba(212,175,55,0.08) 100%);
+        }
+        [data-theme="light"] .orb { opacity: 0.35; }
+        [data-theme="light"] #shader-canvas { opacity: 0.08; }
+        [data-theme="light"] .noise-overlay { opacity: 0.012; }
+        [data-theme="light"] footer { background: rgba(255, 255, 255, 0.78); border-color: rgba(212, 175, 55, 0.1); }
+        [data-theme="light"] .testimonial-card { box-shadow: 0 4px 30px rgba(0,0,0,0.05), 0 0 20px rgba(212, 175, 55, 0.03); }
+        [data-theme="light"] ::selection { color: #0a0a0f; background: rgba(212,175,55,0.25); }
+        [data-theme="light"] .premium-grid {
+            background-image: linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+        }
+
+        .mobile-theme-toggle {
+            margin-top: 1.5rem;
+        }
+        .theme-toggle-slot {
+            display: inline-flex;
         }
     </style>
 </head>
@@ -1047,7 +1587,7 @@
     <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
 
     <canvas id="particles-canvas" aria-hidden="true"></canvas>
-    
+
     <canvas id="shader-canvas" class="fixed top-0 left-0 w-full h-full -z-10 block pointer-events-none opacity-40" aria-hidden="true"></canvas>
 
     <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Navigation menu">
@@ -1059,11 +1599,12 @@
         <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
 
         <a href="https://github.com/CortexDev-Official" target="_blank" rel="noreferrer">GitHub</a>
+        <div id="theme-toggle-slot-mobile" class="theme-toggle-slot mobile-theme-toggle"></div>
     </div>
 
     <header class="w-full border-b border-neutral-900/50 bg-black/30 backdrop-blur-xl sticky top-0 z-50 shadow-[0_1px_15px_rgba(0,0,0,0.9)]" id="main-header" role="banner">
         <div class="header-inner max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2 font-extrabold text-white text-lg tracking-wider select-none group cursor-pointer">
+            <div class="flex items-center gap-2 font-extrabold text-white text-lg tracking-wider select-none group cursor-pointer header-brand-text">
                 <img src="Goldstrap.png" alt="Goldstrap logo" class="w-7 h-7 rounded-md group-hover:scale-110 transition-transform duration-300">
                 <span class="gold-shine-animated">Goldstrap</span>
             </div>
@@ -1073,6 +1614,8 @@
                 <a href="#faq" class="nav-link text-neutral-300 hover:text-gold transition-colors duration-200">FAQ</a>
 
                 <a href="https://github.com/CortexDev-Official" target="_blank" rel="noreferrer" class="nav-link text-neutral-300 hover:text-gold transition-colors duration-200">GitHub</a>
+
+                <div id="theme-toggle-slot-desktop" class="theme-toggle-slot"></div>
             </nav>
             <div class="hamburger" id="hamburger" role="button" tabindex="0" aria-label="Open menu" aria-expanded="false">
                 <span></span>
@@ -1306,7 +1849,9 @@
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
                         <span>Is Goldstrap safe to use?</span>
-                        <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <span class="faq-icon-wrap" aria-hidden="true">
+                            <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
                     </div>
                     <div class="faq-answer" role="region">
                         <div class="faq-answer-inner">Yes. Goldstrap is engineered with sophisticated structural safety integration providing a 99% ban-proof environment. Zero bans have been recorded to date across all users.</div>
@@ -1315,7 +1860,9 @@
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
                         <span>What is FastFlag Editor?</span>
-                        <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <span class="faq-icon-wrap" aria-hidden="true">
+                            <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
                     </div>
                     <div class="faq-answer" role="region">
                         <div class="faq-answer-inner">FastFlag Editor lets you take full control of internal client engine variables and experiment with advanced feature configurations. You can adjust rendering, performance, and UI settings that are normally hidden.</div>
@@ -1324,7 +1871,9 @@
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
                         <span>Does it work on macOS or Linux?</span>
-                        <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <span class="faq-icon-wrap" aria-hidden="true">
+                            <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
                     </div>
                     <div class="faq-answer" role="region">
                         <div class="faq-answer-inner">Currently Goldstrap is Windows-only as it natively integrates with the Windows Roblox client. macOS and Linux support is being explored for future releases.</div>
@@ -1333,7 +1882,9 @@
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
                         <span>Is Goldstrap open source?</span>
-                        <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <span class="faq-icon-wrap" aria-hidden="true">
+                            <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
                     </div>
                     <div class="faq-answer" role="region">
                         <div class="faq-answer-inner">Yes! Goldstrap is fully open source and forked from Fishstrap. You can view the source code, contribute, or report issues on our GitHub repository.</div>
@@ -1342,7 +1893,9 @@
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
                         <span>Can I use multi-instance to play multiple accounts?</span>
-                        <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <span class="faq-icon-wrap" aria-hidden="true">
+                            <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
                     </div>
                     <div class="faq-answer" role="region">
                         <div class="faq-answer-inner">Yes. The multi-instance selection feature allows you to launch and manage multiple Roblox client instances concurrently, each with their own separate configurations and channel deployments.</div>
@@ -1351,7 +1904,9 @@
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
                         <span>Does it support shaders (Roshade & Bloxshade)?</span>
-                        <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <span class="faq-icon-wrap" aria-hidden="true">
+                            <svg class="faq-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
                     </div>
                     <div class="faq-answer" role="region">
                         <div class="faq-answer-inner">I'm working hard to bring Bloxshade and RoShade support to Goldstrap. However, every Roblox update makes it more difficult because of their Byfron anti-cheat system, which keeps changing and making things tougher.</div>
@@ -1359,7 +1914,6 @@
                 </div>
             </div>
         </section>
-
 
     </main>
 
@@ -1422,7 +1976,7 @@
         }
         animateCursor();
 
-        var hoverTargets = document.querySelectorAll('a, button, [data-tilt], .faq-question');
+        var hoverTargets = document.querySelectorAll('a, button, [data-tilt], .faq-question, .theme-toggle');
         hoverTargets.forEach(function(el) {
             el.addEventListener('mouseenter', function() { cursorRing.classList.add('hovering'); });
             el.addEventListener('mouseleave', function() { cursorRing.classList.remove('hovering'); });
@@ -1704,14 +2258,27 @@
     function toggleFaq(el) {
         var item = el.closest('.faq-item');
         var isActive = item.classList.contains('active');
-        document.querySelectorAll('.faq-item').forEach(function(i) {
-            i.classList.remove('active');
-            i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-        });
-        if (!isActive) {
-            item.classList.add('active');
-            el.setAttribute('aria-expanded', 'true');
+
+        if (isActive) {
+            item.classList.add('closing');
+            item.classList.remove('active');
+            el.setAttribute('aria-expanded', 'false');
+            setTimeout(function() { item.classList.remove('closing'); }, 560);
+            return;
         }
+
+        document.querySelectorAll('.faq-item').forEach(function(i) {
+            if (i.classList.contains('active')) {
+                i.classList.add('closing');
+                i.classList.remove('active');
+                i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                setTimeout(function() { i.classList.remove('closing'); }, 560);
+            }
+        });
+
+        item.classList.remove('closing');
+        item.classList.add('active');
+        el.setAttribute('aria-expanded', 'true');
     }
 
     function subscribeNewsletter() {
@@ -1783,6 +2350,262 @@
             }
         });
     });
+
+    (function initThemeToggle() {
+        var html = document.documentElement;
+        var TOGGLE_DURATION = 920;
+        var animating = false;
+
+        var toggleSvgUid = 0;
+
+        function moonSvg(id) {
+            return '<svg class="theme-toggle-moon-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+                '<defs>' +
+                    '<radialGradient id="mS' + id + '" cx="36%" cy="32%" r="58%">' +
+                        '<stop offset="0%" stop-color="#fcfaf6"/>' +
+                        '<stop offset="30%" stop-color="#ece8e0"/>' +
+                        '<stop offset="65%" stop-color="#d8d2c8"/>' +
+                        '<stop offset="100%" stop-color="#b8b2a8"/>' +
+                    '</radialGradient>' +
+                    '<radialGradient id="mCr' + id + '" cx="32%" cy="28%" r="68%">' +
+                        '<stop offset="0%" stop-color="#d8d4cc" stop-opacity="0.25"/>' +
+                        '<stop offset="45%" stop-color="#7a7468" stop-opacity="0.55"/>' +
+                        '<stop offset="100%" stop-color="#4a463e" stop-opacity="0.8"/>' +
+                    '</radialGradient>' +
+                    '<radialGradient id="mHi' + id + '" cx="30%" cy="25%" r="40%">' +
+                        '<stop offset="0%" stop-color="#fff" stop-opacity="0.45"/>' +
+                        '<stop offset="100%" stop-color="#fff" stop-opacity="0"/>' +
+                    '</radialGradient>' +
+                    '<linearGradient id="mTe' + id + '" x1="10%" y1="20%" x2="90%" y2="80%">' +
+                        '<stop offset="0%" stop-color="#fff" stop-opacity="0.18"/>' +
+                        '<stop offset="50%" stop-color="#fff" stop-opacity="0.02"/>' +
+                        '<stop offset="100%" stop-color="#000" stop-opacity="0.28"/>' +
+                    '</linearGradient>' +
+                    '<clipPath id="mCl' + id + '"><circle cx="32" cy="32" r="30"/></clipPath>' +
+                    '<filter id="mTx' + id + '" x="-10%" y="-10%" width="120%" height="120%">' +
+                        '<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" seed="8" result="n"/>' +
+                        '<feColorMatrix in="n" type="matrix" values="0 0 0 0 0.55 0 0 0 0 0.52 0 0 0 0 0.48 0 0 0 0.12 0" result="t"/>' +
+                        '<feBlend in="SourceGraphic" in2="t" mode="multiply"/>' +
+                    '</filter>' +
+                '</defs>' +
+                '<g clip-path="url(#mCl' + id + ')">' +
+                    '<circle cx="32" cy="32" r="30" fill="url(#mS' + id + ')" filter="url(#mTx' + id + ')"/>' +
+                    '<ellipse cx="24" cy="30" rx="12" ry="9" fill="#8e8878" opacity="0.32"/>' +
+                    '<ellipse cx="38" cy="36" rx="10" ry="7" fill="#827c70" opacity="0.26"/>' +
+                    '<ellipse cx="34" cy="21" rx="8" ry="5.5" fill="#969088" opacity="0.2"/>' +
+                    '<ellipse cx="18" cy="38" rx="7" ry="5" fill="#8a8478" opacity="0.18"/>' +
+                    '<circle cx="17" cy="19" r="5.5" fill="url(#mCr' + id + ')"/>' +
+                    '<circle cx="17.6" cy="18.4" r="4.2" fill="#e0dcd4" opacity="0.35"/>' +
+                    '<circle cx="16.2" cy="20.2" r="3.2" fill="#c8c4bc" opacity="0.25"/>' +
+                    '<circle cx="41" cy="25" r="4" fill="url(#mCr' + id + ')"/>' +
+                    '<circle cx="41.4" cy="24.6" r="3" fill="#e0dcd4" opacity="0.3"/>' +
+                    '<circle cx="27" cy="43" r="4.5" fill="url(#mCr' + id + ')"/>' +
+                    '<circle cx="27.5" cy="42.5" r="3.4" fill="#e0dcd4" opacity="0.28"/>' +
+                    '<circle cx="45" cy="39" r="3" fill="url(#mCr' + id + ')"/>' +
+                    '<circle cx="13" cy="35" r="2.5" fill="url(#mCr' + id + ')"/>' +
+                    '<circle cx="35" cy="15" r="2.2" fill="url(#mCr' + id + ')"/>' +
+                    '<circle cx="22" cy="47" r="2" fill="url(#mCr' + id + ')"/>' +
+                    '<circle cx="49" cy="31" r="1.6" fill="url(#mCr' + id + ')"/>' +
+                    '<circle cx="30" cy="26" r="1.4" fill="url(#mCr' + id + ')" opacity="0.7"/>' +
+                    '<circle cx="40" cy="44" r="1.2" fill="url(#mCr' + id + ')" opacity="0.65"/>' +
+                    '<circle cx="32" cy="32" r="30" fill="url(#mTe' + id + ')"/>' +
+                    '<circle cx="32" cy="32" r="30" fill="url(#mHi' + id + ')"/>' +
+                '</g>' +
+                '<circle cx="32" cy="32" r="30.2" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="0.5"/>' +
+                '<circle cx="32" cy="32" r="30.2" fill="none" stroke="rgba(0,0,0,0.1)" stroke-width="0.35"/>' +
+            '</svg>';
+        }
+
+        function sunSvg(id) {
+            return '<svg class="theme-toggle-sun-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+                '<defs>' +
+                    '<radialGradient id="suB' + id + '" cx="44%" cy="40%" r="52%">' +
+                        '<stop offset="0%" stop-color="#fffef5"/>' +
+                        '<stop offset="18%" stop-color="#fff0a0"/>' +
+                        '<stop offset="42%" stop-color="#ffc820"/>' +
+                        '<stop offset="72%" stop-color="#f0a010"/>' +
+                        '<stop offset="100%" stop-color="#d87808"/>' +
+                    '</radialGradient>' +
+                    '<radialGradient id="suL' + id + '" cx="50%" cy="50%" r="50%">' +
+                        '<stop offset="70%" stop-color="#ff9800" stop-opacity="0"/>' +
+                        '<stop offset="88%" stop-color="#e65100" stop-opacity="0.3"/>' +
+                        '<stop offset="100%" stop-color="#bf360c" stop-opacity="0.45"/>' +
+                    '</radialGradient>' +
+                    '<radialGradient id="suF' + id + '" cx="38%" cy="32%" r="35%">' +
+                        '<stop offset="0%" stop-color="#fff" stop-opacity="0.55"/>' +
+                        '<stop offset="100%" stop-color="#fff" stop-opacity="0"/>' +
+                    '</radialGradient>' +
+                    '<clipPath id="suCl' + id + '"><circle cx="32" cy="32" r="17"/></clipPath>' +
+                '</defs>' +
+                '<circle cx="32" cy="32" r="20" fill="#FFD700" opacity="0.2"/>' +
+                '<circle cx="32" cy="32" r="17" fill="url(#suB' + id + ')"/>' +
+                '<circle cx="32" cy="32" r="17" fill="url(#suL' + id + ')"/>' +
+                '<g clip-path="url(#suCl' + id + ')" opacity="0.35">' +
+                    '<circle cx="24" cy="28" r="1.2" fill="#e65100"/>' +
+                    '<circle cx="38" cy="26" r="0.9" fill="#e65100"/>' +
+                    '<circle cx="30" cy="36" r="1" fill="#e65100"/>' +
+                    '<circle cx="42" cy="34" r="0.7" fill="#e65100"/>' +
+                    '<circle cx="22" cy="36" r="0.8" fill="#e65100"/>' +
+                    '<circle cx="35" cy="22" r="0.6" fill="#e65100"/>' +
+                    '<circle cx="28" cy="40" r="0.7" fill="#e65100"/>' +
+                    '<circle cx="40" cy="40" r="0.5" fill="#e65100"/>' +
+                '</g>' +
+                '<g clip-path="url(#suCl' + id + ')" opacity="0.2">' +
+                    '<circle cx="26" cy="24" r="0.5" fill="#fff3e0"/>' +
+                    '<circle cx="34" cy="30" r="0.4" fill="#fff3e0"/>' +
+                    '<circle cx="20" cy="30" r="0.45" fill="#fff3e0"/>' +
+                    '<circle cx="38" cy="38" r="0.4" fill="#fff3e0"/>' +
+                    '<circle cx="30" cy="42" r="0.35" fill="#fff3e0"/>' +
+                '</g>' +
+                '<circle cx="32" cy="32" r="17" fill="url(#suF' + id + ')"/>' +
+                '<ellipse cx="28" cy="27" rx="4" ry="2.5" fill="#fff" opacity="0.2" transform="rotate(-15 28 27)"/>' +
+            '</svg>';
+        }
+
+        function themeToggleMarkup() {
+            var id = 'g' + (++toggleSvgUid);
+            return '<label class="theme-toggle" aria-label="Toggle dark or light mode">' +
+                '<input type="checkbox" class="theme-toggle-input">' +
+                '<span class="theme-toggle-track">' +
+                    '<span class="theme-toggle-scene theme-toggle-scene--night" aria-hidden="true">' +
+                        '<span class="theme-toggle-stars">' +
+                            '<span class="theme-toggle-star"></span>' +
+                            '<span class="theme-toggle-star"></span>' +
+                            '<span class="theme-toggle-star theme-toggle-star--gold"></span>' +
+                            '<span class="theme-toggle-star"></span>' +
+                            '<span class="theme-toggle-star"></span>' +
+                            '<span class="theme-toggle-star"></span>' +
+                            '<span class="theme-toggle-star"></span>' +
+                            '<span class="theme-toggle-star"></span>' +
+                            '<span class="theme-toggle-shooting-star"></span>' +
+                        '</span>' +
+                    '</span>' +
+                    '<span class="theme-toggle-scene theme-toggle-scene--day" aria-hidden="true">' +
+                        '<span class="theme-toggle-clouds">' +
+                            '<span class="theme-toggle-cloud theme-toggle-cloud--1"></span>' +
+                            '<span class="theme-toggle-cloud theme-toggle-cloud--2"></span>' +
+                            '<span class="theme-toggle-cloud theme-toggle-cloud--3"></span>' +
+                            '<span class="theme-toggle-cloud theme-toggle-cloud--4"></span>' +
+                        '</span>' +
+                    '</span>' +
+                    '<span class="theme-toggle-horizon" aria-hidden="true"></span>' +
+                    '<span class="theme-toggle-knob" aria-hidden="true">' +
+                        '<span class="theme-toggle-knob-shadow"></span>' +
+                        '<span class="theme-toggle-knob-inner">' +
+                            '<span class="theme-toggle-moon">' + moonSvg(id) + '</span>' +
+                            '<span class="theme-toggle-sun">' +
+                                '<span class="theme-toggle-sun-rays"></span>' +
+                                '<span class="theme-toggle-sun-glow"></span>' +
+                                sunSvg(id) +
+                            '</span>' +
+                        '</span>' +
+                    '</span>' +
+                '</span>' +
+            '</label>';
+        }
+
+        var desktopSlot = document.getElementById('theme-toggle-slot-desktop');
+        var mobileSlot = document.getElementById('theme-toggle-slot-mobile');
+        if (desktopSlot) desktopSlot.innerHTML = themeToggleMarkup();
+        if (mobileSlot) mobileSlot.innerHTML = themeToggleMarkup();
+
+        var toggles = document.querySelectorAll('.theme-toggle-input');
+        var tracks = document.querySelectorAll('.theme-toggle-track');
+        var savedTheme = localStorage.getItem('goldstrap-theme') || 'dark';
+        var isLight = savedTheme === 'light';
+
+        function easeInOutQuart(t) {
+            return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+        }
+
+        function setToggleProgress(progress) {
+            var p = Math.max(0, Math.min(1, progress));
+            var squash = 1 + Math.sin(p * Math.PI) * 0.06;
+            tracks.forEach(function(track) {
+                track.style.setProperty('--p', p);
+                track.style.setProperty('--knob-scale', squash);
+                track.classList.toggle('theme-toggle-track--light', p >= 0.98);
+            });
+        }
+
+        function setHtmlTheme(light) {
+            if (light) {
+                html.setAttribute('data-theme', 'light');
+                html.classList.remove('dark');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                html.classList.add('dark');
+            }
+            localStorage.setItem('goldstrap-theme', light ? 'light' : 'dark');
+            toggles.forEach(function(input) {
+                input.checked = light;
+            });
+            tracks.forEach(function(track) {
+                track.classList.toggle('theme-toggle-track--light', light);
+            });
+        }
+
+        function animateTheme(toLight, done) {
+            var start = performance.now();
+            var from = toLight ? 0 : 1;
+            var to = toLight ? 1 : 0;
+            var themeApplied = false;
+
+            html.classList.add('theme-transitioning');
+
+            function frame(now) {
+                var elapsed = now - start;
+                var t = Math.min(elapsed / TOGGLE_DURATION, 1);
+                var eased = easeInOutQuart(t);
+                var progress = from + (to - from) * eased;
+
+                setToggleProgress(progress);
+
+                if (!themeApplied && t >= 0.38) {
+                    setHtmlTheme(toLight);
+                    themeApplied = true;
+                }
+
+                if (t < 1) {
+                    requestAnimationFrame(frame);
+                } else {
+                    setToggleProgress(to);
+                    html.classList.remove('theme-transitioning');
+                    animating = false;
+                    if (done) done();
+                }
+            }
+
+            requestAnimationFrame(frame);
+        }
+
+        function applyTheme(light, animate) {
+            if (animate) {
+                if (animating) return;
+                animating = true;
+                animateTheme(light);
+            } else {
+                setHtmlTheme(light);
+                setToggleProgress(light ? 1 : 0);
+            }
+        }
+
+        applyTheme(isLight, false);
+
+        toggles.forEach(function(input) {
+            input.addEventListener('change', function() {
+                applyTheme(input.checked, true);
+            });
+        });
+
+        var cursorRing = document.getElementById('cursor-ring');
+        if (cursorRing) {
+            document.querySelectorAll('.theme-toggle').forEach(function(el) {
+                el.addEventListener('mouseenter', function() { cursorRing.classList.add('hovering'); });
+                el.addEventListener('mouseleave', function() { cursorRing.classList.remove('hovering'); });
+            });
+        }
+    })();
 
     </script>
 </body>
