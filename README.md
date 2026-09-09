@@ -72,3 +72,7 @@ If you found any bugs, please [open an issue here][repo-new-issue]
 [rovalra]:   https://www.rovalra.com
 
 [devforum-fflags]: https://devforum.roblox.com/t/allowlist-for-local-client-configuration-via-fast-flags/3966569
+
+
+## Code Signing
+Free code signing provided by [SignPath Foundation](https://signpath.org).
