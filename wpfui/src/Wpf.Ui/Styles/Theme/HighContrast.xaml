@@ -11,16 +11,11 @@
 
     <!--  TODO  -->
 
-    <!--
-        Microsoft UI XAML
-        
-        2.5 controls should not depends on brushes
-        https://github.com/microsoft/microsoft-ui-xaml/blob/main/dev/CommonStyles/Common_themeresources_any.xaml
-    -->
+    
 
     <Color x:Key="ApplicationBackgroundColor">#fafafa</Color>
 
-    <!--  Colors depending on the theme should be changed by the Manager  -->
+    
     <Color x:Key="SystemAccentColor">#4cc2ff</Color>
     <Color x:Key="SystemAccentColorSecondary">#4cc2ff</Color>
     <Color x:Key="SystemAccentColorTertiary">#4cc2ff</Color>
@@ -34,7 +29,7 @@
     <Color x:Key="SystemColorHotlightColorBrush">#FF00FF</Color>
     <Color x:Key="SystemColorGrayTextColorBrush">#FF00FF</Color>
 
-    <!--  Colors  -->
+    
 
     <Color x:Key="TextFillColorPrimary" />
     <Color x:Key="TextFillColorSecondary">#C5FFFFFF</Color>
@@ -133,7 +128,7 @@
     <Color x:Key="SystemFillColorSolidAttentionBackground">#2E2E2E</Color>
     <Color x:Key="SystemFillColorSolidNeutralBackground">#2E2E2E</Color>
 
-    <!--  Elevation border brushes  -->
+    
 
     <LinearGradientBrush x:Key="ControlElevationBorderBrush" MappingMode="Absolute" StartPoint="0,0" EndPoint="0,3">
         <LinearGradientBrush.GradientStops>

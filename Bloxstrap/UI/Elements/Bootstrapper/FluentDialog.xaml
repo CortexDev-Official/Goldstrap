@@ -27,9 +27,9 @@
         <TaskbarItemInfo ProgressState="{Binding Path=TaskbarProgressState}" ProgressValue="{Binding Path=TaskbarProgressValue}" />
     </Window.TaskbarItemInfo>
 
-    <!--  Background is for Aero theme only  -->
+    
     <Grid x:Name="ContentGrid" Background="{DynamicResource MainWindowBackgroundBrush}">
-        <!--  Allow for drag  -->
+        
         <TextBlock Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="10" FontFamily="{StaticResource Rubik}" Text="{Binding VersionText}" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
         <TextBlock Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="10" FontFamily="{StaticResource Rubik}" Text="{Binding ChannelText}" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
         <ui:TitleBar

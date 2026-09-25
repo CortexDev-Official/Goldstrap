@@ -63,9 +63,9 @@ namespace Bloxstrap.UI.ViewModels.ContextMenu
 
             var consolidatedJobIds = new List<ActivityData>();
 
-            // consolidate activity entries from in-universe teleports
-            // the time left of the latest activity gets moved to the root activity
-            // the job id of the latest public server activity gets moved to the root activity
+            
+            
+            
             foreach (var entry in _activityWatcher.History)
             {
                 if (entry.RootActivity is not null)

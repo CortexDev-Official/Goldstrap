@@ -12,7 +12,7 @@ namespace Bloxstrap.Enums
         Collapsed,
         Hidden,
         
-        // custom values for bootstrappers
+        
         Any,
         Studio,
         Player

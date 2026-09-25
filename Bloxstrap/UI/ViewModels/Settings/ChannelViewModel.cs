@@ -49,7 +49,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 ChannelDeployInfo = new DeployInfo
                 {
                     Version = info.Version,
-                    VersionGuid = isPrivate ? "version-private" : info.VersionGuid, // we dont want to return the hash of private channels for obvious reason
+                    VersionGuid = isPrivate ? "version-private" : info.VersionGuid, 
                     Timestamp = info.Timestamp?.ToLocalTime().ToString() ?? "?"
                 };
 
@@ -62,11 +62,11 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 ShowLoadingError = true;
                 OnPropertyChanged(nameof(ShowLoadingError));
 
-                // channels that dont exist also throw HttpStatusCode.Unauthorized
+                
                 if (ex.StatusCode == HttpStatusCode.Unauthorized)
                     ChannelInfoLoadingText = Strings.Menu_Channel_Switcher_Unauthorized;
                 else
-                    ChannelInfoLoadingText = $"An http error has occured ({ex.StatusCode})"; // i dont think we need strings for errors
+                    ChannelInfoLoadingText = $"An http error has occured ({ex.StatusCode})"; 
 
                 OnPropertyChanged(nameof(ChannelInfoLoadingText));
             }
@@ -87,7 +87,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 value = value.Trim();
                 Task.Run(() => LoadChannelDeployInfo(value));
                 
-                if (value.ToLowerInvariant() == "live" || value.ToLowerInvariant() == "zlive") // we are replacing those to prevent any issues
+                if (value.ToLowerInvariant() == "live" || value.ToLowerInvariant() == "zlive") 
                 {
                     App.Settings.Prop.Channel = Deployment.DefaultChannel;
                 } else {

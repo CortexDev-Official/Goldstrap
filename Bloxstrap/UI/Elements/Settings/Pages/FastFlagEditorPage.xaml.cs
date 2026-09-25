@@ -16,8 +16,8 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
     /// </summary>
     public partial class FastFlagEditorPage
     {
-        // believe me when i say there is absolutely zero point to using mvvm for this
-        // using a datagrid is a codebehind thing only and thats it theres literally no way around it
+        
+        
 
         private readonly ObservableCollection<FastFlag> _fastFlagList = new();
 
@@ -47,16 +47,12 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
                 var entry = new FastFlag
                 {
-                    // Enabled = true,
+                    
                     Name = pair.Key,
                     Value = pair.Value?.ToString() ?? ""
                 };
 
-                /* if (entry.Name.StartsWith("Disable"))
-                {
-                    entry.Enabled = false;
-                    entry.Name = entry.Name[7..];
-                } */
+                
 
                 _fastFlagList.Add(entry);
             }
@@ -107,7 +103,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             {
                 entry = new FastFlag
                 {
-                    // Enabled = true,
+                    
                     Name = name,
                     Value = value
                 };
@@ -154,7 +150,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
             json = json.Trim();
 
-            // autocorrect where possible
+            
             if (!json.StartsWith('{'))
                 json = '{' + json;
 
@@ -245,7 +241,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             ClearSearch();
         }
 
-        // refresh list on page load to synchronize with preset page
+        
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             SyncBuiltInFlagToggles();

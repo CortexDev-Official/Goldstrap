@@ -42,11 +42,7 @@
                         <Border.Background>
                             <SolidColorBrush Opacity="0.0" Color="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, Converter={StaticResource BrushToColorConverter}}" />
                         </Border.Background>
-                        <!--
-                        <Border.BorderBrush>
-                            <SolidColorBrush Opacity="0.0" Color="{Binding Path=BorderBrush, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, Converter={StaticResource BrushToColorConverter}}" />
-                        </Border.BorderBrush>
-                        -->
+                        
                         <ContentPresenter />
                     </Border>
                     <ControlTemplate.Triggers>
@@ -65,14 +61,7 @@
                                             From="0.0"
                                             To="1.0"
                                             Duration="0:0:.16" />
-                                        <!--
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Border"
-                                            Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Opacity)"
-                                            From="0.0"
-                                            To="1.0"
-                                            Duration="0:0:.16" />
-                                        -->
+                                        
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
@@ -85,14 +74,7 @@
                                             From="1.0"
                                             To="0.0"
                                             Duration="0:0:.16" />
-                                        <!--
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Border"
-                                            Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Opacity)"
-                                            From="1.0"
-                                            To="0.0"
-                                            Duration="0:0:.16" />
-                                        -->
+                                        
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>

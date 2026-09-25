@@ -1,5 +1,5 @@
 > [!CAUTION]
-> The only official place to download Goldstrap is this GitHub repository and our official website: **[Goldstrap.xyz](https://Goldstrap.xyz)**.
+> The only official place to download Goldstrap is this GitHub repository.
 > Any other websites offering downloads or claiming to be us are not controlled
 > by us, do not download from them.
 
@@ -72,4 +72,3 @@ If you found any bugs, please [open an issue here][repo-new-issue]
 [rovalra]:   https://www.rovalra.com
 
 [devforum-fflags]: https://devforum.roblox.com/t/allowlist-for-local-client-configuration-via-fast-flags/3966569
-

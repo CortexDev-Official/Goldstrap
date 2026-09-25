@@ -2,7 +2,7 @@
 {
     public static class FileSize
     {
-        // :yawning-face: https://stackoverflow.com/questions/281640/how-do-i-get-a-human-readable-file-size-in-bytes-abbreviation-using-net/4967106#4967106
+        
         static string[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 
         public static string ByteSize(long size)

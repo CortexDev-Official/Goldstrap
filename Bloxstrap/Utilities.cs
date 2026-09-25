@@ -7,8 +7,8 @@ namespace Bloxstrap
     {
         public static void ShellExecute(string website)
         {
-            // only allow http/https URLs or existing local files/folders;
-            // anything else could be a command injection vector via the shell
+            
+            
             bool isWebUrl = Uri.TryCreate(website, UriKind.Absolute, out var uri)
                 && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
 
@@ -28,7 +28,7 @@ namespace Bloxstrap
             }
             catch (Win32Exception ex)
             {
-                // lmfao
+                
 
                 if (ex.NativeErrorCode != (int)ErrorCode.CO_E_APPNOTFOUND)
                     throw;
@@ -36,7 +36,7 @@ namespace Bloxstrap
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = "rundll32.exe",
-                    Arguments = $"shell32,OpenAs_RunDLL {website}"
+                    Arguments = $"shell32,OpenAs_RunDLL \"{website}\""
                 });
             }
         }
@@ -46,11 +46,11 @@ namespace Bloxstrap
             if (version.StartsWith('v'))
                 version = version[1..];
 
-            int idx = version.IndexOf('+'); // commit info
+            int idx = version.IndexOf('+'); 
             if (idx != -1)
                 version = version[..idx];
 
-            // strip non-numeric prefix (e.g., "alpha." -> "")
+            
             int firstDigit = -1;
             for (int i = 0; i < version.Length; i++)
             {
@@ -63,7 +63,7 @@ namespace Bloxstrap
             if (firstDigit > 0)
                 version = version[firstDigit..];
 
-            // strip non-numeric suffix (e.g., "-alpha" from "0.0.1-alpha")
+            
             int endIdx = version.Length;
             for (int i = 0; i < version.Length; i++)
             {
@@ -101,9 +101,9 @@ namespace Bloxstrap
             }
             catch (Exception)
             {
-                // temporary diagnostic log for the issue described here:
-                // https://github.com/bloxstraplabs/bloxstrap/issues/3193
-                // the problem is that this happens only on upgrade, so my only hope of catching this is bug reports following the next release
+                
+                
+                
 
                 App.Logger.WriteLine("Utilities::CompareVersions", "An exception occurred when comparing versions");
                 App.Logger.WriteLine("Utilities::CompareVersions", $"versionStr1={versionStr1} versionStr2={versionStr2}");
@@ -172,11 +172,11 @@ namespace Bloxstrap
             {
                 return Process.GetProcesses();
             }
-            catch (ArithmeticException ex) // thanks microsoft
+            catch (ArithmeticException ex) 
             {
                 App.Logger.WriteLine(LOG_IDENT, $"Unable to fetch processes!");
                 App.Logger.WriteException(LOG_IDENT, ex);
-                return Array.Empty<Process>(); // can we retry?
+                return Array.Empty<Process>(); 
             }
         }
 
@@ -195,7 +195,7 @@ namespace Bloxstrap
 
         public static void KillBackgroundUpdater()
         {
-            using EventWaitHandle handle = new EventWaitHandle(false, EventResetMode.AutoReset, "Goldstrap-BackgroundUpdaterKillEvent");
+            using EventWaitHandle handle = new EventWaitHandle(false, EventResetMode.AutoReset, $"{App.ProjectName}-BackgroundUpdaterKillEvent");
             handle.Set();
         }
     }

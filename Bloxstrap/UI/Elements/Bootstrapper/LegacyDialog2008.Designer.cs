@@ -34,27 +34,27 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             ProgressBar = new ProgressBar();
             buttonCancel = new Button();
             SuspendLayout();
-            // 
-            // labelMessage
-            // 
+            
+            
+            
             labelMessage.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             labelMessage.Location = new System.Drawing.Point(12, 16);
             labelMessage.Name = "labelMessage";
             labelMessage.Size = new System.Drawing.Size(287, 17);
             labelMessage.TabIndex = 0;
             labelMessage.Text = "Please wait...";
-            // 
-            // ProgressBar
-            // 
+            
+            
+            
             ProgressBar.Location = new System.Drawing.Point(15, 47);
             ProgressBar.MarqueeAnimationSpeed = 33;
             ProgressBar.Name = "ProgressBar";
             ProgressBar.Size = new System.Drawing.Size(281, 20);
             ProgressBar.Style = ProgressBarStyle.Marquee;
             ProgressBar.TabIndex = 1;
-            // 
-            // buttonCancel
-            // 
+            
+            
+            
             buttonCancel.Enabled = false;
             buttonCancel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             buttonCancel.Location = new System.Drawing.Point(221, 83);
@@ -64,9 +64,9 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             buttonCancel.Text = "Cancel";
             buttonCancel.UseVisualStyleBackColor = true;
             buttonCancel.Click += ButtonCancel_Click;
-            // 
-            // LegacyDialog2008
-            // 
+            
+            
+            
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(311, 122);

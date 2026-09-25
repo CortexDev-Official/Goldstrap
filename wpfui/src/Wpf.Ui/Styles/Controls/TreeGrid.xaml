@@ -52,7 +52,7 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition SharedSizeGroup="component" />
-                                    <!--  Placeholders for two columns of ToggleButton  -->
+                                    
                                     <ColumnDefinition SharedSizeGroup="_toggle_group" />
                                     <ColumnDefinition SharedSizeGroup="_toggle_group" />
 
@@ -61,7 +61,7 @@
                                     <ColumnDefinition SharedSizeGroup="max" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="Component" />
-                                <!--  Empty TreeViewItem to measure the size of its ToggleButton into the "Toggle" group  -->
+                                
                                 <TreeViewItem Grid.Column="1" Padding="0" />
                                 <TextBlock Grid.Column="3" Text="Value" />
                                 <TextBlock Grid.Column="4" Text="Min" />
@@ -69,7 +69,7 @@
                             </Grid>
                         </Border>
 
-                        <!--  Header above  -->
+                        
                         <ScrollViewer
                             Grid.Row="1"
                             CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"

@@ -18,62 +18,62 @@ namespace Bloxstrap
 #if QA_BUILD
             { "sq", "Albanian" }, // Albanian (TODO: translate string)
 #endif
-            { "ar", "العربية" }, // Arabic
-            { "bg", "Български" }, // Bulgarian
+            { "ar", "العربية" }, 
+            { "bg", "Български" }, 
 #if QA_BUILD
             { "bn", "বাংলা" }, // Bengali
 #endif
-            { "bs", "Bosanski" }, // Bosnian
-            { "cs", "Čeština" }, // Czech
-            { "de", "Deutsch" }, // German
-            { "da", "Dansk" }, // Danish
-            { "es-ES", "Español" }, // Spanish
+            { "bs", "Bosanski" }, 
+            { "cs", "Čeština" }, 
+            { "de", "Deutsch" }, 
+            { "da", "Dansk" }, 
+            { "es-ES", "Español" }, 
 #if QA_BUILD
             { "el", "Ελληνικά" }, // Greek
 #endif
-            { "fa", "فارسی" }, // Persian
-            { "fi", "Suomi" }, // Finnish
-            { "fil", "Filipino" }, // Filipino
-            { "fr", "Français" }, // French
+            { "fa", "فارسی" }, 
+            { "fi", "Suomi" }, 
+            { "fil", "Filipino" }, 
+            { "fr", "Français" }, 
 #if QA_BUILD
             { "he", "עברית‎" }, // Hebrew
             { "hi", "Hindi (Latin)" }, // Hindi
 #endif
-            { "hr", "Hrvatski" }, // Croatian
-            { "hu", "Magyar" }, // Hungarian
+            { "hr", "Hrvatski" }, 
+            { "hu", "Magyar" }, 
 #if QA_BUILD
             { "is", "Íslenska" }, // Icelandic
 #endif
-            { "id", "Bahasa Indonesia" }, // Indonesian
-            { "it", "Italiano" }, // Italian
-            { "ja", "日本語" }, // Japanese
-            { "ko", "한국어" }, // Korean
-            { "lv", "Latviešu" }, // Latvian
-            { "lt", "Lietuvių" }, // Lithuanian
-            { "ms", "Malay" }, // Malay
-            { "nl", "Nederlands" }, // Dutch
+            { "id", "Bahasa Indonesia" }, 
+            { "it", "Italiano" }, 
+            { "ja", "日本語" }, 
+            { "ko", "한국어" }, 
+            { "lv", "Latviešu" }, 
+            { "lt", "Lietuvių" }, 
+            { "ms", "Malay" }, 
+            { "nl", "Nederlands" }, 
 #if QA_BUILD
             { "et", "Eesti Keel" }, // Estonian
             { "no", "Bokmål" }, // Norwegian
 #endif
-            { "pl", "Polski" }, // Polish
+            { "pl", "Polski" }, 
 #if QA_BUILD
             { "pt-PT", "Portugese (European)" }, // Portuguese (TODO: translate)
 #endif
-            { "pt-BR", "Português (Brasil)" }, // Portuguese, Brazilian
-            { "ro", "Română" }, // Romanian
-            { "ru", "Русский" }, // Russian
+            { "pt-BR", "Português (Brasil)" }, 
+            { "ro", "Română" }, 
+            { "ru", "Русский" }, 
 #if QA_BUILD
             { "sr-CS", "Serbian (Latin)" }, // Serbian (TODO: translate)
 #endif
-            { "sv-SE", "Svenska" }, // Swedish
-            { "th", "ภาษาไทย" }, // Thai
-            { "tr", "Türkçe" }, // Turkish
-            { "uk", "Українська" }, // Ukrainian
-            { "vi", "Tiếng Việt" }, // Vietnamese
-            { "zh-CN", "中文 (简体)" }, // Chinese Simplified
-            { "zh-HK", "中文 (香港)" }, // Chinese Traditional, Hong Kong
-            { "zh-TW", "中文 (繁體)" } // Chinese Traditional
+            { "sv-SE", "Svenska" }, 
+            { "th", "ภาษาไทย" }, 
+            { "tr", "Türkçe" }, 
+            { "uk", "Українська" }, 
+            { "vi", "Tiếng Việt" }, 
+            { "zh-Hans-CN", "中文 (简体)" }, 
+            { "zh-Hant-HK", "中文 (香港)" }, 
+            { "zh-Hant-TW", "中文 (繁體)" } 
         };
 
         public static string GetIdentifierFromName(string language) => SupportedLocales.FirstOrDefault(x => x.Value == language).Key ?? "nil";
@@ -84,7 +84,7 @@ namespace Bloxstrap
             
             languages.AddRange(SupportedLocales.Values.Take(3));
             languages.AddRange(SupportedLocales.Values.Where(x => !languages.Contains(x)).OrderBy(x => x));
-            languages[0] = Strings.Common_SystemDefault; // set again for any locale changes
+            languages[0] = Strings.Common_SystemDefault; 
 
             return languages;
         }
@@ -113,7 +113,7 @@ namespace Bloxstrap
         {
             Set("nil");
 
-            // https://supportcenter.devexpress.com/ticket/details/t905790/is-there-a-way-to-set-right-to-left-mode-in-wpf-for-the-whole-application
+            
             EventManager.RegisterClassHandler(typeof(Window), FrameworkElement.LoadedEvent, new RoutedEventHandler((sender, _) =>
             {
                 var window = (Window)sender;

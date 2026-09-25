@@ -36,26 +36,26 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             buttonCancel = new Button();
             ((System.ComponentModel.ISupportInitialize)IconBox).BeginInit();
             SuspendLayout();
-            // 
-            // labelMessage
-            // 
+            
+            
+            
             labelMessage.Location = new System.Drawing.Point(55, 23);
             labelMessage.Name = "labelMessage";
             labelMessage.Size = new System.Drawing.Size(287, 17);
             labelMessage.TabIndex = 0;
             labelMessage.Text = "Please wait...";
-            // 
-            // ProgressBar
-            // 
+            
+            
+            
             ProgressBar.Location = new System.Drawing.Point(58, 51);
             ProgressBar.MarqueeAnimationSpeed = 33;
             ProgressBar.Name = "ProgressBar";
             ProgressBar.Size = new System.Drawing.Size(287, 26);
             ProgressBar.Style = ProgressBarStyle.Marquee;
             ProgressBar.TabIndex = 1;
-            // 
-            // IconBox
-            // 
+            
+            
+            
             IconBox.BackgroundImageLayout = ImageLayout.Zoom;
             IconBox.ImageLocation = "";
             IconBox.Location = new System.Drawing.Point(19, 16);
@@ -63,9 +63,9 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             IconBox.Size = new System.Drawing.Size(32, 32);
             IconBox.TabIndex = 2;
             IconBox.TabStop = false;
-            // 
-            // buttonCancel
-            // 
+            
+            
+            
             buttonCancel.Enabled = false;
             buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             buttonCancel.Location = new System.Drawing.Point(271, 83);
@@ -76,9 +76,9 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             buttonCancel.UseVisualStyleBackColor = true;
             buttonCancel.Visible = false;
             buttonCancel.Click += ButtonCancel_Click;
-            // 
-            // LegacyDialog2011
-            // 
+            
+            
+            
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(362, 131);

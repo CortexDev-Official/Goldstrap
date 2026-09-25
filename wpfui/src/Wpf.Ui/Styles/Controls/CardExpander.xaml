@@ -80,9 +80,9 @@
     </ControlTemplate>
 
     <Style x:Key="DefaultUiCardExpanderStyle" TargetType="{x:Type controls:CardExpander}">
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="Background">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
@@ -116,7 +116,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:CardExpander}">
-                    <!--  Top level border should not have padding or margin  -->
+                    
                     <Border
                         x:Name="ContentBorder"
                         Width="{TemplateBinding Width}"
@@ -136,7 +136,7 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <!--  Top level controls always visible  -->
+                            
                             <ToggleButton
                                 x:Name="ExpanderToggleButton"
                                 Margin="0"
@@ -174,7 +174,7 @@
                                 </ToggleButton.Content>
                             </ToggleButton>
 
-                            <!--  Collapsed content to expand  -->
+                            
                             <Border
                                 x:Name="ContentPresenterBorder"
                                 Grid.Row="1"

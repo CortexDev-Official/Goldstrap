@@ -34,14 +34,14 @@ namespace Bloxstrap.UI.Animations
             if (!_states.TryGetValue(sv, out var state))
             {
                 state = new ScrollState(sv);
-                _states[sv] = state;
+                _states.AddOrUpdate(sv, state);
             }
 
             state.ScrollTo(target);
             e.Handled = true;
         }
 
-        private static readonly Dictionary<ScrollViewer, ScrollState> _states = new();
+        private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<ScrollViewer, ScrollState> _states = new();
 
         private class ScrollState
         {

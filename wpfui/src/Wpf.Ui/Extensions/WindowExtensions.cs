@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System.Windows;
 using System.Windows.Interop;
@@ -18,22 +18,22 @@ public static class WindowExtensions
 {
     #region Styles
 
-    //public static Window GandalfDoMagic(this Window window)
-    //{
-    //    window.Loaded += (sender, args) =>
-    //    {
-    //        var windowHandle = new WindowInteropHelper(window).Handle;
+    
+    
+    
+    
+    
 
-    //        var styles = (long)(Interop.User32.WS.CAPTION);
-    //        //var styles = (long)(User32.WINDOW_STYLE.WS_BORDER | User32.WINDOW_STYLE.WS_SIZEFRAME);
-    //        var exStyles = (long)(Interop.User32.WS_EX.CLIENTEDGE | Interop.User32.WS_EX.LAYERED | Interop.User32.WS_EX.TRANSPARENT);
+    
+    
+    
 
-    //        //User32.SetWindowLong(windowHandle, User32.WINDOWLONGFLAG.GWL_STYLE, styles);
-    //        Interop.User32.SetWindowLong(windowHandle, Interop.User32.GWL.GWL_EXSTYLE, exStyles);
-    //    };
+    
+    
+    
 
-    //    return window;
-    //}
+    
+    
 
     /// <summary>
     /// Tries to aplly backdrop effect to selected <see cref="Window"/>.
@@ -67,7 +67,7 @@ public static class WindowExtensions
     {
         var windowHandle = new WindowInteropHelper(window).Handle;
 
-        // Default WPF window style NONE is WS_CAPTION
+        
         Interop.User32.SetWindowLong(windowHandle, Interop.User32.GWL.GWL_STYLE, (long)Interop.User32.WS.BORDER);
     }
 

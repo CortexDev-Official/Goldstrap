@@ -55,7 +55,7 @@ namespace Bloxstrap.Models.Entities
 
         public DateTime? TimeLeft { get; set; }
 
-        // everything below here is optional strictly for bloxstraprpc, discord rich presence, or game history
+        
 
         /// <summary>
         /// This is intended only for other people to use, i.e. context menu invite link, rich presence joining
@@ -89,14 +89,14 @@ namespace Bloxstrap.Models.Entities
 
         public string GetInviteDeeplink(bool launchData = true, bool useRobloxUri = false)
         {
-            // if our data isnt loaded it uses dummy data
-            // we only wait for important data
+            
+            
 
-            // we need useRobloxUri for rejoin feature
+            
             string deeplink = $"{(useRobloxUri ? "roblox://experiences/start" : App.RemoteData.Prop.DeeplinkUrl)}?placeId={PlaceId}";
 
-            // values come from Roblox log parsing - encode to keep the URI well-formed
-            if (ServerType == ServerType.Private) // thats not going to work
+            
+            if (ServerType == ServerType.Private) 
                 deeplink += "&accessCode=" + HttpUtility.UrlEncode(AccessCode);
             else
                 deeplink += "&gameInstanceId=" + HttpUtility.UrlEncode(JobId);

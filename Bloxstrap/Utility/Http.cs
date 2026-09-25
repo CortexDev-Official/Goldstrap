@@ -11,7 +11,7 @@
         /// <exception cref="JsonException"></exception>
         public static async Task<T> GetJson<T>(Uri url)
         {
-            var request = await App.HttpClient.GetAsync(url);
+            using var request = await App.HttpClient.GetAsync(url);
 
             request.EnsureSuccessStatusCode();
 
@@ -22,7 +22,7 @@
 
         public static async Task<T> SendJson<T>(HttpRequestMessage requestMessage)
         {
-            var request = await App.HttpClient.SendAsync(requestMessage);
+            using var request = await App.HttpClient.SendAsync(requestMessage);
 
             request.EnsureSuccessStatusCode();
 
@@ -33,7 +33,7 @@
 
         public static async Task<T> AuthGetJson<T>(Uri url)
         {
-            var request = await App.Cookies.AuthGet(url);
+            using var request = await App.Cookies.AuthGet(url);
 
             request.EnsureSuccessStatusCode();
 
@@ -46,7 +46,7 @@
         {
             HttpContent content = requestMessage.Content!;
 
-            var request = await App.Cookies.AuthPost(requestMessage.RequestUri, content);
+            using var request = await App.Cookies.AuthPost(requestMessage.RequestUri, content);
 
             request.EnsureSuccessStatusCode();
 

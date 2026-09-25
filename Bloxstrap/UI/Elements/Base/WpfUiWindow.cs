@@ -59,7 +59,7 @@ namespace Bloxstrap.UI.Elements.Base
 
         public void ApplyTheme(bool useAcrylic = false)
         {
-            const int customThemeIndex = 2; // index for CustomTheme merged dictionary
+            const int customThemeIndex = 2; 
 
             bool isDark = App.Settings.Prop.Theme.GetFinal() != Enums.Theme.Light;
 
@@ -127,14 +127,14 @@ namespace Bloxstrap.UI.Elements.Base
         }
 
         #region Acrylic Drag Logic
-        // basically, the default acrylic implementation is horrible as it causes a crap ton of lag (on windows 10) when the window is moved
-        // the reason afaik is due to the window being redrawn every single time it moves, which is a no no
-        // so, we're going to do the window moving ourselves.
-        // the drag delay is controlled by the _dragDelay variable (wow). any variable between 5 and 15 should work good.
-        // 5 should not cause that much lag but i'm going to keep it at that for now
+        
+        
+        
+        
+        
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            // skip if acrylic is not on
+            
             if (!App.Settings.Prop.UseAcrylicBackground)
             {
                 base.OnPreviewMouseLeftButtonDown(e);

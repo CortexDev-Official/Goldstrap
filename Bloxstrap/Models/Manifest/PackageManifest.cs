@@ -30,7 +30,7 @@ namespace Bloxstrap.Models.Manifest
                     string.IsNullOrEmpty(rawSize))
                     break;
 
-                // ignore launcher
+                
                 if (fileName == "RobloxPlayerLauncher.exe")
                     break;
 

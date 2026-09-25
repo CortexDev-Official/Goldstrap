@@ -1,4 +1,6 @@
-﻿using Bloxstrap.Enums.GBSPresets;
+﻿using System.Windows;
+
+using Bloxstrap.Enums.GBSPresets;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
@@ -16,7 +18,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             {
                 if (int.TryParse(App.GlobalSettings.GetPreset("Rendering.FramerateCap"), out int framerate))
                 {
-                    // -1 is default framerate cap set by `DFIntTaskSchedulerTargetFps`
+                    
                     if (framerate < 1)
                         return 60;
                     else
@@ -27,7 +29,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
             set
             {
-                // setting the framerate cap to 0 will break roblox's renderer so we want to avoid that
+                
                 if (value < 1)
                     value = -1;
                 
@@ -40,22 +42,80 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => App.GlobalSettings.GetPreset("UI.Transparency")!;
             set
             {
-                App.GlobalSettings.SetPreset("UI.Transparency", value.Length >= 3 ? value[..3] : value); // guhh??
+                App.GlobalSettings.SetPreset("UI.Transparency", value.Length >= 3 ? value[..3] : value); 
 
                 OnPropertyChanged(nameof(UITransparency));
             }
         }
 
-        public string GraphicsQuality
+        
+        
+        
+        
+        private const int MinQualityLevel = 1;
+        private const int MaxQualityLevel = 21;
+        private const int MaxSavedQualityLevel = 10;
+
+        private static int ToGraphicsQualityLevel(int savedLevel) =>
+            (int)Math.Round((savedLevel - 1) * (double)(MaxQualityLevel - MinQualityLevel) / (MaxSavedQualityLevel - 1)) + MinQualityLevel;
+
+        private static int ToSavedQualityLevel(int graphicsLevel) =>
+            (int)Math.Round((graphicsLevel - MinQualityLevel) * (double)(MaxSavedQualityLevel - 1) / (MaxQualityLevel - MinQualityLevel)) + 1;
+
+        public int GraphicsQuality
         {
-            get => App.GlobalSettings.GetPreset("Rendering.SavedQualityLevel")!;
+            get
+            {
+                if (!int.TryParse(App.GlobalSettings.GetPreset("Rendering.SavedQualityLevel"), out int savedLevel))
+                    return 0; 
+
+                if (savedLevel <= 0)
+                    return 0;
+
+                
+                
+                if (savedLevel >= MaxSavedQualityLevel
+                    && int.TryParse(App.GlobalSettings.GetPreset("Rendering.GraphicsQualityLevel"), out int graphicsLevel)
+                    && graphicsLevel >= MinQualityLevel && graphicsLevel < MaxQualityLevel)
+                {
+                    return Math.Clamp(ToSavedQualityLevel(graphicsLevel), 1, MaxSavedQualityLevel);
+                }
+
+                return Math.Min(savedLevel, MaxSavedQualityLevel);
+            }
+
             set
             {
-                App.GlobalSettings.SetPreset("Rendering.SavedQualityLevel", value);
+                int savedLevel = Math.Clamp(value, 0, MaxSavedQualityLevel);
+
+                App.GlobalSettings.SetPreset("Rendering.SavedQualityLevel", savedLevel);
+
+                
+                
+                App.GlobalSettings.SetPreset("Rendering.MaxQualityEnabled", false);
+
+                if (savedLevel > 0)
+                    App.GlobalSettings.SetPreset("Rendering.GraphicsQualityLevel", ToGraphicsQualityLevel(savedLevel));
+
+                
+                
+                
+                App.FastFlags.SetPreset("Rendering.FRMQualityOverride", null);
 
                 OnPropertyChanged(nameof(GraphicsQuality));
+                OnPropertyChanged(nameof(QualityOverrideActive));
             }
         }
+
+        /// <summary>
+        /// True while the FRM quality override fastflag is set, which pins roblox's render quality
+        /// and greys out the in-game graphics slider no matter what's configured here.
+        /// </summary>
+        public bool QualityOverrideActive =>
+            App.FastFlags.GetValue("DFIntDebugFRMQualityLevelOverride") is not null;
+
+        public Visibility QualityOverrideVisibility =>
+            QualityOverrideActive ? Visibility.Visible : Visibility.Collapsed;
 
         public bool ReducedMotion
         {

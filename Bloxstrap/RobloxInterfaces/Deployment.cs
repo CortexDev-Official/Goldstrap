@@ -50,8 +50,8 @@ namespace Bloxstrap.RobloxInterfaces
 
         private static readonly Dictionary<string, ClientVersion> ClientVersionCache = new();
 
-        // a list of roblox deployment locations that we check for, in case one of them don't work
-        // these are all weighted based on their priority, so that we pick the most optimal one that we can. 0 = highest
+        
+        
         private static readonly Dictionary<string, int> BaseUrls = new()
         {
             { "https://setup.rbxcdn.com", 0 },
@@ -75,8 +75,8 @@ namespace Bloxstrap.RobloxInterfaces
 
                 response.EnsureSuccessStatusCode();
 
-                // versionStudio is the version hash for the last MFC studio to be deployed.
-                // the response body should always be "version-012732894899482c".
+                
+                
                 string content = await response.Content.ReadAsStringAsync(token);
 
                 if (content != VersionStudioHash)
@@ -124,7 +124,7 @@ namespace Bloxstrap.RobloxInterfaces
                     BaseUrl = finishedTask.Result;
             }
 
-            // stop other running connectivity tests
+            
             tokenSource.Cancel();
 
             if (string.IsNullOrEmpty(BaseUrl))
@@ -132,7 +132,7 @@ namespace Bloxstrap.RobloxInterfaces
                 if (exceptions.Any())
                     return exceptions[0];
 
-                // task cancellation exceptions don't get added to the list
+                
                 return new TaskCanceledException("All connection attempts timed out.");
             }
 
@@ -204,7 +204,7 @@ namespace Bloxstrap.RobloxInterfaces
             const string LOG_IDENT = "Deployment::GetVersionTimestamp";
             const string header = "last-modified";
 
-            // since we arent getting the timestamp during launch there shouldnt be any collisions
+            
             if (string.IsNullOrEmpty(BaseUrl))
                 await InitializeConnectivity();
 
@@ -304,7 +304,7 @@ namespace Bloxstrap.RobloxInterfaces
                     }
                 }
 
-                // check if channel is behind LIVE
+                
                 if (!isDefaultChannel && behindProductionCheck)
                 {
                     var defaultClientVersion = await GetInfo(DefaultChannel);

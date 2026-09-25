@@ -50,7 +50,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsOpen" Value="True">
-                            <!--  Animate  -->
+                            
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.ComponentModel;
@@ -25,17 +25,17 @@ namespace Wpf.Ui.Controls;
 [ToolboxBitmap(typeof(NumberBox), "NumberBox.bmp")]
 public class NumberBox : Wpf.Ui.Controls.TextBox
 {
-    // In both expressions, we allow the lonely characters '-', '.' and ',' so the numbers can be typed in real-time.
+    
 
     /// <summary>
     /// Accepts a string of digits separated by a comma or period. Allows for a leading minus sign.
     /// </summary>
-    private readonly string _decimalExpression = /* language=regex */ @"^\-?(\d+(?:[\.\,]|[\.\,]\d+)?)?$";
+    private readonly string _decimalExpression =  @"^\-?(\d+(?:[\.\,]|[\.\,]\d+)?)?$";
 
     /// <summary>
     /// Accepts a string of digits only. Allows for a leading minus sign.
     /// </summary>
-    private readonly string _integerExpression = /* language=regex */ @"^\-?(\d+)*$";
+    private readonly string _integerExpression =  @"^\-?(\d+)*$";
 
     /// <summary>
     /// Property for <see cref="Value"/>.
@@ -345,7 +345,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// </summary>
     private bool IsNumberTextValid(string inputText)
     {
-        // If the mask is used this method will not work
+        
 
         var decimalPlaces = DecimalPlaces;
         var integerRegex = new Regex(_integerExpression);
@@ -450,7 +450,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
         if (!String.IsNullOrEmpty(newText))
             e.Handled = !IsNumberTextValid(newText);
 
-        // Do not allow a leading minus sign if the min value is greater than zero.
+        
         if (Min >= 0 && newText.StartsWith("-"))
             e.Handled = true;
 

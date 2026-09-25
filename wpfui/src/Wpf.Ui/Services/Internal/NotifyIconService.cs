@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Windows;
@@ -167,7 +167,7 @@ internal class NotifyIconService : IDisposable, INotifyIcon
         if (ContextMenu == null)
             return;
 
-        // Without setting the handler window at the front, menu may appear behind the taskbar
+        
         Interop.User32.SetForegroundWindow(HookWindow.Handle);
         ContextMenuService.SetPlacement(ContextMenu, PlacementMode.MousePoint);
 

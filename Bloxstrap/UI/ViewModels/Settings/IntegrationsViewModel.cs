@@ -14,6 +14,20 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public bool VulkanFullscreenAllowed => App.Settings.Prop.EnableWindowManipulation && (App.FastFlags.GetPreset("Rendering.Mode.Vulkan") ?? "False").Equals("True", StringComparison.OrdinalIgnoreCase);
 
+        public bool EnableRobloxBackgroundApp
+        {
+            get => App.Settings.Prop.EnableRobloxBackgroundApp;
+            set => App.Settings.Prop.EnableRobloxBackgroundApp = value;
+        }
+
+        public IReadOnlyCollection<RobloxTheme> RobloxThemes { get; } = RobloxThemeEx.Selections;
+
+        public RobloxTheme RobloxTheme
+        {
+            get => App.Settings.Prop.RobloxTheme;
+            set => App.Settings.Prop.RobloxTheme = value;
+        }
+
         public ICommand AddIntegrationCommand => new RelayCommand(AddIntegration);
 
         public ICommand DeleteIntegrationCommand => new RelayCommand(DeleteIntegration);

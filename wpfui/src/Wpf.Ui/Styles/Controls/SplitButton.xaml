@@ -18,9 +18,9 @@
     <Thickness x:Key="SplitButtonIconMargin">0,0,8,0</Thickness>
 
     <Style x:Key="DefaultUiSplitButtonStyle" TargetType="{x:Type controls:SplitButton}">
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="Background">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />

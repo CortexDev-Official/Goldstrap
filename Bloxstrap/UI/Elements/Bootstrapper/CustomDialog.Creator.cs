@@ -14,7 +14,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         private bool _initialised = false;
 
-        // prevent users from creating elements with the same name multiple times
+        
         private List<string> UsedNames { get; } = new List<string>();
 
         private string ThemeDir { get; set; } = "";
@@ -44,7 +44,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             ["GradientStop"] = HandleXmlElement_GradientStop,
 
-            //["PathFigure"] = HandleXmlElement_PathGeometry,
+            
 
             ["ScaleTransform"] = HandleXmlElement_ScaleTransform,
             ["SkewTransform"] = HandleXmlElement_SkewTransform,
@@ -82,7 +82,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         private static void AddXml(CustomDialog dialog, XElement xmlElement)
         {
             if (xmlElement.Name.ToString().StartsWith($"{xmlElement.Parent!.Name}."))
-                return; // not an xml element
+                return; 
 
             var uiElement = HandleXml<UIElement>(dialog, xmlElement);
             if (uiElement is not DummyFrameworkElement)
@@ -105,10 +105,10 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             _initialised = true;
 
-            // handle root
+            
             HandleXmlElement_BloxstrapCustomBootstrapper(this, xml);
 
-            // handle everything else
+            
             foreach (var child in xml.Elements())
                 AddXml(this, child);
         }

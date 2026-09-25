@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Windows;
@@ -38,7 +38,7 @@ internal static class SystemTheme
 
         currentTheme = currentTheme.ToLower().Trim();
 
-        // This may be changed in the next versions, check the Insider previews
+        
 
         if (currentTheme.Contains("basic.theme"))
             return SystemThemeType.Light;
@@ -61,8 +61,8 @@ internal static class SystemTheme
         if (currentTheme.Contains("themed.theme"))
             return SystemThemeType.Flow;
 
-        //if (currentTheme.Contains("custom.theme"))
-        //    return ; custom can be light or dark
+        
+        
 
         var rawAppsUseLightTheme = Registry.GetValue(
         "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",

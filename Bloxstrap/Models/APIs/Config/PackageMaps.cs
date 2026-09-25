@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace Bloxstrap.Models.APIs.Config
 {
 
-    // those are the default directories
-    // these should still be updated since remote data could fail to load
+    
+    
     public class PackageMaps
     {
         [JsonPropertyName("common")]
@@ -19,7 +19,7 @@ namespace Bloxstrap.Models.APIs.Config
             { "shaders.zip",                   @"shaders\" },
             { "ssl.zip",                       @"ssl\" },
 
-            // the runtime installer is only extracted if it needs installing
+            
             { "WebView2.zip",                  @"" },
             { "WebView2RuntimeInstaller.zip",  @"WebView2RuntimeInstaller\" },
 
@@ -75,7 +75,7 @@ namespace Bloxstrap.Models.APIs.Config
             { "RibbonConfig.zip",                @"RibbonConfig\" }
         };
 
-        // allows us to index package maps with dictionary[key]
+        
         public Dictionary<string, string> this[string key] =>
         key switch
         {

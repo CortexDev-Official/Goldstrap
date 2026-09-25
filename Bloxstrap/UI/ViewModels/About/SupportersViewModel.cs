@@ -18,7 +18,7 @@ namespace Bloxstrap.UI.ViewModels.About
         {
             WindowResizeEvent += OnWindowResize;
 
-            // this will cause momentary freezes only when ran under the debugger
+            
             LoadSupporterData();
         }
 

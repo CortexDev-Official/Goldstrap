@@ -2,7 +2,7 @@
 {
     public enum GameJoinType
     {
-        Unknown, // fallback
+        Unknown, 
         RequestGame,
         RequestGameJob,
         RequestPrivateGame,

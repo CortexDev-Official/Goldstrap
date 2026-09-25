@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System.ComponentModel;
 using System.Drawing;
@@ -24,7 +24,7 @@ public class DynamicScrollViewer : System.Windows.Controls.ScrollViewer
 
     private readonly EventIdentifier _horizontalIdentifier = new();
 
-    // Due to the large number of triggered events, we limit the complex logic of DependencyProperty
+    
     private bool _scrollingVertically = false;
 
     private bool _scrollingHorizontally = false;
@@ -97,15 +97,15 @@ public class DynamicScrollViewer : System.Windows.Controls.ScrollViewer
         set => SetValue(TimeoutProperty, value);
     }
 
-    //protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
-    //{
-    //    base.OnPreviewMouseWheel(e);
-    //}
+    
+    
+    
+    
 
-    //protected override void OnKeyDown(KeyEventArgs e)
-    //{
-    //    base.OnKeyDown(e);
-    //}
+    
+    
+    
+    
 
     /// <summary>
     /// OnScrollChanged is an override called whenever scrolling state changes on this <see cref="DynamicScrollViewer"/>.
@@ -119,10 +119,10 @@ public class DynamicScrollViewer : System.Windows.Controls.ScrollViewer
     {
         base.OnScrollChanged(e);
 
-        //#if DEBUG
-        //            System.Diagnostics.Debug.WriteLine($"DEBUG | {typeof(DynamicScrollBar)}.{nameof(e.VerticalChange)} - {e.VerticalChange}", "WPFUI");
-        //            System.Diagnostics.Debug.WriteLine($"DEBUG | {typeof(DynamicScrollBar)}.{nameof(e.HorizontalChange)} - {e.HorizontalChange}", "WPFUI");
-        //#endif
+        
+        
+        
+        
 
         if (e.HorizontalChange > _minimalChange || e.HorizontalChange < -_minimalChange)
             UpdateHorizontalScrollingState();
@@ -134,10 +134,10 @@ public class DynamicScrollViewer : System.Windows.Controls.ScrollViewer
     private async void UpdateVerticalScrollingState()
     {
         // TODO: Optimize
-        // My main assumption here is that each scroll causes a new "event / thread" to be assigned.
-        // If more than Timeout has passed since the last event, there is no interaction.
-        // We pass this value to the ScrollBar and link it to IsMouseOver.
-        // This way we have a dynamic scrollbar that responds to scroll / mouse over.
+        
+        
+        
+        
 
         var currentEvent = _verticalIdentifier.GetNext();
 
@@ -154,10 +154,10 @@ public class DynamicScrollViewer : System.Windows.Controls.ScrollViewer
     private async void UpdateHorizontalScrollingState()
     {
         // TODO: Optimize
-        // My main assumption here is that each scroll causes a new "event / thread" to be assigned.
-        // If more than Timeout has passed since the last event, there is no interaction.
-        // We pass this value to the ScrollBar and link it to IsMouseOver.
-        // This way we have a dynamic scrollbar that responds to scroll / mouse over.
+        
+        
+        
+        
 
         var currentEvent = _horizontalIdentifier.GetNext();
 

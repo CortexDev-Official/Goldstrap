@@ -18,7 +18,7 @@ namespace Bloxstrap
 
         private static string StartMenuShortcut => Path.Combine(Paths.WindowsStartMenu, $"{App.ProjectName}.lnk");
 
-        public string BloxstrapInstallDirectory = Path.Combine(Paths.LocalAppData, "Bloxstrap"); // default directory for bloxstrap
+        public string BloxstrapInstallDirectory = Path.Combine(Paths.LocalAppData, "Bloxstrap"); 
                                                                                                  // TODO dynamically fetch from uninstall/player registry keys
         public string InstallLocation = Path.Combine(Paths.LocalAppData, App.ProjectName);
 
@@ -28,17 +28,17 @@ namespace Bloxstrap
 
         public bool CreateStartMenuShortcuts = true;
 
-        public bool ImportSettings = Directory.Exists(Path.Combine(Paths.LocalAppData, "Bloxstrap")); // if bloxstrap isnt detected this will be set to false
-                                                                                                      // another scenerio is user simply toggling it off
+        public bool ImportSettings = Directory.Exists(Path.Combine(Paths.LocalAppData, "Bloxstrap")); 
+                                                                                                      
 
         public bool IsImplicitInstall = false;
 
         public string InstallLocationError { get; set; } = "";
 
-        // anything we want copied should be put in here
-        // root directory only
+        
+        
         public string[] FilesForImporting = {
-            "CustomThemes", // from feature/custom-bootstrappers
+            "CustomThemes", 
             "Modifications",
             "Settings.json"
         };
@@ -49,7 +49,7 @@ namespace Bloxstrap
 
             App.Logger.WriteLine(LOG_IDENT, "Beginning installation");
 
-            // should've been created earlier from the write test anyway
+            
             Directory.CreateDirectory(InstallLocation);
 
             Paths.Initialize(InstallLocation);
@@ -95,9 +95,9 @@ namespace Bloxstrap
 
             WindowsRegistry.RegisterApis();
 
-            // only register player, for the scenario where the user installs bloxstrap, closes it,
-            // and then launches from the website expecting it to work
-            // studio can be implicitly registered when it's first launched manually
+            
+            
+            
             WindowsRegistry.RegisterPlayer();
 
             if (CreateDesktopShortcuts)
@@ -108,8 +108,8 @@ namespace Bloxstrap
 
             if (ImportSettings)
             {
-                // we dont have to worry about directories messing up
-                // if something doesn't exist Goldstrap will recreate the file/directory
+                
+                
                 try
                 {
                     ImportSettingsFromBloxstrap();
@@ -123,8 +123,8 @@ namespace Bloxstrap
                 }
             }
 
-            // existing configuration persisting from an earlier install
-            // or from importing settings
+            
+            
             App.Settings.Load(false);
             App.State.Load(false);
             App.FastFlags.Load(false);
@@ -140,11 +140,11 @@ namespace Bloxstrap
 
         private bool ValidateLocation()
         {
-            // prevent from installing to the root of a drive
+            
             if (InstallLocation.Length <= 3)
                 return false;
 
-            // unc path, just to be safe
+            
             if (InstallLocation.StartsWith("\\\\"))
                 return false;
 
@@ -152,20 +152,23 @@ namespace Bloxstrap
                 || InstallLocation.Contains("\\Temp\\", StringComparison.InvariantCultureIgnoreCase))
                 return false;
 
-            // prevent from installing to a onedrive folder
+            
             if (InstallLocation.Contains("OneDrive", StringComparison.InvariantCultureIgnoreCase))
                 return false;
 
-            // prevent from installing to an essential user profile folder (e.g. Documents, Downloads, Contacts idk)
+            
             if (String.Compare(Directory.GetParent(InstallLocation)?.FullName, Paths.UserProfile, StringComparison.InvariantCultureIgnoreCase) == 0)
                 return false;
 
-            // prevent from installing into the program files folder
+            
             if (InstallLocation.Contains("Program Files"))
                 return false;
 
-            // prevent issues with settings importing
+            
             if (InstallLocation.Contains("Local\\Bloxstrap"))
+                return false;
+
+            if (InstallLocation.Contains("WindowsApps"))
                 return false;
 
             return true;
@@ -205,7 +208,7 @@ namespace Bloxstrap
 
                 try
                 {
-                    // check if we can write to the directory (a bit hacky but eh)
+                    
                     string testFile = Path.Combine(InstallLocation, $"{App.ProjectName}WriteTest.txt");
 
                     Directory.CreateDirectory(InstallLocation);
@@ -237,7 +240,7 @@ namespace Bloxstrap
             if (App.IsStudioVisible)
                 processes.AddRange(Process.GetProcessesByName(App.RobloxStudioAppName));
 
-            // prompt to shutdown roblox if its currently running
+            
             if (processes.Any())
             {
                 var result = Frontend.ShowMessageBox(
@@ -271,7 +274,7 @@ namespace Bloxstrap
             bool playerStillInstalled = true;
             bool studioStillInstalled = true;
 
-            // check if stock bootstrapper is still installed
+            
             using var playerKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\roblox-player");
             var playerFolder = playerKey?.GetValue("InstallLocation");
 
@@ -337,8 +340,8 @@ namespace Bloxstrap
 
                 () =>
                 {
-                if (Paths.Roblox == Path.Combine(Paths.Base, "Roblox")) // checking if roblox is installed in base directory
-                    Directory.Delete(Paths.Roblox, true);               // made that to prevent accidental removals of different builds
+                if (Paths.Roblox == Path.Combine(Paths.Base, "Roblox")) 
+                    Directory.Delete(Paths.Roblox, true);               
                 }
             };
 
@@ -379,7 +382,7 @@ namespace Bloxstrap
 
             if (Directory.Exists(Paths.Base))
             {
-                // this is definitely one of the workaround hacks of all time
+                
 
                 string deleteCommand;
 
@@ -405,7 +408,7 @@ namespace Bloxstrap
             if (!File.Exists(Paths.Application) || Paths.Process == Paths.Application)
                 return;
 
-            // 2.0.0 downloads updates to <BaseFolder>/Updates so lol
+            
             bool isAutoUpgrade = App.LaunchSettings.UpgradeFlag.Active
                 || Paths.Process.StartsWith(Path.Combine(Paths.Base, "Updates"))
                 || Paths.Process.StartsWith(Path.Combine(Paths.LocalAppData, "Temp"))
@@ -429,7 +432,7 @@ namespace Bloxstrap
                     return;
             }
 
-            // silently upgrade version if the command line flag is set or if we're launching from an auto update
+            
             if (!isAutoUpgrade)
             {
                 var result = Frontend.ShowMessageBox(
@@ -455,8 +458,8 @@ namespace Bloxstrap
                 }
             }
 
-            // prior to 2.8.0, auto-updating was handled with this... bruteforce method
-            // now it's handled with the system mutex you see above, but we need to keep this logic for <2.8.0 versions
+            
+            
             for (int i = 1; i <= 10; i++)
             {
                 try
@@ -491,7 +494,7 @@ namespace Bloxstrap
                 uninstallKey.SetValueSafe("URLUpdateInfo", App.ProjectDownloadLink);
             }
 
-            // update migrations
+            
 
             if (existingVer is not null)
             {
@@ -599,7 +602,7 @@ namespace Bloxstrap
 
                 if (Utilities.CompareVersions(existingVer, "2.8.1") == VersionComparison.LessThan)
                 {
-                    // wipe all escape menu flag presets
+                    
                     App.FastFlags.SetValue("FIntNewInGameMenuPercentRollout3", null);
                     App.FastFlags.SetValue("FFlagEnableInGameMenuControls", null);
                     App.FastFlags.SetValue("FFlagEnableInGameMenuModernization", null);
@@ -631,7 +634,7 @@ namespace Bloxstrap
 
                 if (Utilities.CompareVersions(existingVer, "2.9.0") == VersionComparison.LessThan)
                 {
-                    // move from App.State to App.RobloxState
+                    
                     if (App.State.Prop.GetDeprecatedPlayer() != null)
                         App.RobloxState.Prop.Player = App.State.Prop.GetDeprecatedPlayer()!;
 
@@ -676,13 +679,13 @@ namespace Bloxstrap
             {
                 Frontend.ShowMessageBox(Strings.Installer_InstallationNotFound, MessageBoxImage.Exclamation);
                 return;
-            } // bloxstrap default directory is not present
+            } 
 
             foreach (string FileName in FilesForImporting)
             {
                 string Source = Path.Combine(BloxstrapInstallDirectory, FileName);
                 if (!Directory.Exists(Source) && !File.Exists(Source))
-                    continue; // customthemes
+                    continue; 
 
                 FileAttributes Attributes = File.GetAttributes(Source);
                 bool IsDirectory = Attributes.HasFlag(FileAttributes.Directory);
@@ -691,7 +694,7 @@ namespace Bloxstrap
 
                 if (IsDirectory)
                 {
-                    // delete existing file from Goldstrap folder
+                    
                     string ExistingFile = Path.Combine(InstallLocation, FileName);
                     if (Directory.Exists(ExistingFile))
                     {
@@ -699,20 +702,20 @@ namespace Bloxstrap
                         Directory.Delete(ExistingFile, true);
                     }
 
-                    // https://stackoverflow.com/questions/58744/copy-the-entire-contents-of-a-directory-in-c-sharp
-                    // we could use Directory.Move but that deletes the directory from bloxstrap folder
-                    // instead we will use this
+                    
+                    
+                    
 
-                    // create the directory
+                    
                     Directory.CreateDirectory(ExistingFile);
 
-                    // Now Create all of the directories
+                    
                     foreach (string dirPath in Directory.GetDirectories(Source, "*", SearchOption.AllDirectories))
                     {
                         Directory.CreateDirectory(dirPath.Replace(Source, ExistingFile));
                     }
 
-                    // Copy all the files & Replaces any files with the same name
+                    
                     foreach (string newPath in Directory.GetFiles(Source, "*.*", SearchOption.AllDirectories))
                     {
                         File.Copy(newPath, newPath.Replace(Source, ExistingFile), true);
@@ -720,8 +723,8 @@ namespace Bloxstrap
                 } else
                 {
                     string FileLocation = Path.Combine(InstallLocation, FileName);
-                    // we dont have to delete the file here
-                    // we can simply override it
+                    
+                    
                     File.Copy(Source, FileLocation, true);
                     App.Logger.WriteLine(LOG_IDENT, $"Overridding {FileName} in InstallLocation");
                 }
@@ -729,10 +732,10 @@ namespace Bloxstrap
 
             App.Logger.WriteLine(LOG_IDENT, $"Importing succeeded");
 
-            // these happen later on in installation process
-            // App.Settings.Load(false);
-            // App.State.Load(false);
-            // App.FastFlags.Load(false);
+            
+            
+            
+            
         }
     }
 }

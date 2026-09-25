@@ -1,9 +1,9 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Based on VirtualizingWrapPanel created by S. Bäumlisberger licensed under MIT license.
-// https://github.com/sbaeumlisberger/VirtualizingWrapPanel
+
 // Copyright (C) S. Bäumlisberger, Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.ComponentModel;
@@ -255,7 +255,7 @@ public class VirtualizingWrapPanel : VirtualizingPanelBase
         var offsetX = GetX(Offset);
         var offsetY = GetY(Offset);
 
-        /* When the items owner is a group item offset is handled by the parent panel. */
+        
         if (ItemsOwner is IHierarchicalVirtualizationAndScrollInfo groupItem)
             offsetY = 0;
 
@@ -277,10 +277,7 @@ public class VirtualizingWrapPanel : VirtualizingPanelBase
 
             if (GetHeight(finalSize) == 0.0)
             {
-                /* When the parent panel is grouping and a cached group item is not 
-                 * in the viewport it has no valid arrangement. That means that the 
-                 * height/width is 0. Therefore the items should not be visible so 
-                 * that they are not falsely displayed. */
+                
                 child.Arrange(new Rect(0, 0, 0, 0));
             }
             else
@@ -353,7 +350,7 @@ public class VirtualizingWrapPanel : VirtualizingPanelBase
 
             if (ScrollUnit == ScrollUnit.Item)
             {
-                offsetRowIndex = GetY(offset) >= 1 ? (int)GetY(offset) - 1 : 0; // ignore header
+                offsetRowIndex = GetY(offset) >= 1 ? (int)GetY(offset) - 1 : 0; 
                 offsetInPixel = offsetRowIndex * GetHeight(ChildSize);
             }
             else
@@ -504,7 +501,7 @@ public class VirtualizingWrapPanel : VirtualizingPanelBase
     protected override double GetPageRightScrollAmount()
         => Viewport.Width;
 
-    /* orientation aware helper methods */
+    
 
     /// <summary>
     /// Gets X panel orientation.

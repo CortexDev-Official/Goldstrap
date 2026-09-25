@@ -31,7 +31,7 @@ namespace Bloxstrap.UI.Elements.Editor
                 public string? SuperClass { get; set; } = null;
                 public bool IsCreatable { get; set; } = false;
 
-                // [AttributeName] = [TypeName]
+                
                 public Dictionary<string, string> Attributes { get; set; } = new Dictionary<string, string>();
             }
 
@@ -123,7 +123,7 @@ namespace Bloxstrap.UI.Elements.Editor
                         toRemove.Add(element.Key);
                 }
 
-                // remove non-creatable from list now that everything is done
+                
                 foreach (var name in toRemove)
                 {
                     ElementInfo.Remove(name);
@@ -141,7 +141,7 @@ namespace Bloxstrap.UI.Elements.Editor
             string directory = Path.Combine(Paths.CustomThemes, name);
 
             string themeContents = File.ReadAllText(Path.Combine(directory, "Theme.xml"));
-            themeContents = ToCRLF(themeContents); // make sure the theme is in CRLF. a function expects CRLF.
+            themeContents = ToCRLF(themeContents); 
 
             _viewModel = new BootstrapperEditorWindowViewModel();
             _viewModel.ThemeSavedCallback = ThemeSavedCallback;
@@ -232,7 +232,7 @@ namespace Bloxstrap.UI.Elements.Editor
 
         private (string, int) GetLineAndPosAtCaretPosition()
         {
-            // this assumes the file was saved as CSLF (\r\n newlines)
+            
             int offset = UIXML.CaretOffset - 1;
             int lineStartIdx = UIXML.Text.LastIndexOf('\n', offset);
             int lineEndIdx = UIXML.Text.IndexOf('\n', offset);
@@ -284,17 +284,17 @@ namespace Bloxstrap.UI.Elements.Editor
             }
 
             int endIdx1 = xml.IndexOf(' ', startIdx);
-            if (endIdx1 == -1 /*|| endIdx1 > offset*/) endIdx1 = int.MaxValue;
+            if (endIdx1 == -1 ) endIdx1 = int.MaxValue;
 
             int endIdx2 = xml.IndexOf('>', startIdx);
-            if (endIdx2 == -1 /*|| endIdx2 > offset*/)
+            if (endIdx2 == -1 )
             {
                 endIdx2 = int.MaxValue;
             }
             else
             {
                 if (onlyAllowInside && endIdx2 < offset)
-                    return null; // we dont want attribute auto complete to show outside of elements
+                    return null; 
 
                 if (endIdx2 < xml.Length && xml[endIdx2 - 1] == '/')
                 {
@@ -306,7 +306,7 @@ namespace Bloxstrap.UI.Elements.Editor
             if (endIdx2 > 0 && endIdx2 < int.MaxValue && endIdx > startIdx)
             {
                 string element = xml.Substring(startIdx + 1, endIdx - startIdx - 1);
-                return element == "!--" ? null : element; // dont treat comments as elements
+                return element == "!--" ? null : element; 
             }
             else
             {
@@ -345,11 +345,11 @@ namespace Bloxstrap.UI.Elements.Editor
         {
             (string line, int pos) = GetLineAndPosAtCaretPosition();
 
-            // check if theres an even number of speech marks on the line
+            
             int numSpeech = line.Count(x => x == '"');
             if (numSpeech % 2 == 0)
             {
-                // we have an equal number, let's check if pos is in between the speech marks
+                
                 int count = -1;
                 int idx = pos;
                 int size = line.Length - 1;
@@ -365,8 +365,8 @@ namespace Bloxstrap.UI.Elements.Editor
 
                 if (count % 2 != 0)
                 {
-                    // odd number of speech marks means we're inside a string right now
-                    // we dont want to display attribute auto complete while we're inside a string
+                    
+                    
                     return null;
                 }
             }
@@ -391,7 +391,7 @@ namespace Bloxstrap.UI.Elements.Editor
                 if (UIXML.Text.Length > UIXML.CaretOffset && UIXML.Text[UIXML.CaretOffset] == '>')
                     return;
 
-                var elementName = ShowAttributesForElementName(); // re-using functions :)
+                var elementName = ShowAttributesForElementName(); 
                 if (elementName != null)
                     UIXML.TextArea.Document.Insert(UIXML.CaretOffset, ">");
             }
@@ -509,7 +509,7 @@ namespace Bloxstrap.UI.Elements.Editor
 
         public string Text { get; private set; }
 
-        // Use this property if you want to show a fancy UIElement in the list.
+        
         public object Content => Text;
 
         public object? Description => null;
@@ -537,7 +537,7 @@ namespace Bloxstrap.UI.Elements.Editor
 
         public string Text { get; private set; }
 
-        // Use this property if you want to show a fancy UIElement in the list.
+        
         public object Content => Text;
 
         public object? Description => null;
@@ -564,7 +564,7 @@ namespace Bloxstrap.UI.Elements.Editor
 
         public string Text { get; private set; }
 
-        // Use this property if you want to show a fancy UIElement in the list.
+        
         public object Content => Text;
 
         public object? Description => null;

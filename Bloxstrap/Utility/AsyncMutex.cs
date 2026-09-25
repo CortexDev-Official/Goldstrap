@@ -1,6 +1,6 @@
 ﻿namespace Bloxstrap.Utility
 {
-    // https://gist.github.com/dfederm/35c729f6218834b764fa04c219181e4e
+    
 
     public sealed class AsyncMutex : IAsyncDisposable
     {
@@ -25,8 +25,8 @@
             _releaseEvent = new ManualResetEventSlim();
             _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
-            // Putting all mutex manipulation in its own task as it doesn't work in async contexts
-            // Note: this task should not throw.
+            
+            
             _mutexTask = Task.Factory.StartNew(
                 state =>
                 {
@@ -36,7 +36,7 @@
                         using var mutex = new Mutex(_initiallyOwned, _name);
                         try
                         {
-                            // Wait for either the mutex to be acquired, or cancellation
+                            
                             if (WaitHandle.WaitAny(new[] { mutex, cancellationToken.WaitHandle }) != 0)
                             {
                                 taskCompletionSource.SetCanceled(cancellationToken);
@@ -45,12 +45,12 @@
                         }
                         catch (AbandonedMutexException)
                         {
-                            // Abandoned by another process, we acquired it.
+                            
                         }
 
                         taskCompletionSource.SetResult();
 
-                        // Wait until the release call
+                        
                         _releaseEvent.Wait();
 
                         mutex.ReleaseMutex();
@@ -84,10 +84,10 @@
 
         public async ValueTask DisposeAsync()
         {
-            // Ensure the mutex task stops waiting for any acquire
+            
             _cancellationTokenSource?.Cancel();
 
-            // Ensure the mutex is released
+            
             await ReleaseAsync();
 
             _releaseEvent?.Dispose();

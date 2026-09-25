@@ -85,7 +85,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 throw new Exception($"{elementName} {attributeName} must be smaller than {max}");
         }
 
-        // You can't do numeric only generics in .NET 6. The feature is exclusive to .NET 7+.
+        
         private static int ParseXmlAttributeClamped(XElement element, string attributeName, int? defaultValue = null, int? min = null, int? max = null)
         {
             int value = ParseXmlAttribute<int>(element, attributeName, defaultValue);
@@ -99,8 +99,8 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             if (string.IsNullOrEmpty(value))
                 value = "Normal";
 
-            // bruh
-            // https://learn.microsoft.com/en-us/dotnet/api/system.windows.fontweights?view=windowsdesktop-6.0
+            
+            
             switch (value)
             {
                 case "Thin":
@@ -191,7 +191,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         private static string? GetTranslatedText(string? text)
         {
             if (text == null || !text.StartsWith('{') || !text.EndsWith('}'))
-                return text; // can't be translated (not in the correct format)
+                return text; 
 
             string resourceName = text[1..^1];
             return Strings.ResourceManager.GetStringSafe(resourceName);
@@ -246,26 +246,26 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             string? value = element.Attribute("RepeatBehaviour")?.Value?.ToString();
             RepeatBehavior Behaviour = RepeatBehavior.Forever;
 
-            // Repeat forever behaviour (default)
+            
             if (string.IsNullOrEmpty(value) || value == "Forever")
                 return Behaviour;
 
-            // Patterns
+            
             const string RepeatCountPattern = "([0-9]+)x";
             const string PlayTimePattern = "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]";
 
-            // RegExes
+            
             Match RepeatCountRegEx = new Regex(RepeatCountPattern).Match(value);
             Match PlayTimeRegEx = new Regex(PlayTimePattern).Match(value);
 
-            // Repeat count ex. 3x (repeats 3 times)
+            
             if (RepeatCountRegEx.Success)
             {
                 int? RepeatCount = int.TryParse(RepeatCountRegEx.Groups[1].Value, out int x) ? x : 0;
                 Behaviour = new RepeatBehavior(x);
             }
 
-            // Play time ex. 00:00:10 (plays for 10 seconds)
+            
             if (PlayTimeRegEx.Success)
             {
                 TimeSpan PlayTime = TimeSpan.Parse(value);

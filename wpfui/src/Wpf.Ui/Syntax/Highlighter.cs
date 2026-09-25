@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Linq;
@@ -21,26 +21,26 @@ namespace Wpf.Ui.Syntax;
 /// </summary>
 internal static class Highlighter
 {
-    private const string EndlinePattern = /* language=regex */ "(\n)";
+    private const string EndlinePattern =  "(\n)";
 
-    private const string TabPattern = /* language=regex */ "(\t)";
+    private const string TabPattern =  "(\t)";
 
-    private const string QuotePattern = /* language=regex */ "(\"(?:\\\"|[^\"])*\")|('(?:\\'|[^'])*')";
+    private const string QuotePattern =  "(\"(?:\\\"|[^\"])*\")|('(?:\\'|[^'])*')";
 
-    private const string CommentPattern = /* language=regex */ @"(\/\/.*?(?:\n|$)|\/\*.*?\*\/)";
+    private const string CommentPattern =  @"(\/\/.*?(?:\n|$)|\/\*.*?\*\/)";
 
-    private const string TagPattern = /* language=regex */ @"(<\/?)([a-zA-Z\-:]+)(.*?)(\/?>)";
+    private const string TagPattern =  @"(<\/?)([a-zA-Z\-:]+)(.*?)(\/?>)";
 
-    private const string EntityPattern = /* language=regex */ @"(&[a-zA-Z0-9#]+;)";
+    private const string EntityPattern =  @"(&[a-zA-Z0-9#]+;)";
 
-    private const string PunctuationPattern = /* language=regex */
+    private const string PunctuationPattern = 
         @"(!==?|(?:[[\\] ()\{\}.:;,+\\-?=!]|&lt;|&gt;)+|&&|\\|\\|)";
 
-    private const string NumberPattern = /* language=regex */ @"(-? (?:\.\d+|\d+(?:\.\d+)?))";
+    private const string NumberPattern =  @"(-? (?:\.\d+|\d+(?:\.\d+)?))";
 
-    private const string BooleanPattern = /* language=regex */ "\b(true|false)\b";
+    private const string BooleanPattern =  "\b(true|false)\b";
 
-    private const string AttributePattern = /* language=regex */ "(\\s*)([a-zA-Z\\d\\-:]+)=(\" | ')(.*?)\\3";
+    private const string AttributePattern =  "(\\s*)([a-zA-Z\\d\\-:]+)=(\" | ')(.*?)\\3";
 
     public static TextBlock Format(object code)
     {
@@ -59,14 +59,14 @@ internal static class Highlighter
         {
             foreach (object group in match.Groups)
             {
-                // Remove whole matches
+                
                 if (group is Match)
                     continue;
 
-                // Cast to group
+                
                 codeMatched = (Group)group;
 
-                // Remove empty groups
+                
                 if (String.IsNullOrEmpty(codeMatched.Value))
                     continue;
 

@@ -18,7 +18,7 @@ namespace Bloxstrap.UI.Elements.Controls
     class MarkdownTextBlock : TextBlock
     {
         private static readonly MarkdownPipeline _markdownPipeline = new MarkdownPipelineBuilder()
-                .UseEmphasisExtras(Markdig.Extensions.EmphasisExtras.EmphasisExtraOptions.Marked) // enable '==' support
+                .UseEmphasisExtras(Markdig.Extensions.EmphasisExtras.EmphasisExtraOptions.Marked) 
                 .UseSoftlineBreakAsHardlineBreak()
                 .Build();
 
@@ -46,19 +46,19 @@ namespace Bloxstrap.UI.Elements.Controls
                     case '*':
                     case '_':
                         {
-                            if (emphasisInline.DelimiterCount == 1) // 1 = italic
+                            if (emphasisInline.DelimiterCount == 1) 
                             {
                                 var childInline = new Italic(GetWpfInlineFromMarkdownInline(emphasisInline.FirstChild));
                                 return childInline;
                             }
-                            else // 2 = bold
+                            else 
                             {
                                 var childInline = new Bold(GetWpfInlineFromMarkdownInline(emphasisInline.FirstChild));
                                 return childInline;
                             }
                         }
 
-                    case '=': // marked
+                    case '=': 
                         {
                             var childInline = new Span(GetWpfInlineFromMarkdownInline(emphasisInline.FirstChild));
                             childInline.Background = new SolidColorBrush(Color.FromArgb(50, 255, 255, 255)); // TODO: better colour?
@@ -113,8 +113,8 @@ namespace Bloxstrap.UI.Elements.Controls
 
             var lastBlock = document.Last();
 
-            // matt was evidently very tired on the night he was first writing this
-            // https://github.com/bloxstraplabs/bloxstrap/blob/289b9dec77cf35b2cc6504019bc9c7701626be1f/Bloxstrap/UI/Elements/Controls/MarkdownTextBlock.cs#L111
+            
+            
             foreach (var block in document)
             {
                 if (block is not ParagraphBlock paragraphBlock || paragraphBlock.Inline is null)

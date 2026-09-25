@@ -31,7 +31,7 @@ namespace Bloxstrap
                     Handler(this, EventArgs.Empty);
                     break;
                 default:
-                    Handler(this, EventArgs.Empty); // data loading most likely failed but we still have the default/local config
+                    Handler(this, EventArgs.Empty); 
                     break;
             }
         }
@@ -39,7 +39,7 @@ namespace Bloxstrap
         public async Task WaitUntilDataFetched()
         {
             const int delay = 100;
-            const int maxTries = 30; // 3 seconds
+            const int maxTries = 30; 
             int tries = 0;
 
             while (LoadedState == GenericTriState.Unknown)
@@ -52,7 +52,7 @@ namespace Bloxstrap
             }
         }
 
-        // remember that our data isnt necessary, we can fetch it in the background 
+        
         public async Task LoadData()
         {
             const string LOG_IDENT = $"{nameof(RemoteDataManager)}::LoadData";
@@ -61,12 +61,17 @@ namespace Bloxstrap
                 App.Logger.WriteLine(LOG_IDENT, "Force loading local data");
                 this.Load(false);
 
-                LoadedState = GenericTriState.Successful; // we treat it as successful to simulate the production data
+                LoadedState = GenericTriState.Successful; 
             } else
                 try
                 {
                     Uri remoteDataUri = new(App.ProjectRemoteDataLink);
-                    Prop = await Http.GetJson<RemoteDataBase>(remoteDataUri);
+                    var remoteData = await Http.GetJson<RemoteDataBase>(remoteDataUri);
+
+                    if (remoteData is null)
+                        throw new JsonException("Remote data was empty");
+
+                    Prop = remoteData;
 
                     LoadedState = GenericTriState.Successful;
                     App.Logger.WriteLine(LOG_IDENT, "Remote data loaded");

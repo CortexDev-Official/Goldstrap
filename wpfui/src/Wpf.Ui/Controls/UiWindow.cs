@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.ComponentModel;
@@ -154,8 +154,8 @@ public class UiWindow : System.Windows.Window
         WidthProperty.OverrideMetadata(typeof(UiWindow), new FrameworkPropertyMetadata(1100d));
         MinHeightProperty.OverrideMetadata(typeof(UiWindow), new FrameworkPropertyMetadata(320d));
         MinWidthProperty.OverrideMetadata(typeof(UiWindow), new FrameworkPropertyMetadata(460d));
-        //WindowStyleProperty.OverrideMetadata(typeof(UiWindow), new FrameworkPropertyMetadata(WindowStyle.SingleBorderWindow));
-        //AllowsTransparencyProperty.OverrideMetadata(typeof(UiWindow), new FrameworkPropertyMetadata(false));
+        
+        
     }
 
     #endregion Constructors
@@ -254,7 +254,7 @@ public class UiWindow : System.Windows.Window
     {
         if (backdropType == BackgroundType.Unknown || backdropType == BackgroundType.None)
         {
-            // Removes backdrop and tries to restore default background
+            
             Appearance.Background.Remove(this);
 
             return;
@@ -270,7 +270,7 @@ public class UiWindow : System.Windows.Window
             !AllowsTransparency)
             throw new InvalidOperationException("In the Windows system below 22523 build, the Acrylic effect cannot be applied if the Window does not have AllowsTransparency set to True.");
 
-        // Set backdrop effect and remove background from window and it's composition area
+        
         Appearance.Background.Apply(this, WindowBackdropType);
     }
 

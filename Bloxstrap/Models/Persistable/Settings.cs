@@ -5,10 +5,10 @@ namespace Bloxstrap.Models.Persistable
 {
     public class Settings
     {
-        // uh
+        
         public bool AllowCookieAccess { get; set; } = false;
 
-        // bloxstrap configuration
+        
         public BootstrapperStyle BootstrapperStyle { get; set; } = BootstrapperStyle.FluentAeroDialog;
         public BootstrapperIcon BootstrapperIcon { get; set; } = BootstrapperIcon.IconGoldstrap;
         public string BootstrapperTitle { get; set; } = App.ProjectName;
@@ -19,12 +19,14 @@ namespace Bloxstrap.Models.Persistable
         public Theme Theme { get; set; } = Theme.Default;
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool DeveloperMode { get; set; } = false;
-        // PLEASE DONT FORGET TO TURN THIS OFF !!!!
+        
         public bool UseAcrylicBackground { get; set; } = false;
         public byte AcrylicBackgroundOpacity { get; set; } = 165;
         public bool ForceLocalData { get; set; } = false;
         public bool CheckForUpdates { get; set; } = true;
         public bool ConfirmLaunches { get; set; } = true;
+        public bool EnableRobloxBackgroundApp { get; set; } = false;
+        public RobloxTheme RobloxTheme { get; set; } = RobloxTheme.Default;
         public string Locale { get; set; } = "nil";
         public bool ForceRobloxLanguage { get; set; } = false;
         public bool UseFastFlagManager { get; set; } = true;
@@ -41,9 +43,9 @@ namespace Bloxstrap.Models.Persistable
         public bool EnableBetterMatchmakingRandomization { get; set; } = false;
         public WebEnvironment WebEnvironment { get; set; } = WebEnvironment.Production;
 
-        // integration configuration
+        
         public CleanerOptions CleanerOptions { get; set; } = CleanerOptions.TwoWeeks;
-        // how do i automate this? -Naveandice
+        
         public List<string> CleanerDirectories { get; set; } = new List<string> {
             "RobloxCache",
             "RobloxStudioCache",
@@ -60,10 +62,9 @@ namespace Bloxstrap.Models.Persistable
         public bool ShowServerDetails { get; set; } = false;
         public ObservableCollection<CustomIntegration> CustomIntegrations { get; set; } = new();
 
-        // mod preset configuration
+        
         public bool UseDisableAppPatch { get; set; } = false;
 
-        // launch sound
         public string LaunchSoundPath { get; set; } = "";
         public bool PlayLaunchSound { get; set; } = false;
         public int LaunchSoundVolume { get; set; } = 100;

@@ -18,15 +18,15 @@ namespace Bloxstrap.Extensions
             BootstrapperIcon.IconCustom
         };
 
-        // small note on handling icon sizes
-        // i'm using multisize icon packs here with sizes 16, 24, 32, 48, 64 and 128
-        // use this for generating multisize packs: https://www.aconvert.com/icon/
+        
+        
+        
 
         public static Icon GetIcon(this BootstrapperIcon icon)
         {
             const string LOG_IDENT = "BootstrapperIconEx::GetIcon";
 
-            // load the custom icon file
+            
             if (icon == BootstrapperIcon.IconCustom)
             {
                 Icon? customIcon = null;

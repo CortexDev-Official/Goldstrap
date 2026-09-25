@@ -147,7 +147,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 ScrollViewer.ScrollToBottom();
         }
 
-        // this is needed to center the titlebar buttonns
+        
         private void TerminalTitleBar_Loaded(object sender, RoutedEventArgs e)
         {
             var closeButton = TerminalTitleBar.Template.FindName("PART_CloseButton", TerminalTitleBar) as FrameworkElement;

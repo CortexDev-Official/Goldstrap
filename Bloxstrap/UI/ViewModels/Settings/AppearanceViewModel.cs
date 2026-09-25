@@ -21,6 +21,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public ICommand BrowseCustomIconLocationCommand => new RelayCommand(BrowseCustomIconLocation);
         public ICommand BrowseCustomRobloxIconLocationCommand => new RelayCommand(BrowseCustomRobloxIconLocation);
         public ICommand BrowseLaunchSoundCommand => new RelayCommand(BrowseLaunchSound);
+        public ICommand PreviewLaunchSoundCommand => new RelayCommand(PreviewLaunchSound);
+        public ICommand StopLaunchSoundCommand => new RelayCommand(StopLaunchSound);
 
         public ICommand AddCustomThemeCommand => new RelayCommand(AddCustomTheme);
         public ICommand DeleteCustomThemeCommand => new RelayCommand(DeleteCustomTheme);
@@ -30,9 +32,15 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public bool WindowManipulationEnabled => App.Settings.Prop.EnableWindowManipulation;
 
-        public void OnNavigatedTo() => OnPropertyChanged(nameof(WindowManipulationEnabled));
+        public void OnNavigatedTo()
+        {
+            OnPropertyChanged(nameof(WindowManipulationEnabled));
+            OnPropertyChanged(nameof(LaunchSoundFileName));
+            OnPropertyChanged(nameof(LaunchSoundVolume));
+            OnPropertyChanged(nameof(LaunchSoundVolumeText));
+        }
 
-        public void OnNavigatedFrom() { } // has to be here because of INavigationAware, we will just leave it empty
+        public void OnNavigatedFrom() { } 
 
         private void PreviewBootstrapper()
         {
@@ -232,77 +240,94 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get
             {
                 string path = App.Settings.Prop.LaunchSoundPath;
-                if (string.IsNullOrEmpty(path))
-                    return "No sound selected";
+                if (string.IsNullOrEmpty(path) || !File.Exists(path))
+                    return Strings.Menu_Appearance_LaunchSound_NoFile;
                 return Path.GetFileName(path);
             }
         }
-
-        public bool LaunchSoundSelected => !string.IsNullOrEmpty(App.Settings.Prop.LaunchSoundPath);
 
         public int LaunchSoundVolume
         {
             get => App.Settings.Prop.LaunchSoundVolume;
             set
             {
-                App.Settings.Prop.LaunchSoundVolume = Math.Clamp(value, 0, 100);
+                int clamped = Math.Clamp(value, 0, 100);
+
+                if (App.Settings.Prop.LaunchSoundVolume == clamped)
+                    return;
+
+                App.Settings.Prop.LaunchSoundVolume = clamped;
                 OnPropertyChanged(nameof(LaunchSoundVolume));
+                OnPropertyChanged(nameof(LaunchSoundVolumeText));
             }
         }
 
-        public ICommand TestLaunchSoundCommand => new RelayCommand(TestLaunchSound);
-        public ICommand ClearLaunchSoundCommand => new RelayCommand(ClearLaunchSound);
+        public string LaunchSoundVolumeText => $"{App.Settings.Prop.LaunchSoundVolume}%";
 
-        private void TestLaunchSound()
+        private void PreviewLaunchSound()
         {
-            string path = App.Settings.Prop.LaunchSoundPath;
-
-            if (LaunchSoundManager.IsPlaying)
+            if (!LaunchSound.HasFile)
             {
-                LaunchSoundManager.Stop();
+                MessageBox.Show(Strings.Menu_Appearance_LaunchSound_NoFileSelected, App.ProjectName, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            string? error = LaunchSoundManager.ValidateSoundFile(path);
-
-            if (error is not null)
+            try
             {
-                Frontend.ShowMessageBox(error, MessageBoxImage.Warning);
-                return;
+                LaunchSound.Play(App.Settings.Prop.LaunchSoundPath, App.Settings.Prop.LaunchSoundVolume);
             }
-
-            LaunchSoundManager.Play(path, App.Settings.Prop.LaunchSoundVolume);
+            catch (Exception)
+            {
+                MessageBox.Show(Strings.Menu_Appearance_LaunchSound_PreviewFailed, App.ProjectName, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void ClearLaunchSound()
-        {
-            LaunchSoundManager.Stop();
-            App.Settings.Prop.LaunchSoundPath = "";
-            OnPropertyChanged(nameof(LaunchSoundFileName));
-            OnPropertyChanged(nameof(LaunchSoundSelected));
-        }
+        private void StopLaunchSound() => LaunchSound.Stop();
 
         private void BrowseLaunchSound()
         {
             var dialog = new OpenFileDialog
             {
-                Filter = "Audio files|*.mp3;*.wav|MP3 files|*.mp3|WAV files|*.wav"
+                Filter = $"{Strings.Menu_Appearance_LaunchSound_File}|*.mp3;*.wav|MP3 (*.mp3)|*.mp3|WAV (*.wav)|*.wav|{Strings.Menu_AllFiles}|*.*"
             };
 
             if (dialog.ShowDialog() != true)
                 return;
 
-            string? error = LaunchSoundManager.ValidateSoundFile(dialog.FileName);
-
-            if (error is not null)
+            if (!LaunchSound.IsValid(dialog.FileName, out TimeSpan duration))
             {
-                Frontend.ShowMessageBox(error, MessageBoxImage.Warning);
+                if (duration.TotalSeconds > LaunchSound.MaxDurationSeconds)
+                {
+                    string timeStr = FormatDuration(duration);
+                    MessageBox.Show(
+                        String.Format(Strings.Menu_Appearance_LaunchSound_TooLongMessage, timeStr),
+                        Strings.Menu_Appearance_LaunchSound_TooLongTitle,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        Strings.Menu_Appearance_LaunchSound_InvalidMessage,
+                        Strings.Menu_Appearance_LaunchSound_InvalidTitle,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+
                 return;
             }
 
             App.Settings.Prop.LaunchSoundPath = dialog.FileName;
             OnPropertyChanged(nameof(LaunchSoundFileName));
-            OnPropertyChanged(nameof(LaunchSoundSelected));
+        }
+
+        private static string FormatDuration(TimeSpan duration)
+        {
+            int totalSeconds = (int)Math.Ceiling(duration.TotalSeconds);
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+
+            return minutes > 0 ? $"{minutes}m {seconds}s" : $"{seconds}s";
         }
 
         private void DeleteCustomThemeStructure(string name)
@@ -399,7 +424,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 return;
             }
 
-            // better to check for the file instead of the directory so broken themes can be overwritten
+            
             string path = Path.Combine(Paths.CustomThemes, SelectedCustomThemeName, "Theme.xml");
             if (File.Exists(path))
             {
@@ -484,7 +509,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             foreach (string directory in Directory.GetDirectories(Paths.CustomThemes))
             {
                 if (!File.Exists(Path.Combine(directory, "Theme.xml")))
-                    continue; // missing the main theme file, ignore
+                    continue; 
 
                 string name = Path.GetFileName(directory);
                 CustomThemes.Add(name);

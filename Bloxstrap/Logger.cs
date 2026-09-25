@@ -1,6 +1,6 @@
 ﻿namespace Bloxstrap
 {
-    // https://stackoverflow.com/a/53873141/11852173
+    
 
     public class Logger
     {
@@ -76,7 +76,7 @@
 
             FileLocation = location;
 
-            // clean up any logs older than a week
+            
             if (Paths.Initialized && Directory.Exists(Paths.Logs))
             {
                 foreach (FileInfo log in new DirectoryInfo(Paths.Logs).GetFiles())
@@ -138,11 +138,11 @@
             }
             catch (ObjectDisposedException)
             {
-                // Logger is being disposed, silently ignore
+                
             }
             catch (Exception)
             {
-                // Prevent crash from async void
+                
             }
             finally
             {

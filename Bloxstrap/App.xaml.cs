@@ -28,7 +28,7 @@ namespace Bloxstrap
         public const string RobloxPlayerAppName = "RobloxPlayerBeta.exe";
         public const string RobloxStudioAppName = "RobloxStudioBeta.exe";
 
-        // simple shorthand for extremely frequently used and long string - this goes under HKCU
+        
         public const string UninstallKey = $@"Software\Microsoft\Windows\CurrentVersion\Uninstall\{ProjectName}";
 
         public const string ApisKey = $"Software\\{ProjectName}";
@@ -129,7 +129,7 @@ namespace Bloxstrap
             if (Bootstrapper?.Dialog != null)
             {
                 if (Bootstrapper.Dialog.TaskbarProgressValue == 0)
-                    Bootstrapper.Dialog.TaskbarProgressValue = 1; // make sure it's visible
+                    Bootstrapper.Dialog.TaskbarProgressValue = 1; 
 
                 Bootstrapper.Dialog.TaskbarProgressState = TaskbarItemProgressState.Error;
             }
@@ -173,7 +173,7 @@ namespace Bloxstrap
             const string LOG_IDENT = "App::AssertWindowsOSVersion";
 
             int major = Environment.OSVersion.Version.Major;
-            if (major < 10) // Windows 10 and newer only
+            if (major < 10) 
             {
                 Logger.WriteLine(LOG_IDENT, $"Detected unsupported Windows version ({Environment.OSVersion.Version}).");
 
@@ -223,8 +223,8 @@ namespace Bloxstrap
             Logger.WriteLine(LOG_IDENT, $"Temp path is {Paths.Temp}");
             Logger.WriteLine(LOG_IDENT, $"WindowsStartMenu path is {Paths.WindowsStartMenu}");
 
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            
+            
             ApplicationConfiguration.Initialize();
 
             HttpClient.Timeout = TimeSpan.FromSeconds(30);
@@ -232,7 +232,7 @@ namespace Bloxstrap
 
             LaunchSettings = new LaunchSettings(e.Args);
 
-            // installation check begins here
+            
             using var uninstallKey = Registry.CurrentUser.OpenSubKey(UninstallKey);
             string? installLocation = null;
             bool fixInstallLocation = false;
@@ -245,7 +245,7 @@ namespace Bloxstrap
                 }
                 else
                 {
-                    // check if user profile folder has been renamed
+                    
                     var match = Regex.Match(value, @"^[a-zA-Z]:\\Users\\([^\\]+)", RegexOptions.IgnoreCase);
 
                     if (match.Success)
@@ -261,12 +261,12 @@ namespace Bloxstrap
                 }
             }
 
-            // silently change install location if we detect a portable run
+            
             if (installLocation is null && Directory.GetParent(Paths.Process)?.FullName is string processDir)
             {
                 var files = Directory.GetFiles(processDir).Select(x => Path.GetFileName(x)).ToArray();
 
-                // check if settings.json and state.json are the only files in the folder
+                
                 if (files.Length <= 3 && files.Contains("Settings.json") && files.Contains("State.json"))
                 {
                     installLocation = processDir;
@@ -289,7 +289,7 @@ namespace Bloxstrap
                 }
                 else
                 {
-                    // force reinstall
+                    
                     installLocation = null;
                 }
             }
@@ -305,11 +305,11 @@ namespace Bloxstrap
             {
                 Paths.Initialize(installLocation);
 
-                // ensure executable is in the install directory
+                
                 if (Paths.Process != Paths.Application && !File.Exists(Paths.Application))
                     File.Copy(Paths.Process, Paths.Application);
 
-                Logger.Initialize(LaunchSettings.UninstallFlag.Active);
+                Logger.Initialize(LaunchSettings.UninstallFlag.Active || LaunchSettings.LaunchSoundFlag.Active);
 
                 if (!Logger.Initialized && !Logger.NoWriteMode)
                 {
@@ -322,6 +322,12 @@ namespace Bloxstrap
                 RobloxState.Load();
                 FastFlags.Load();
                 GlobalSettings.Load();
+
+                if (LaunchSettings.LaunchSoundFlag.Active)
+                {
+                    LaunchHandler.PlayLaunchSound(LaunchSettings.LaunchSoundFlag.Data);
+                    return;
+                }
 
                 if (Settings.Prop.AllowCookieAccess)
                     Task.Run(Cookies.LoadCookies);
@@ -337,15 +343,15 @@ namespace Bloxstrap
                 if (!LaunchSettings.BypassUpdateCheck)
                     Installer.HandleUpgrade();
 
-                Task.Run(App.RemoteData.LoadData); // ok
+                Task.Run(App.RemoteData.LoadData); 
 
-                WindowsRegistry.RegisterApis(); // we want to register those early on
-                                                // so we wont have any issues with bloxshade
+                WindowsRegistry.RegisterApis(); 
+                                                
 
                 LaunchHandler.ProcessLaunchArgs();
             }
 
-            // you must *explicitly* call terminate when everything is done, it won't be called implicitly
+            
         }
     }
 }

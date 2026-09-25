@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski, Ch0pstix and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Windows;
@@ -9,7 +9,7 @@ using System.Windows.Interop;
 
 namespace Wpf.Ui.Appearance;
 
-// https://github.com/lepoco/wpfui/issues/55
+
 
 /// <summary>
 /// Automatically updates the application background if the system theme or color is changed.
@@ -32,11 +32,11 @@ public sealed class Watcher
     /// </summary>
     public bool ForceBackground { get; set; } = false;
 
-    //public static void Register(Application app, BackgroundType backgroundEffect = BackgroundType.Mica,
-    //    bool updateAccents = true)
-    //{
-    // //TO DO
-    //}
+    
+    
+    
+    
+    
 
     /// <summary>
     /// Creates a new instance of <see cref="Watcher"/> and attaches the instance to the given <see cref="Window"/>.
@@ -53,16 +53,16 @@ public sealed class Watcher
 
         if (window.IsLoaded)
         {
-            // Get the handle from the window
+            
             IntPtr hwnd =
                 (hwnd = new WindowInteropHelper(window).Handle) == IntPtr.Zero
                     ? throw new InvalidOperationException("Could not get window handle.")
                     : hwnd;
 
-            // Initialize a new instance with the window handle
+            
             var watcher = new Watcher(hwnd, backgroundEffect, updateAccents, forceBackground);
 
-            // Updates themes on initialization if the current system theme is different from the app's.
+            
             var currentSystemTheme = SystemTheme.GetTheme();
             watcher.UpdateThemes(currentSystemTheme);
 
@@ -71,16 +71,16 @@ public sealed class Watcher
 
         window.Loaded += (sender, args) =>
         {
-            // Get the handle from the window
+            
             IntPtr hwnd =
                 (hwnd = new WindowInteropHelper(window).Handle) == IntPtr.Zero
                     ? throw new InvalidOperationException("Could not get window handle.")
                     : hwnd;
 
-            // Initialize a new instance with the window handle
+            
             var watcher = new Watcher(hwnd, backgroundEffect, updateAccents, forceBackground);
 
-            // Updates themes on initialization if the current system theme is different from the app's.
+            
             var currentSystemTheme = SystemTheme.GetTheme();
             watcher.UpdateThemes(currentSystemTheme);
         };

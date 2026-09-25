@@ -53,7 +53,7 @@ namespace Bloxstrap.UI.Animations
             if (sender is not FrameworkElement element) return;
             if (element.RenderTransform is not ScaleTransform transform) return;
 
-            // springy release - slight overshoot makes the button feel alive
+            
             var anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(330))
             {
                 EasingFunction = new ElasticEase { EasingMode = EasingMode.EaseOut, Oscillations = 1, Springiness = 6 }

@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Windows;
@@ -70,25 +70,25 @@ public static class Theme
             )
         );
 
-        //var wpfUiDictionary = appDictionaries.GetDictionary("wpf.ui");
+        
 
-        // Force reloading ALL dictionaries
-        // Works but is terrible
-        //var isCoreUpdated = appDictionaries.UpdateDictionary(
-        //    "wpf.ui",
-        //    new Uri(
-        //        AppearanceData.LibraryDictionariesUri + "Wpf.Ui.xaml",
-        //        UriKind.Absolute
-        //    )
-        //);
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
-        //var isBrushesUpdated = appDictionaries.UpdateDictionary(
-        //        "assets/brushes",
-        //        new Uri(
-        //            AppearanceData.LibraryDictionariesUri + "Assets/Brushes.xaml",
-        //            UriKind.Absolute
-        //        )
-        //    );
+        
+        
+        
+        
+        
+        
+        
 
 #if DEBUG
         System.Diagnostics.Debug.WriteLine(
@@ -248,49 +248,49 @@ public static class Theme
         if (!AppearanceData.HasHandle(Application.Current.MainWindow))
             Background.Apply(Application.Current.MainWindow, backgroundEffect, forceBackground);
 
-        // Do we really neeed this?
-        //if (!Win32.Utilities.IsOSWindows11OrNewer)
-        //{
-        //    var mainWindow = Application.Current.MainWindow;
+        
+        
+        
+        
 
-        //    if (mainWindow == null)
-        //        return;
+        
+        
 
-        //    var backgroundColor = Application.Current.Resources["ApplicationBackgroundColor"];
-        //    if (backgroundColor is Color color)
-        //        mainWindow.Background = new SolidColorBrush(color);
-        //}
+        
+        
+        
+        
 
 
-        //        var mainWindow = Application.Current.MainWindow;
+        
 
-        //        if (mainWindow == null)
-        //            return;
+        
+        
 
         //        // TODO: Do not refresh window presenter background if already applied
-        //        var backgroundColor = Application.Current.Resources["ApplicationBackgroundColor"];
-        //        if (backgroundColor is Color color)
-        //            mainWindow.Background = new SolidColorBrush(color);
+        
+        
+        
 
-        //#if DEBUG
-        //        System.Diagnostics.Debug.WriteLine($"INFO | Current background color: {backgroundColor}", "Wpf.Ui.Theme");
-        //#endif
+        
+        
+        
 
-        //        var windowHandle = new WindowInteropHelper(mainWindow).Handle;
+        
 
-        //        if (windowHandle == IntPtr.Zero)
-        //            return;
+        
+        
 
-        //        Background.Remove(windowHandle);
+        
 
-        //        //if (!IsAppMatchesSystem() || backgroundEffect == BackgroundType.Unknown)
-        //        //    return;
+        
+        
 
-        //        if (backgroundEffect == BackgroundType.Unknown)
-        //            return;
+        
+        
 
         //        // TODO: Improve
-        //        if (Background.Apply(windowHandle, backgroundEffect, forceBackground))
-        //            mainWindow.Background = Brushes.Transparent;
+        
+        
     }
 }

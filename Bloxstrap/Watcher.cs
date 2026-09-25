@@ -123,6 +123,16 @@ namespace Bloxstrap
             while (Utilities.GetProcessesSafe().Any(x => x.Id == _watcherData.ProcessId))
                 await Task.Delay(1000);
 
+            try
+            {
+                AppStorageManager.Apply();
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteLine("Watcher::Run", "Failed to apply app storage settings");
+                App.Logger.WriteException("Watcher::Run", ex);
+            }
+
             if (_watcherData.AutoclosePids is not null)
             {
                 foreach (int pid in _watcherData.AutoclosePids)

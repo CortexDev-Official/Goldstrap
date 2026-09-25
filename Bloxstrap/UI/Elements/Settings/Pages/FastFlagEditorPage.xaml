@@ -24,7 +24,7 @@
 
         <ui:InfoBar Grid.Row="1" Margin="0,0,0,16" Padding="8" Title="{x:Static resources:Strings.Common_Warning}" Message="{x:Static resources:Strings.Menu_FastFlags_EditorInfo}" Severity="Warning" IsOpen="True" IsClosable="False"></ui:InfoBar>
 
-        <!-- Built-in FFlags -->
+        
         <ui:CardExpander x:Name="BuiltInFlagsExpander" Grid.Row="2" Margin="0,0,0,12" IsExpanded="False">
             <ui:CardExpander.Header>
                 <StackPanel Orientation="Horizontal">

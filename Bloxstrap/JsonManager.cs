@@ -66,7 +66,7 @@ namespace Bloxstrap
 
                     try
                     {
-                        // Create a backup of loaded file
+                        
                         File.Copy(FileLocation, FileLocation + ".bak", true);
                     }
                     catch (Exception copyEx)

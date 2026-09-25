@@ -34,10 +34,7 @@
             <converters:RangeConverter x:Key="RangeConverter" />
             <converters:EnumNameConverter x:Key="EnumNameConverter" />
 
-            <!-- ═══════════════════════════════════════════
-                 GOLD TOGGLE SWITCH — Gold + smooth fade/slide
-                 Placed here (root resources) to override wpfui
-             ═══════════════════════════════════════════ -->
+            
             <Style x:Key="DefaultUiToggleSwitchStyle" TargetType="{x:Type ui:ToggleSwitch}">
                 <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
                 <Setter Property="Background">

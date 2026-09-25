@@ -150,97 +150,7 @@
                                 </Setter.Value>
                             </Setter>
                         </MultiTrigger>
-                        <!--
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsActive" Value="True" />
-                                <Condition Property="IsMouseOver" Value="False" />
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="MainBorder"
-                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Opacity)"
-                                            From="0.0"
-                                            To="0.03"
-                                            Duration="0:0:.16" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.EnterActions>
-                            <MultiTrigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="MainBorder"
-                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Opacity)"
-                                            From="0.03"
-                                            To="0.0"
-                                            Duration="0:0:.16" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.ExitActions>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsActive" Value="False" />
-                                <Condition Property="IsMouseOver" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="MainBorder"
-                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Opacity)"
-                                            From="0.0"
-                                            To="0.1"
-                                            Duration="0:0:.16" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.EnterActions>
-                            <MultiTrigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="MainBorder"
-                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Opacity)"
-                                            From="0.1"
-                                            To="0.0"
-                                            Duration="0:0:.16" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.ExitActions>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsActive" Value="True" />
-                                <Condition Property="IsMouseOver" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="MainBorder"
-                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Opacity)"
-                                            From="0.03"
-                                            To="0.1"
-                                            Duration="0:0:.16" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.EnterActions>
-                            <MultiTrigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="MainBorder"
-                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Opacity)"
-                                            From="0.1"
-                                            To="0.03"
-                                            Duration="0:0:.16" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.ExitActions>
-                        </MultiTrigger>-->
+                        
                         <Trigger Property="Icon" Value="Empty">
                             <Setter TargetName="ItemIcon" Property="Width" Value="0" />
                             <Setter TargetName="ItemIcon" Property="Margin" Value="0" />
@@ -257,7 +167,7 @@
     </Style>
 
     <Style TargetType="{x:Type controls:NavigationFluent}">
-        <!--<Setter Property="ItemStyle" Value="{StaticResource UiFluentNavigationItemStyle}" />-->
+        
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="True" />

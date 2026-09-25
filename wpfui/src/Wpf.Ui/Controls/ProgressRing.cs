@@ -1,9 +1,9 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
 
-// https://docs.microsoft.com/en-us/fluent-ui/web-components/components/progress-ring
+
+
 
 using System.ComponentModel;
 using System.Drawing;
@@ -122,7 +122,7 @@ public class ProgressRing : RangeBase
     /// </summary>
     protected void UpdateProgressAngle()
     {
-        // (360 / 100) * percentage
+        
         var endAngle = (360d / Maximum) * Value;
 
         if (endAngle >= 360)

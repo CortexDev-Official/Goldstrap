@@ -95,6 +95,24 @@
             </StackPanel>
         </controls:OptionControl>
 
+        <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_RobloxApp}" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
+        <controls:OptionControl
+            Header="{x:Static resources:Strings.Menu_Integrations_EnableRobloxBackgroundApp_Title}"
+            Description="{x:Static resources:Strings.Menu_Integrations_EnableRobloxBackgroundApp_Description}">
+            <ui:ToggleSwitch IsChecked="{Binding EnableRobloxBackgroundApp, Mode=TwoWay}" />
+        </controls:OptionControl>
+        <controls:OptionControl
+            Header="{x:Static resources:Strings.Menu_Integrations_RobloxTheme_Title}"
+            Description="{x:Static resources:Strings.Menu_Integrations_RobloxTheme_Description}">
+            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding RobloxThemes, Mode=OneTime}" SelectedItem="{Binding RobloxTheme, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </controls:OptionControl>
+
         <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
             <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_Custom_Title}" FontSize="20" FontWeight="Medium" VerticalAlignment="Center" />
             <Border Margin="8,0,0,0" Padding="5,1,5,2" CornerRadius="4" Background="#C8962E" VerticalAlignment="Center"

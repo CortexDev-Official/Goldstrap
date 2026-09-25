@@ -15,12 +15,7 @@
     xmlns:converters="clr-namespace:Wpf.Ui.Converters"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <!--
-        I don't see that CheckBox had combined states. Without it,
-        we cannot support both Themes and Intermediate states at the same time.
-        At the moment I think the themes are more important than IsThirdState.
-        Have to figure it out or make a new CheckBox control.
-    -->
+    
 
     <converters:FallbackBrushConverter x:Key="FallbackBrushConverter" />
 
@@ -34,9 +29,9 @@
     <system:Double x:Key="CheckBoxWidth">22</system:Double>
 
     <Style x:Key="DefaultCheckBoxStyle" TargetType="{x:Type CheckBox}">
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground">
             <Setter.Value>

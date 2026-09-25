@@ -42,7 +42,7 @@ namespace Bloxstrap
         {
             const string LOG_IDENT = "LaunchHandler::ProcessLaunchArgs";
 
-            // this order is specific
+            
 
             if (App.LaunchSettings.UninstallFlag.Active)
             {
@@ -187,7 +187,7 @@ namespace Bloxstrap
 
                 var window = new UI.Elements.Settings.MainWindow(showAlreadyRunningWarning);
 
-                // typically we'd use Show(), but we need to block to ensure IPL stays in scope
+                
                 window.ShowDialog();
             }
             else
@@ -230,9 +230,9 @@ namespace Bloxstrap
 
             if (App.Settings.Prop.ConfirmLaunches && Utilities.IsRobloxRunning() && launchMode != LaunchMode.Studio)
             {
-                // this currently doesn't work very well since it relies on checking the existence of the singleton mutex
-                // which often hangs around for a few seconds after the window closes
-                // it would be better to have this rely on the activity tracker when we implement IPC in the planned refactoring
+                
+                
+                
 
                 var result = Frontend.ShowMessageBox(Strings.Bootstrapper_ConfirmLaunch, MessageBoxImage.Warning, MessageBoxButton.YesNo);
 
@@ -243,7 +243,7 @@ namespace Bloxstrap
                 }
             }
 
-            // start bootstrapper and show the bootstrapper modal if we're not running silently
+            
             App.Logger.WriteLine(LOG_IDENT, "Initializing bootstrapper");
             App.Bootstrapper = new Bootstrapper(launchMode);
             IBootstrapperDialog? dialog = null;
@@ -276,16 +276,41 @@ namespace Bloxstrap
             App.Logger.WriteLine(LOG_IDENT, "Exiting");
         }
 
+        public static void PlayLaunchSound(string? path)
+        {
+            const string LOG_IDENT = "LaunchHandler::PlayLaunchSound";
+
+            try
+            {
+                if (String.IsNullOrWhiteSpace(path) || !File.Exists(path))
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "No valid launch sound file was provided");
+                    return;
+                }
+
+                LaunchSound.PlayBlocking(path, App.Settings.Prop.LaunchSoundVolume);
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Failed to play the launch sound");
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
+            finally
+            {
+                App.Terminate();
+            }
+        }
+
         public static void LaunchWatcher()
         {
             const string LOG_IDENT = "LaunchHandler::LaunchWatcher";
 
-            // this whole topology is a bit confusing, bear with me:
-            // main thread: strictly UI only, handles showing of the notification area icon, context menu, server details dialog
-            // - server information task: queries server location, invoked if either the explorer notification is shown or the server details dialog is opened
-            // - discord rpc thread: handles rpc connection with discord
-            //    - discord rich presence tasks: handles querying and displaying of game information, invoked on activity watcher events
-            // - watcher task: runs activity watcher + waiting for roblox to close, terminates when it has
+            
+            
+            
+            
+            
+            
 
             var watcher = new Watcher();
 
@@ -303,7 +328,7 @@ namespace Bloxstrap
                         App.FinalizeExceptionHandling(t.Exception);
                 }
 
-                // shouldnt this be done after client closes?
+                
                 if (App.Settings.Prop.CleanerOptions != CleanerOptions.Never)
                     Cleaner.DoCleaning();
 
@@ -325,14 +350,14 @@ namespace Bloxstrap
         {
             const string LOG_IDENT = "LaunchHandler::LaunchBackgroundUpdater";
 
-            // Activate some LaunchFlags we need
+            
             App.LaunchSettings.QuietFlag.Active = true;
             App.LaunchSettings.NoLaunchFlag.Active = true;
 
             App.Logger.WriteLine(LOG_IDENT, "Initializing bootstrapper");
             App.Bootstrapper = new Bootstrapper(LaunchMode.Player)
             {
-                MutexName = "Goldstrap-BackgroundUpdater",
+                MutexName = $"{App.ProjectName}-BackgroundUpdater",
                 QuitIfMutexExists = true
             };
 
@@ -341,7 +366,7 @@ namespace Bloxstrap
             Task.Run(() =>
             {
                 App.Logger.WriteLine(LOG_IDENT, "Started event waiter");
-                using (EventWaitHandle handle = new EventWaitHandle(false, EventResetMode.AutoReset, "Goldstrap-BackgroundUpdaterKillEvent"))
+                using (EventWaitHandle handle = new EventWaitHandle(false, EventResetMode.AutoReset, $"{App.ProjectName}-BackgroundUpdaterKillEvent"))
                     handle.WaitOne();
 
                 App.Logger.WriteLine(LOG_IDENT, "Received close event, killing it all!");
@@ -351,7 +376,7 @@ namespace Bloxstrap
             Task.Run(App.Bootstrapper.Run).ContinueWith(t =>
             {
                 App.Logger.WriteLine(LOG_IDENT, "Bootstrapper task has finished");
-                cts.Cancel(); // stop event waiter
+                cts.Cancel(); 
 
                 if (t.IsFaulted)
                 {

@@ -261,26 +261,7 @@
                                 </Setter>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
-                        <!--
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsActive" Value="False" />
-                                <Condition Property="IsMouseOver" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.Setters>
-                                <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource ControlFillColorDefault}" />
-                            </MultiTrigger.Setters>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsActive" Value="True" />
-                                <Condition Property="IsMouseOver" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.Setters>
-                                <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource ControlFillColorDefault}" />
-                            </MultiTrigger.Setters>
-                        </MultiTrigger>
-                        -->
+                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

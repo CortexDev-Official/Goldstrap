@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Threading;
@@ -22,9 +22,9 @@ public static class Clipboard
         {
             Thread thread = new(() => System.Windows.Clipboard.SetText(text));
 
-            thread.SetApartmentState(ApartmentState.STA); //Set the thread to STA
+            thread.SetApartmentState(ApartmentState.STA); 
             thread.Start();
-            //thread.Join();
+            
         }
         catch (Exception e)
         {

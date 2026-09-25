@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Linq;
@@ -47,7 +47,7 @@ public static class UriExtensions
     public static Uri Append(this Uri uri, params string[] segments)
     {
         if (!uri.IsAbsoluteUri)
-            return uri; // or throw?
+            return uri; 
 
         return new Uri(segments.Aggregate(uri.AbsoluteUri, (current, path) => String.Format("{0}/{1}", current.TrimEnd('/').TrimEnd('\\'), path.TrimStart('/').TrimStart('\\'))));
     }

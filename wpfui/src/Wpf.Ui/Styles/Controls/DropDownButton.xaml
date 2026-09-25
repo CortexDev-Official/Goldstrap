@@ -18,9 +18,9 @@
     <Thickness x:Key="DropDownButtonIconMargin">0,0,8,0</Thickness>
 
     <Style x:Key="DefaultUiDropDownButtonStyle" TargetType="{x:Type controls:DropDownButton}">
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="Background">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />

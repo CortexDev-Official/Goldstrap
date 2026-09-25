@@ -46,7 +46,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set
             {
                 if (value != RenderingMode.Vulkan)
-                    App.Settings.Prop.FakeBorderlessFullscreen = false; // vulkan exclusive
+                    App.Settings.Prop.FakeBorderlessFullscreen = false; 
 
                 App.FastFlags.SetPresetEnum("Rendering.Mode", value.ToString(), "True");
             }
@@ -93,7 +93,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             {
                 if (value)
                 {
-                    // we enable level 3 by default
+                    
                     MeshQuality = 3;
                 }
                 else
@@ -113,7 +113,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => int.TryParse(App.FastFlags.GetPreset("Geometry.MeshLOD.Static"), out var x) ? x : 0;
             set
             {
-                // holy..
+                
                 int clamped = Math.Clamp(value, 0, LODLevels.Length - 1);
 
                 for (int i = 0; i < LODLevels.Length; i++)

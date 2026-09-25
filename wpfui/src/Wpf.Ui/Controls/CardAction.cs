@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System.ComponentModel;
 using System.Drawing;
@@ -15,9 +15,9 @@ namespace Wpf.Ui.Controls;
 /// <summary>
 /// Inherited from the <see cref="System.Windows.Controls.Primitives.ButtonBase"/> interactive card styled according to Fluent Design.
 /// </summary>
-//#if NETFRAMEWORK
-//    [ToolboxBitmap(typeof(Button))]
-//#endif
+
+
+
 [ToolboxItem(true)]
 [ToolboxBitmap(typeof(CardAction), "CardAction.bmp")]
 public class CardAction : System.Windows.Controls.Primitives.ButtonBase, IIconControl

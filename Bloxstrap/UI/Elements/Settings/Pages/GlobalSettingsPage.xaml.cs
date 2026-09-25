@@ -15,6 +15,9 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         public GlobalSettingsPage()
         {
+            
+            App.GlobalSettings.RefreshIfUnchanged();
+
             SetupViewModel();
             InitializeComponent();
         }

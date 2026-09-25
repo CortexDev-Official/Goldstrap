@@ -17,7 +17,7 @@ namespace Bloxstrap
         public static IReadOnlyDictionary<string, string> PresetFlags = new Dictionary<string, string>
         {
 
-            // Presets and stuff
+            
             { "Rendering.ManualFullscreen", "FFlagHandleAltEnterFullscreenManually" },
             { "Rendering.DisableScaling", "DFFlagDisableDPIScale" },
             { "Rendering.MSAA", "FIntDebugForceMSAASamples" },
@@ -29,19 +29,19 @@ namespace Bloxstrap
             { "Rendering.GrassMaxDistance", "FIntFRMMaxGrassDistance" },
             { "Rendering.GrassMinDistance", "FIntFRMMinGrassDistance" },
 
-            // Rendering engines
+            
             { "Rendering.Mode.D3D11", "FFlagDebugGraphicsPreferD3D11" },
             { "Rendering.Mode.Vulkan", "FFlagDebugGraphicsPreferVulkan" },
             { "Rendering.Mode.OpenGL", "FFlagDebugGraphicsPreferOpenGL" },
 
-            // Geometry
+            
             { "Geometry.MeshLOD.Static", "DFIntCSGLevelOfDetailSwitchingDistanceStatic" },
             { "Geometry.MeshLOD.L0", "DFIntCSGLevelOfDetailSwitchingDistance" },
             { "Geometry.MeshLOD.L12", "DFIntCSGLevelOfDetailSwitchingDistanceL12" },
             { "Geometry.MeshLOD.L23", "DFIntCSGLevelOfDetailSwitchingDistanceL23" },
             { "Geometry.MeshLOD.L34", "DFIntCSGLevelOfDetailSwitchingDistanceL34" },
 
-            // User Interface
+            
             { "UI.ReducedMotion", "FIntGrassMovementReducedMotionFactor" },
         };
 
@@ -61,8 +61,8 @@ namespace Bloxstrap
             { MSAAMode.x4, "4" }
         };
 
-        // all fflags are stored as strings
-        // to delete a flag, set the value as null
+        
+        
         public void SetValue(string key, object? value)
         {
             const string LOG_IDENT = "FastFlagManager::SetValue";
@@ -78,7 +78,7 @@ namespace Bloxstrap
             {
                 if (Prop.ContainsKey(key))
                 {
-                    if (key == Prop[key].ToString())
+                    if (Prop[key].ToString() == value.ToString())
                         return;
 
                     App.Logger.WriteLine(LOG_IDENT, $"Changing of '{key}' from '{Prop[key]}' to '{value}' is pending");
@@ -92,10 +92,10 @@ namespace Bloxstrap
             }
         }
 
-        // this returns null if the fflag doesn't exist
+        
         public string? GetValue(string key)
         {
-            // check if we have an updated change for it pushed first
+            
             if (Prop.TryGetValue(key, out object? value) && value is not null)
                 return value.ToString();
 
@@ -149,14 +149,14 @@ namespace Bloxstrap
 
         public override void Save()
         {
-            // convert all flag values to strings before saving
+            
 
             foreach (var pair in Prop)
                 Prop[pair.Key] = pair.Value.ToString()!;
 
             base.Save();
 
-            // clone the dictionary
+            
             OriginalProp = new(Prop);
         }
 
@@ -164,7 +164,7 @@ namespace Bloxstrap
         {
             base.Load(alertFailure);
 
-            // clone the dictionary
+            
             OriginalProp = new(Prop);
 
             if (GetPreset("Rendering.ManualFullscreen") != "False")

@@ -1,10 +1,10 @@
 ﻿// Documentation of this Source Code is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
 
-// ICommand implementation example provided by Microsoft.
-// https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.input.icommand?view=winrt-22000
+
+
+
 
 using System;
 using System.Windows.Input;
@@ -39,7 +39,7 @@ public sealed class RelayCommand : IRelayCommand
     /// <param name="execute">Action to be executed.</param>
     public RelayCommand(Action execute) : this(execute, null)
     {
-        // Delegated to RelayCommand(Action execute, Func<bool> canExecute)
+        
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public sealed class RelayCommand : IRelayCommand
     /// <param name="execute">Action with <see cref="object"/> parameter to be executed.</param>
     public RelayCommand(Action<object> execute) : this(execute, null)
     {
-        // Delegated to RelayCommand(Action<object> execute, Func<bool> canExecute)
+        
     }
 
     /// <summary>

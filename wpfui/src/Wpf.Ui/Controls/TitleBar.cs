@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.ComponentModel;
@@ -536,7 +536,7 @@ public class TitleBar : System.Windows.Controls.Control, IThemeControl
         _snapLayout = SnapLayout.Register(ParentWindow, maximizeButton, restoreButton);
 
         // Can be taken it from the Template, but honestly - a classic - TODO: 
-        // ButtonsBackground, but
+        
         _snapLayout.HoverColorLight = new SolidColorBrush(Color.FromArgb(
             (byte)0x1A,
             (byte)0x00,
@@ -558,7 +558,7 @@ public class TitleBar : System.Windows.Controls.Control, IThemeControl
         if (e.LeftButton != MouseButtonState.Pressed || ParentWindow == null)
             return;
 
-        // prevent firing from double clicking when the mouse never actually moved
+        
         Interop.User32.GetCursorPos(out var currentMousePos);
 
         if (currentMousePos.x == _doubleClickPoint.x && currentMousePos.y == _doubleClickPoint.y)
@@ -573,23 +573,23 @@ public class TitleBar : System.Windows.Controls.Control, IThemeControl
             screenPoint.Y /= systemDpi.DpiScaleY;
 
             // TODO: refine the Left value to be more accurate
-            // - This calculation is good enough using the center
-            //   of the titlebar, however this isn't quite accurate for
-            //   how the OS operates.
-            // - It should be set as a % (e.g. screen X / maximized width),
-            //   then offset from the left to line up more naturally.
+            
+            
+            
+            
+            
             ParentWindow.Left = screenPoint.X - (ParentWindow.RestoreBounds.Width * 0.5);
             ParentWindow.Top = screenPoint.Y;
 
-            // style has to be quickly swapped to avoid restore animation delay
+            
             var style = ParentWindow.WindowStyle;
             ParentWindow.WindowStyle = WindowStyle.None;
             ParentWindow.WindowState = WindowState.Normal;
             ParentWindow.WindowStyle = style;
         }
 
-        // Call drag move only when mouse down, check again
-        // if()
+        
+        
         if (e.LeftButton == MouseButtonState.Pressed)
             ParentWindow.DragMove();
     }

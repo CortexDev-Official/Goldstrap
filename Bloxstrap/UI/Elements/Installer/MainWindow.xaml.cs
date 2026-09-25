@@ -55,7 +55,7 @@ namespace Bloxstrap.UI.Elements.Installer
 
             _viewModel.PageRequest += (_, type) =>
             {
-                // debounce
+                
                 if (DateTimeOffset.Now.Subtract(_lastNavigation).TotalMilliseconds < 500)
                     return;
 

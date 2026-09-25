@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 #nullable enable
 #pragma warning disable CS8600
@@ -116,7 +116,7 @@ public abstract class NavigationBase : System.Windows.Controls.Control, INavigat
     /// <remarks>
     /// Work in progress.
     /// </remarks>
-    //[Obsolete("Work in progress.")]
+    
     public Orientation Orientation
     {
         get => (Orientation)GetValue(OrientationProperty);
@@ -246,7 +246,7 @@ public abstract class NavigationBase : System.Windows.Controls.Control, INavigat
     {
         Current = (INavigationItem)null;
 
-        // Prepare individual collections for this navigation
+        
         Items ??= new ObservableCollection<INavigationControl>();
         Footer ??= new ObservableCollection<INavigationControl>();
 
@@ -257,10 +257,10 @@ public abstract class NavigationBase : System.Windows.Controls.Control, INavigat
         if (Frame != null)
             _navigationService.SetFrame(Frame);
 
-        // Let the NavigationItem children be able to get me.
+        
         NavigationParent = this;
 
-        // Loaded does not have override
+        
         Loaded += OnLoaded;
     }
 
@@ -463,31 +463,31 @@ public abstract class NavigationBase : System.Windows.Controls.Control, INavigat
         if (PageService == null && Frame != null && SelectedPageIndex > -1)
             Navigate(SelectedPageIndex);
 
-        // If we are using the MVVM model, do not use the cache.
+        
         if (Precache)
         {
             if (PageService != null)
                 throw new InvalidOperationException("The cache cannot be used if you are using IPageService.");
 
             // TODO: Precache
-            //await PrecacheInstances();
+            
         }
     }
 
     /// <inheritdoc/>
     protected override void OnKeyDown(KeyEventArgs e)
     {
-        // We handle Left/Up/Right/Down keys for keyboard navigation only,
-        // so no modifiers are needed.
+        
+        
         if (Keyboard.Modifiers is not ModifierKeys.None)
             return;
 
-        // For most cases, this method do nothing because it does not receive focus by default.
-        // But if someone set focus to it, the key handling can move the focus to its navigation children.
+        
+        
         switch (e.Key)
         {
-            // We use Direction Left/Up/Right/Down instead of Previous/Next to make sure
-            // that the KeyboardNavigation.DirectionalNavigation property works correctly.
+            
+            
             case Key.Left:
                 MoveFocus(this, FocusNavigationDirection.Left);
                 e.Handled = true;
@@ -582,7 +582,7 @@ public abstract class NavigationBase : System.Windows.Controls.Control, INavigat
             foreach (var addedItem in e.NewItems)
                 if (addedItem is INavigationItem)
                 {
-                    ((INavigationItem)addedItem).Click -= OnNavigationItemClicked; // Unsafe - Remove duplicates
+                    ((INavigationItem)addedItem).Click -= OnNavigationItemClicked; 
                     ((INavigationItem)addedItem).Click += OnNavigationItemClicked;
                 }
 
@@ -685,14 +685,14 @@ public abstract class NavigationBase : System.Windows.Controls.Control, INavigat
         foreach (var addedItem in navigationItems)
             if (addedItem is INavigationItem)
             {
-                ((INavigationItem)addedItem).Click -= OnNavigationItemClicked; // Unsafe - Remove duplicates
+                ((INavigationItem)addedItem).Click -= OnNavigationItemClicked; 
                 ((INavigationItem)addedItem).Click += OnNavigationItemClicked;
             }
 
         foreach (var addedItem in navigationFooter)
             if (addedItem is INavigationItem)
             {
-                ((INavigationItem)addedItem).Click -= OnNavigationItemClicked; // Unsafe - Remove duplicates
+                ((INavigationItem)addedItem).Click -= OnNavigationItemClicked; 
                 ((INavigationItem)addedItem).Click += OnNavigationItemClicked;
             }
 

@@ -61,18 +61,18 @@ namespace Bloxstrap.Integrations
 
                     foreach (string file in Files)
                     {
-                        // verify file
+                        
                         if (!VerifyFile(file, Threshold))
                             continue;
 
-                        // file limit exceeded
+                        
                         if (DeletedItems >= MaxFiles)
                         {
                             App.Logger.WriteLine(LOG_IDENT, $"Reached file threshold in {directory}, continuing to next directory");
                             break;
                         }
 
-                        // attempt deletion
+                        
                         try { 
                             File.Delete(file);
                             DeletedItems++;
@@ -97,9 +97,9 @@ namespace Bloxstrap.Integrations
 
         private static bool VerifyFile(string file, DateTime Threshold)
         {
-            // true = can be deleted
-            // false = silently cancel deletion for current file
-            // exception = deletion could be dangerous, cancels cleaner for current directory
+            
+            
+            
 
             if (!File.Exists(file))
                 return false;
@@ -112,8 +112,8 @@ namespace Bloxstrap.Integrations
                 throw new Exception($"{file} was in disallowed directory");
 
             if (file.Contains("Windows"))
-                throw new Exception($"{file} was in Windows directory"); // we dont want any contact with windows directory
-                                                                         // this will cancel the cleaner process
+                throw new Exception($"{file} was in Windows directory"); 
+                                                                         
             return true;
         }
 

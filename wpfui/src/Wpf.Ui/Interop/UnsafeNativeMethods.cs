@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Runtime.InteropServices;
@@ -79,7 +79,7 @@ public static class UnsafeNativeMethods
         if (!User32.IsWindow(handle))
             return false;
 
-        var pvAttribute = 0x0; // Disable
+        var pvAttribute = 0x0; 
         var dwAttribute = Dwmapi.DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE;
 
         if (!Win32.Utilities.IsOSWindows11Insider1OrNewer)
@@ -116,7 +116,7 @@ public static class UnsafeNativeMethods
         if (!User32.IsWindow(handle))
             return false;
 
-        var pvAttribute = 0x1; // Enable
+        var pvAttribute = 0x1; 
         var dwAttribute = Dwmapi.DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE;
 
         if (!Win32.Utilities.IsOSWindows11Insider1OrNewer)
@@ -242,7 +242,7 @@ public static class UnsafeNativeMethods
         if (!User32.IsWindow(handle))
             return false;
 
-        var pvAttribute = 0x0; // Disable
+        var pvAttribute = 0x0; 
         var backdropPvAttribute = (int)Dwmapi.DWMSBT.DWMSBT_DISABLE;
 
         Dwmapi.DwmSetWindowAttribute(
@@ -329,7 +329,7 @@ public static class UnsafeNativeMethods
     /// <returns><see langword="true"/> if invocation of native Windows function succeeds.</returns>
     public static bool ApplyWindowLegacyMicaEffect(IntPtr handle)
     {
-        var backdropPvAttribute = 0x1; //Enable
+        var backdropPvAttribute = 0x1; 
 
         // TODO: Validate HRESULT
         Dwmapi.DwmSetWindowAttribute(
@@ -572,10 +572,10 @@ public static class UnsafeNativeMethods
 
     public static bool ExtendClientAreaIntoTitleBar(IntPtr hWnd)
     {
-        // !! EXPERIMENTAl
+        
 
         // NOTE:
-        // WinRt has ExtendContentIntoTitlebar, but it needs some digging
+        
 
         if (hWnd == IntPtr.Zero)
             return false;
@@ -583,7 +583,7 @@ public static class UnsafeNativeMethods
         if (!User32.IsWindow(hWnd))
             return false;
 
-        // #1 Remove titlebar elements
+        
         var wtaOptions = new UxTheme.WTA_OPTIONS()
         {
             dwFlags = (UxTheme.WTNCA.NODRAWCAPTION | UxTheme.WTNCA.NODRAWICON | UxTheme.WTNCA.NOSYSMENU),
@@ -598,7 +598,7 @@ public static class UnsafeNativeMethods
 
         var windowDpi = Ui.Dpi.DpiHelper.GetWindowDpi(hWnd);
 
-        // #2 Extend glass frame
+        
         var deviceGlassThickness = Ui.Dpi.DpiHelper.LogicalThicknessToDevice(
             new Thickness(-1, -1, -1, -1),
             windowDpi.DpiScaleX,
@@ -606,17 +606,17 @@ public static class UnsafeNativeMethods
 
         var dwmMargin = new UxTheme.MARGINS
         {
-            // err on the side of pushing in glass an extra pixel.
+            
             cxLeftWidth = (int)Math.Ceiling(deviceGlassThickness.Left),
             cxRightWidth = (int)Math.Ceiling(deviceGlassThickness.Right),
             cyTopHeight = (int)Math.Ceiling(deviceGlassThickness.Top),
             cyBottomHeight = (int)Math.Ceiling(deviceGlassThickness.Bottom),
         };
 
-        // #3 Extend client area
+        
         Interop.Dwmapi.DwmExtendFrameIntoClientArea(hWnd, ref dwmMargin);
 
-        // #4 Clear rounding region
+        
         Interop.User32.SetWindowRgn(hWnd, IntPtr.Zero,
             Interop.User32.IsWindowVisible(hWnd));
 
@@ -625,7 +625,7 @@ public static class UnsafeNativeMethods
 
     public static void RestoreDefaultClientArea(Window window)
     {
-        //
+        
     }
 
     #endregion Client area and Title bar

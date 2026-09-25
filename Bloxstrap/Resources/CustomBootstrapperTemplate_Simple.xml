@@ -1,5 +1,5 @@
 ﻿<BloxstrapCustomBootstrapper Version="1" Height="320" Width="520" IgnoreTitleBarInset="True" Theme="Default" Margin="30">
-	<!-- {0} -->
+	
 	<TitleBar Title="" ShowMinimize="False" ShowClose="False" />
 
 	<Image Source="{Icon}" Height="100" Width="100" HorizontalAlignment="Center" Margin="0,15,0,0" />

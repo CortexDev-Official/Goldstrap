@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System.Windows.Media;
 
@@ -18,7 +18,7 @@ public enum ThemeResource
     /// </summary>
     Unknown,
 
-    // Accents
+    
     SystemAccentColor,
     SystemAccentColorPrimary,
     SystemAccentColorSecondary,
@@ -27,15 +27,15 @@ public enum ThemeResource
     SystemAccentColorSecondaryBrush,
     SystemAccentColorTertiaryBrush,
 
-    // Background
+    
     ApplicationBackgroundColor,
     ApplicationBackgroundBrush,
 
-    // Focus
+    
     KeyboardFocusBorderColor,
     KeyboardFocusBorderColorBrush,
 
-    // Text
+    
     TextFillColorPrimary,
     TextFillColorSecondary,
     TextFillColorTertiary,
@@ -139,7 +139,7 @@ public enum ThemeResource
     SystemFillColorSolidAttentionBackground,
     SystemFillColorSolidNeutralBackground,
 
-    // Brushes
+    
     TextFillColorPrimaryBrush,
     TextFillColorSecondaryBrush,
     TextFillColorTertiaryBrush,

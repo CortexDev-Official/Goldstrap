@@ -24,15 +24,14 @@ namespace Bloxstrap.UI.Elements.Settings
     {
         private Models.Persistable.WindowState _state => App.State.Prop.SettingsWindow;
 
-        // we should cache this
+        
         private List<SearchBarItem>? _searchIndex;
 
         public MainWindow(bool showAlreadyRunningWarning)
         {
             var viewModel = new MainWindowViewModel();
 
-            viewModel.RequestSaveNoticeEvent += (_, _) => SettingsSavedToast.Show(
-                Strings.Menu_SettingsSaved_Title, Strings.Menu_SettingsSaved_Message);
+            viewModel.RequestSaveNoticeEvent += (_, _) => SettingsSavedSnackbar.Show();
             viewModel.RequestCloseWindowEvent += (_, _) => Close();
 
             DataContext = viewModel;
@@ -45,7 +44,7 @@ namespace Bloxstrap.UI.Elements.Settings
                 ShowAlreadyRunningSnackbar();
 
             gbs.Opacity = viewModel.GBSEnabled ? 1 : 0.5;
-            gbs.IsEnabled = viewModel.GBSEnabled; // binding doesnt work as expected so we are setting it in here instead
+            gbs.IsEnabled = viewModel.GBSEnabled; 
 
             LoadState();
 
@@ -81,7 +80,7 @@ namespace Bloxstrap.UI.Elements.Settings
                 App.State.Prop.LastPage = currentPage?.PageType.FullName!;
             }
 
-            // run scraper
+            
             this.Loaded += (s, e) =>
             {
                 Dispatcher.InvokeAsync(() =>
@@ -115,17 +114,17 @@ namespace Bloxstrap.UI.Elements.Settings
 
         private async void SafeNavigate(Type page)
         {
-            await Task.Delay(500); // same as below
+            await Task.Delay(500); 
 
             if (page == typeof(GlobalSettingsPage) && !App.GlobalSettings.Loaded)
-                return; // prevent from navigating onto disabled page
+                return; 
 
             Navigate(page);
         }
 
         private async void ShowAlreadyRunningSnackbar()
         {
-            await Task.Delay(500); // wait for everything to finish loading
+            await Task.Delay(500); 
             AlreadyRunningSnackbar.Show();
         }
 
@@ -230,7 +229,7 @@ namespace Bloxstrap.UI.Elements.Settings
             }
         }
 
-        // should move to viewmodels but uhhh im kinda lazy
+        
         private void AutoSuggestBoxTextChanged(object sender, TextChangedEventArgs e)
         {
             if (sender is AutoSuggestBox autoSuggestBox)

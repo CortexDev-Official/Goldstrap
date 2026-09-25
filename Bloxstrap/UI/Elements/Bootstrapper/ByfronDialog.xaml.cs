@@ -112,7 +112,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             if (App.Settings.Prop.Theme.GetFinal() == Theme.Light)
             {
-                // Matching the roblox website light theme as close as possible.
+                
                 _viewModel.DialogBorder = new Thickness(1);
                 _viewModel.Background = new SolidColorBrush(Color.FromRgb(242, 244, 245));
                 _viewModel.Foreground = new SolidColorBrush(Color.FromRgb(57, 59, 61));
@@ -130,7 +130,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         }
 
         #region IBootstrapperDialog Methods
-        // Referencing FluentDialog
+        
         public void ShowBootstrapper() => this.ShowDialog();
 
         public void CloseBootstrapper()

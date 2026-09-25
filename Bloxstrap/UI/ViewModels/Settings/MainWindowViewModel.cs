@@ -54,7 +54,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             App.Settings.Save();
             App.State.Save();
             App.FastFlags.Save();
-            App.GlobalSettings.Save();
+            App.GlobalSettings.Save(); 
 
             foreach (var pair in App.PendingSettingTasks)
             {

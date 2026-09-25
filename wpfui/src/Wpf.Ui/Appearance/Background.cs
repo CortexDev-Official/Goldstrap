@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Windows;
@@ -25,14 +25,14 @@ public static class Background
     {
         return type switch
         {
-            BackgroundType.Auto => Win32.Utilities.IsOSWindows11Insider1OrNewer, // Insider with new API
+            BackgroundType.Auto => Win32.Utilities.IsOSWindows11Insider1OrNewer, 
             BackgroundType.Tabbed => Win32.Utilities.IsOSWindows11Insider1OrNewer,
             BackgroundType.Mica => Win32.Utilities.IsOSWindows11OrNewer,
             BackgroundType.Acrylic => Win32.Utilities.IsOSWindows7OrNewer,
             BackgroundType.Aero => Win32.Utilities.IsOSWindows7OrNewer,
             BackgroundType.Unknown => true,
             BackgroundType.None => true,
-            BackgroundType.Disable => false, // dont run the apply code
+            BackgroundType.Disable => false, 
             _ => false
         };
     }
@@ -63,7 +63,7 @@ public static class Background
             if (windowHandle == IntPtr.Zero)
                 return false;
 
-            // Remove currently set background of the window and it's composition area
+            
             RemoveContentBackground(window);
 
             return Apply(windowHandle, type, force);
@@ -76,7 +76,7 @@ public static class Background
             if (windowHandle == IntPtr.Zero)
                 return;
 
-            // Remove currently set background of the window and it's composition area
+            
             RemoveContentBackground(sender as Window);
 
             Apply(windowHandle, type, force);
@@ -117,8 +117,8 @@ public static class Background
             return true;
         }
 
-        //if (!UnsafeNativeMethods.RemoveWindowTitlebar(handle))
-        //    return false;
+        
+        
 
         if (Theme.GetAppTheme() == ThemeType.Dark)
             UnsafeNativeMethods.ApplyWindowDarkMode(handle);
@@ -126,7 +126,7 @@ public static class Background
             UnsafeNativeMethods.RemoveWindowDarkMode(handle);
 
 
-        // Caption of the window should be removed, does not respect dark theme
+        
         UnsafeNativeMethods.RemoveWindowCaption(handle);
 
         AppearanceData.AddHandle(handle);
@@ -134,7 +134,7 @@ public static class Background
         if (type == BackgroundType.Aero)
             return UnsafeNativeMethods.ApplyWindowAeroEffect(handle);
 
-        // First release of Windows 11
+        
         if (!Win32.Utilities.IsOSWindows11Insider1OrNewer)
         {
             if (type == BackgroundType.Mica || type == BackgroundType.Auto)
@@ -146,7 +146,7 @@ public static class Background
             return false;
         }
 
-        // Newer Windows 11 versions
+        
         return UnsafeNativeMethods.ApplyWindowBackdrop(handle, type);
     }
 
@@ -203,7 +203,7 @@ public static class Background
         if (window == null)
             return false;
 
-        // Remove background from visual root
+        
         window.Background = Brushes.Transparent;
 
         var windowHandle = new WindowInteropHelper(window).Handle;
@@ -213,7 +213,7 @@ public static class Background
 
         var windowSource = HwndSource.FromHwnd(windowHandle);
 
-        // Remove background from client area
+        
         if (windowSource?.Handle != IntPtr.Zero && windowSource?.CompositionTarget != null)
             windowSource.CompositionTarget.BackgroundColor = Colors.Transparent;
 
@@ -230,14 +230,14 @@ public static class Background
         if (window == null)
             return false;
 
-        // Global resources
+        
         var backgroundBrush = Application.Current.Resources["ApplicationBackgroundBrush"];
 
-        // Local resources
+        
         if (backgroundBrush is not SolidColorBrush)
             backgroundBrush = window.Resources["ApplicationBackgroundBrush"];
 
-        // Manual fallback
+        
         if (backgroundBrush is not SolidColorBrush)
             backgroundBrush = Theme.GetAppTheme() == ThemeType.Dark
                 ? new SolidColorBrush(Color.FromArgb(0xFF, 0x20, 0x20, 0x20))
@@ -254,7 +254,7 @@ public static class Background
 
         Appearance.Background.Remove(windowHandle);
 
-        // Restore client area
+        
         if (windowSource?.Handle != IntPtr.Zero && windowSource?.CompositionTarget != null)
             windowSource.CompositionTarget.BackgroundColor = SystemColors.WindowColor;
 
@@ -276,7 +276,7 @@ public static class Background
 
         var windowSource = HwndSource.FromHwnd(hWnd);
 
-        // Restore client area
+        
         if (windowSource?.Handle != IntPtr.Zero && windowSource?.CompositionTarget != null)
             windowSource.CompositionTarget.BackgroundColor = SystemColors.WindowColor;
 
@@ -284,7 +284,7 @@ public static class Background
         {
             var backgroundBrush = window.Resources["ApplicationBackgroundBrush"];
 
-            // Manual fallback
+            
             if (backgroundBrush is not SolidColorBrush)
                 backgroundBrush = Theme.GetAppTheme() == ThemeType.Dark
                     ? new SolidColorBrush(Color.FromArgb(0xFF, 0x20, 0x20, 0x20))
@@ -342,11 +342,11 @@ public static class Background
 
             // TODO: Legacy acrylic effect and aero too
 
-            //if (backdropType == BackgroundType.Acrylic)
-            //{
-            //    if (!UnsafeNativeMethods.IsWindowHasLegacyAcrylic(singleHandle))
-            //        UnsafeNativeMethods.ApplyWindowLegacyAcrylicEffect(singleHandle);
-            //}
+            
+            
+            
+            
+            
         }
     }
 }

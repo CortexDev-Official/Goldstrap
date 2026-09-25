@@ -21,7 +21,7 @@
                 <SolidColorBrush Color="{DynamicResource SystemAccentColorSecondary}" />
             </Setter.Value>
         </Setter>
-        <!--<Setter Property="BorderBrush" Value="{DynamicResource SystemAccentBrush}" />-->
+        
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Padding" Value="4" />
         <Setter Property="Focusable" Value="False" />

@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Diagnostics;
@@ -37,7 +37,7 @@ internal static class Hicon
             if (appIconsExtractIcon == null)
                 return IntPtr.Zero;
 
-            //appIconsExtractIcon.ToBitmap();
+            
 
             return appIconsExtractIcon.Handle;
         }
@@ -72,7 +72,7 @@ internal static class Hicon
             return IntPtr.Zero;
         }
 
-        // Gets first bitmap frame.
+        
         bitmapFrame = bitmapFrame.Decoder.Frames[0];
 
         var stride = bitmapFrame.PixelWidth * ((bitmapFrame.Format.BitsPerPixel + 7) / 8);
@@ -80,7 +80,7 @@ internal static class Hicon
 
         bitmapFrame.CopyPixels(pixels, stride, 0);
 
-        // Allocate pixels to unmanaged memory
+        
         var gcHandle = GCHandle.Alloc(pixels, GCHandleType.Pinned);
 
         if (!gcHandle.IsAllocated)
@@ -93,14 +93,14 @@ internal static class Hicon
         }
 
 
-        // Specifies that the format is 32 bits per pixel; 8 bits each are used for the alpha, red, green, and blue components.
-        // The red, green, and blue components are premultiplied, according to the alpha component.
+        
+        
         var bitmap = new Bitmap(bitmapFrame.PixelWidth, bitmapFrame.PixelHeight, stride,
             System.Drawing.Imaging.PixelFormat.Format32bppPArgb, gcHandle.AddrOfPinnedObject());
 
         hIcon = bitmap.GetHicon();
 
-        // Release handle.
+        
         gcHandle.Free();
 
         return hIcon;

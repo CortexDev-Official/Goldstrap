@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System.ComponentModel;
 using System.Windows;
@@ -55,9 +55,9 @@ public class TreeViewItem : System.Windows.Controls.TreeViewItem, IIconControl
         set => SetValue(IconFilledProperty, value);
     }
 
-    ///// <summary>
-    ///// Foreground of the <see cref="Wpf.Ui.Common.SymbolRegular"/>.
-    ///// </summary>
+    
+    
+    
     [Bindable(true), Category("Appearance")]
     public Brush IconForeground
     {

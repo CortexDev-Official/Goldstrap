@@ -1,8 +1,8 @@
-﻿// This Source Code is partially based on the source code provided by the .NET Foundation.
+﻿
 // This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski.
-// All Rights Reserved.
+
 
 #nullable enable
 #pragma warning disable CS8601
@@ -88,7 +88,7 @@ internal class Utilities
 
     public static void SafeDispose<T>(ref T disposable) where T : IDisposable
     {
-        // Dispose can safely be called on an object multiple times.
+        
         IDisposable t = disposable;
         disposable = default(T);
 
@@ -118,8 +118,8 @@ internal class Utilities
     {
         int major = 0;
         {
-            // The 'CurrentMajorVersionNumber' string value in the CurrentVersion key is new for Windows 10, 
-            // and will most likely (hopefully) be there for some time before MS decides to change this - again...
+            
+            
             if (TryGetRegistryKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentMajorVersionNumber",
                     out var majorObj))
             {
@@ -128,7 +128,7 @@ internal class Utilities
                 major = (int)majorObj;
             }
 
-            // When the 'CurrentMajorVersionNumber' value is not present we fallback to reading the previous key used for this: 'CurrentVersion'
+            
             else if (TryGetRegistryKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentVersion",
                          out var version))
             {
@@ -143,8 +143,8 @@ internal class Utilities
 
         int minor = 0;
         {
-            // The 'CurrentMinorVersionNumber' string value in the CurrentVersion key is new for Windows 10, 
-            // and will most likely (hopefully) be there for some time before MS decides to change this - again...
+            
+            
             if (TryGetRegistryKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentMinorVersionNumber",
                     out var minorObj))
             {
@@ -153,7 +153,7 @@ internal class Utilities
                 minor = (int)minorObj;
             }
 
-            // When the 'CurrentMinorVersionNumber' value is not present we fallback to reading the previous key used for this: 'CurrentVersion'
+            
             else if (TryGetRegistryKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentVersion",
                          out var version))
             {

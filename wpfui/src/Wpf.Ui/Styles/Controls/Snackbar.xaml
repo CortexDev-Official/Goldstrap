@@ -100,7 +100,7 @@
                                         TextWrapping="Wrap" />
                                 </StackPanel>
 
-                                <!--  We assume that Content is presented instead of Title and Message.  -->
+                                
                                 <ContentPresenter Grid.Column="1" />
 
                                 <controls:Button

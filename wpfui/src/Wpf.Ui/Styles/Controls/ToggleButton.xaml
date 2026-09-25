@@ -15,9 +15,9 @@
     <Thickness x:Key="ToggleButtonIconMargin">0,0,8,0</Thickness>
 
     <Style x:Key="DefaultToggleButtonStyle" TargetType="{x:Type ToggleButton}">
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="Background">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />

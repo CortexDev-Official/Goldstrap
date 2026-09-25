@@ -27,12 +27,12 @@
     <system:Double x:Key="ComboBoxPopupMinHeight">32.0</system:Double>
 
     <Style x:Key="DefaultComboBoxTextBoxStyle" TargetType="{x:Type TextBox}">
-        <!--  Focus by parent element  -->
+        
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <!--  Focus by parent element  -->
-        <!--  Universal WPF UI ContextMenu  -->
+        
+        
         <Setter Property="ContextMenu" Value="{DynamicResource DefaultControlContextMenu}" />
-        <!--  Universal WPF UI ContextMenu  -->
+        
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource TextFillColorPrimary}" />
@@ -65,9 +65,9 @@
     </Style>
 
     <Style x:Key="DefaultComboBoxToggleButtonStyle" TargetType="{x:Type ToggleButton}">
-        <!--  Focus by parent element  -->
+        
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <!--  Focus by parent element  -->
+        
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource TextFillColorPrimary}" />
@@ -100,9 +100,9 @@
     </Style>
 
     <Style x:Key="DefaultComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource TextFillColorPrimary}" />
@@ -170,12 +170,12 @@
     </Style>
 
     <Style x:Key="DefaultComboBoxStyle" TargetType="{x:Type ComboBox}">
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
-        <!--  Universal WPF UI focus  -->
-        <!--  Universal WPF UI ContextMenu  -->
+        
+        
         <Setter Property="ContextMenu" Value="{DynamicResource DefaultControlContextMenu}" />
-        <!--  Universal WPF UI ContextMenu  -->
+        
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource TextFillColorPrimary}" />
@@ -201,7 +201,7 @@
         <Setter Property="Padding" Value="{DynamicResource ComboBoxPadding}" />
         <Setter Property="Border.CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
         <Setter Property="Popup.PopupAnimation" Value="Slide" />
-        <!--  WPF doesn't like centering, the animation is ugly and the mouse button sometimes clicks right away.  -->
+        
         <Setter Property="Popup.Placement" Value="Bottom" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -222,11 +222,7 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding Border.CornerRadius}">
                             <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                                <!--
-                                    Funky grid - because:
-                                    Chevron is over Presenter, ToggleButton is over Chevron, TextBox is over ToggleButton.
-                                    But, TextBox is not over Chevron, so ToggleButton still works.
-                                -->
+                                
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />

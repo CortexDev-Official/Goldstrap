@@ -1,15 +1,15 @@
-﻿// This Source Code is partially based on reverse engineering of the Windows Operating System,
-// and is intended for use on Windows systems only.
-// This Source Code is partially based on the source code provided by the .NET Foundation.
+﻿
+
+
 // This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski.
-// All Rights Reserved.
+
 
 // NOTE
-// I split unmanaged code stuff into the NativeMethods library.
-// If you have suggestions for the code below, please submit your changes there.
-// https://github.com/lepoco/nativemethods
+
+
+
 
 using System;
 using System.Runtime.InteropServices;
@@ -96,7 +96,7 @@ internal static class UxTheme
     [StructLayout(LayoutKind.Explicit)]
     public struct WTA_OPTIONS
     {
-        // public static readonly uint Size = (uint)Marshal.SizeOf(typeof(WTA_OPTIONS));
+        
         public const uint Size = 8;
 
         /// <summary>

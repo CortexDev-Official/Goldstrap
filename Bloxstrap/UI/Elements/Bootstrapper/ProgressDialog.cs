@@ -5,7 +5,7 @@ using Bloxstrap.UI.Elements.Bootstrapper.Base;
 
 namespace Bloxstrap.UI.Elements.Bootstrapper
 {
-    // basically just the modern dialog
+    
 
     public partial class ProgressDialog : WinFormsDialogBase
     {

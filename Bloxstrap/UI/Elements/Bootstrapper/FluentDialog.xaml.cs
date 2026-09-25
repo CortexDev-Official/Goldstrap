@@ -116,7 +116,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             Title = App.Settings.Prop.BootstrapperTitle;
             Icon = App.Settings.Prop.BootstrapperIcon.GetIcon().GetImageSource();
 
-            // setting this to true for mica results in the window being undraggable
+            
             if (aero)
                 AllowsTransparency = true;
             else

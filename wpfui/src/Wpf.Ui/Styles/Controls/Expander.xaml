@@ -76,9 +76,9 @@
     </ControlTemplate>
 
     <Style x:Key="DefaultExpanderStyle" TargetType="{x:Type Expander}">
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
-        <!--  Universal WPF UI focus  -->
+        
         <Setter Property="Background">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
@@ -117,7 +117,7 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <!--  Top level controls always visible  -->
+                            
                             <ToggleButton
                                 x:Name="ExpanderToggleButton"
                                 Margin="0"
@@ -133,7 +133,7 @@
                                 OverridesDefaultStyle="True"
                                 Template="{StaticResource DefaultExpanderToggleButtonStyle}" />
 
-                            <!--  Collapsed content to expand  -->
+                            
                             <Border
                                 x:Name="ContentPresenterBorder"
                                 Grid.Row="1"

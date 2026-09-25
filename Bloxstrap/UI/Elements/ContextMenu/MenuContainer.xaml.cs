@@ -15,7 +15,7 @@ namespace Bloxstrap.UI.Elements.ContextMenu
     /// </summary>
     public partial class MenuContainer
     {
-        // i wouldve gladly done this as mvvm but turns out that data binding just does not work with menuitems for some reason so idk this sucks
+        
 
         private readonly Watcher _watcher;
 
@@ -89,14 +89,14 @@ namespace Bloxstrap.UI.Elements.ContextMenu
 
         private void Window_Loaded(object? sender, RoutedEventArgs e)
         {
-            // this is an awful hack lmao im so sorry to anyone who reads this
-            // this is done to register the context menu wrapper as a tool window so it doesnt appear in the alt+tab switcher
-            // https://stackoverflow.com/a/551847/11852173
+            
+            
+            
 
             HWND hWnd = (HWND)new WindowInteropHelper(this).Handle;
 
             int exStyle = PInvoke.GetWindowLong(hWnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
-            exStyle |= 0x00000080; //NativeMethods.WS_EX_TOOLWINDOW;
+            exStyle |= 0x00000080; 
             PInvoke.SetWindowLong(hWnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE, exStyle);
         }
 

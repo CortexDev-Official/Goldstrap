@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Windows;
@@ -30,14 +30,14 @@ public interface ITaskBarService
     /// Sets taskbar state of the application main window.
     /// </summary>
     /// <param name="progressState">Progress sate to set.</param>
-    //bool SetState(ProgressState progressState);
+    
 
     /// <summary>
     /// Sets taskbar value of the application main window.
     /// </summary>
     /// <param name="current">Current value to display.</param>
     /// <param name="max">Maximum number for division.</param>
-    //bool SetValue(int current, int max);
+    
 
     /// <summary>
     /// Sets taskbar state of the selected window handle.

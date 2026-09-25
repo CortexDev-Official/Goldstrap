@@ -2,8 +2,8 @@
 {
     static class Paths
     {
-        // note that these are directories that aren't tethered to the basedirectory
-        // so these can safely be called before initialization
+        
+        
         public static string Temp => Path.Combine(Path.GetTempPath(), App.ProjectName);
         public static string UserProfile => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string LocalAppData => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -27,7 +27,7 @@
         public static string Roblox { get; private set; } = "";
         public static string CustomThemes { get; private set; } = "";
 
-        // cleaner paths
+        
         public static string RobloxLogs { get; private set; } = "";
         public static string RobloxCache { get; private set; } = "";
         public static string RobloxStudioCache { get; private set; } = "";
@@ -47,11 +47,11 @@
             Versions = Path.Combine(Base, "Versions");
             Modifications = Path.Combine(Base, "Modifications");
             CustomThemes = Path.Combine(Base, "CustomThemes");
-            Roblox = Path.Combine(LocalAppData, "Roblox"); // that was base before?
+            Roblox = Path.Combine(LocalAppData, "Roblox"); 
 
             RobloxLogs = Path.Combine(Roblox, "logs");
             RobloxCache = Path.Combine(Roblox, "rbx-storage");
-            // "studio is still using the old path," return said. -Naveandice
+            
             RobloxStudioCache = Path.Combine(Path.GetTempPath(), "Roblox");
 
             Application = Path.Combine(Base, $"{App.ProjectName}.exe");

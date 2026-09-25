@@ -45,7 +45,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
             // TODO: this sucks
             if (File.Exists(GetThemePath(name)))
-                name = string.Format(Strings.CustomTheme_DefaultName, $"{i}-{Random.Shared.Next(1, 100000)}"); // easy
+                name = string.Format(Strings.CustomTheme_DefaultName, $"{i}-{Random.Shared.Next(1, 100000)}"); 
 
             return name;
         }
@@ -64,7 +64,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
                     return newName;
             }
 
-            // last resort
+            
             return $"{name}_{Random.Shared.Next(maxTries + 1, 1_000_000)}";
         }
 
@@ -116,7 +116,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
                 return false;
             }
 
-            // better to check for the file instead of the directory so broken themes can be overwritten
+            
             string path = Path.Combine(Paths.CustomThemes, _viewModel.Name, "Theme.xml");
             if (File.Exists(path))
             {
@@ -140,8 +140,39 @@ namespace Bloxstrap.UI.Elements.Dialogs
             try
             {
                 using var zipFile = System.IO.Compression.ZipFile.OpenRead(_viewModel.FilePath);
-                bool foundThemeFile = zipFile.Entries.Any(entry =>
-                    Path.GetFileName(entry.FullName).Equals("Theme.xml", StringComparison.OrdinalIgnoreCase));
+
+                const long MaxUncompressedSize = 100 * 1024 * 1024;
+
+                bool foundThemeFile = false;
+                long totalSize = 0;
+
+                foreach (var entry in zipFile.Entries)
+                {
+                    string fullName = entry.FullName.Replace('\\', '/');
+
+                    bool unsafePath = fullName.StartsWith('/')
+                        || fullName.Contains(':')
+                        || fullName.Split('/').Any(segment => segment == "..");
+
+                    if (unsafePath)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, $"Rejected theme archive with unsafe path '{entry.FullName}'");
+                        _viewModel.FileError = Strings.CustomTheme_Add_Errors_ZipInvalidData;
+                        return false;
+                    }
+
+                    if (Path.GetFileName(entry.FullName).Equals("Theme.xml", StringComparison.OrdinalIgnoreCase))
+                        foundThemeFile = true;
+
+                    totalSize += entry.Length;
+
+                    if (totalSize > MaxUncompressedSize)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, "Rejected theme archive that is too large when uncompressed");
+                        _viewModel.FileError = Strings.CustomTheme_Add_Errors_ZipInvalidData;
+                        return false;
+                    }
+                }
 
                 if (!foundThemeFile)
                 {
@@ -158,6 +189,30 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
                 _viewModel.FileError = Strings.CustomTheme_Add_Errors_ZipInvalidData;
                 return false;
+            }
+        }
+
+        private static void ExtractZipSafely(string zipPath, string targetDir)
+        {
+            string fullTargetDir = Path.GetFullPath(targetDir) + Path.DirectorySeparatorChar;
+
+            using var zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(zipPath);
+
+            foreach (ZipEntry entry in zipFile)
+            {
+                if (!entry.IsFile)
+                    continue;
+
+                string destinationPath = Path.GetFullPath(Path.Combine(targetDir, entry.Name));
+
+                if (!destinationPath.StartsWith(fullTargetDir, StringComparison.OrdinalIgnoreCase))
+                    throw new InvalidDataException($"Unsafe path in archive: {entry.Name}");
+
+                Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
+
+                using var input = zipFile.GetInputStream(entry);
+                using var output = File.Create(destinationPath);
+                input.CopyTo(output);
             }
         }
 
@@ -211,8 +266,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
             string staging = Path.Combine(Path.GetTempPath(), "theme-import-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(staging);
 
-            var fastZip = new FastZip();
-            fastZip.ExtractZip(_viewModel.FilePath, staging, null);
+            ExtractZipSafely(_viewModel.FilePath, staging);
 
             try
             {

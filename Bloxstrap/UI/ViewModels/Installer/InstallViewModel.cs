@@ -57,7 +57,7 @@ namespace Bloxstrap.UI.ViewModels.Installer
             get => Directory.Exists(installer.BloxstrapInstallDirectory);
         }
 
-        public bool ShowNotFound // im lazy
+        public bool ShowNotFound 
         {
             get => !Directory.Exists(installer.BloxstrapInstallDirectory);
         }

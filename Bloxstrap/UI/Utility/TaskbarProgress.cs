@@ -3,7 +3,7 @@ using System.Windows.Shell;
 
 namespace Bloxstrap.UI.Utility
 {
-    // Modified from https://github.com/PowerShell/PSReadLine/blob/e9122d38e932614393ff61faf57d6518990d7226/PSReadLine/PlatformWindows.cs#L704
+    
     internal static class TaskbarProgress
     {
         private enum TaskbarStates
@@ -20,7 +20,7 @@ namespace Bloxstrap.UI.Utility
         [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface ITaskbarList3
         {
-            // ITaskbarList
+            
             [PreserveSig]
             int HrInit();
 
@@ -36,18 +36,18 @@ namespace Bloxstrap.UI.Utility
             [PreserveSig]
             int SetActiveAlt(IntPtr hwnd);
 
-            // ITaskbarList2
+            
             [PreserveSig]
             int MarkFullscreenWindow(IntPtr hwnd, [MarshalAs(UnmanagedType.Bool)] bool fFullscreen);
 
-            // ITaskbarList3
+            
             [PreserveSig]
             int SetProgressValue(IntPtr hwnd, UInt64 ullCompleted, UInt64 ullTotal);
 
             [PreserveSig]
             int SetProgressState(IntPtr hwnd, TaskbarStates state);
 
-            // N.B. for copy/pasters: we've left out the rest of the ITaskbarList3 methods...
+            
         }
 
         [ComImport()]

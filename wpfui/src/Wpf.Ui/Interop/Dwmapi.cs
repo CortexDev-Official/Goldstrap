@@ -1,22 +1,22 @@
-﻿// This Source Code is partially based on reverse engineering of the Windows Operating System,
-// and is intended for use on Windows systems only.
-// This Source Code is partially based on the source code provided by the .NET Foundation.
+﻿
+
+
 // This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski.
-// All Rights Reserved.
+
 
 // NOTE
-// I split unmanaged code stuff into the NativeMethods library.
-// If you have suggestions for the code below, please submit your changes there.
-// https://github.com/lepoco/nativemethods
+
+
+
 
 using System;
 using System.Runtime.InteropServices;
 
 namespace Wpf.Ui.Interop;
 
-// Windows Kits\10\Include\10.0.22000.0\um\dwmapi.h
+
 
 /// <summary>
 /// Desktop Window Manager (DWM).
@@ -84,7 +84,7 @@ internal static class Dwmapi
         /// </summary>
         DWMTWR_WINDOW_STYLES = 0x0004,
 
-        // The window has a region (set using SetWindowRgn) making it ineligible.
+        
         DWMTWR_WINDOW_REGION = 0x0008,
 
         /// <summary>

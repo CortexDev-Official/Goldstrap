@@ -37,9 +37,7 @@
                         BorderThickness="1"
                         CornerRadius="4">
                         <Border.BorderBrush>
-                            <!--
-                            <SolidColorBrush Opacity="0.0" Color="{Binding Path=BorderBrush, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, Converter={StaticResource BrushToColorConverter}}" />
-                            -->
+                            
                             <SolidColorBrush Opacity="0.0" Color="{DynamicResource SystemAccentColorSecondary}" />
                         </Border.BorderBrush>
                         <ContentPresenter />

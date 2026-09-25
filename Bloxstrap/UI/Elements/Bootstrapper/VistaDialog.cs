@@ -4,11 +4,11 @@ using Bloxstrap.UI.Elements.Bootstrapper.Base;
 
 namespace Bloxstrap.UI.Elements.Bootstrapper
 {
-    // https://youtu.be/h0_AL95Sc3o?t=48
+    
 
-    // a bit hacky, but this is actually a hidden form
-    // since taskdialog is part of winforms, it can't really be properly used without a form
-    // for example, cross-threaded calls to ui controls can't really be done outside of a form
+    
+    
+    
 
     public partial class VistaDialog : WinFormsDialogBase
     {

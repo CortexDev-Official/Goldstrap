@@ -42,6 +42,8 @@ namespace Bloxstrap
 
         public LaunchFlag BloxshadeFlag { get; } = new("bloxshade");
 
+        public LaunchFlag LaunchSoundFlag { get; } = new("launchsound");
+
 #if DEBUG
         public bool BypassUpdateCheck => true;
 #else
@@ -69,7 +71,7 @@ namespace Bloxstrap
 
             Dictionary<string, LaunchFlag> flagMap = new();
 
-            // build flag map
+            
             foreach (var prop in this.GetType().GetProperties())
             {
                 if (prop.PropertyType != typeof(LaunchFlag))
@@ -84,7 +86,7 @@ namespace Bloxstrap
 
             int startIdx = 0;
 
-            // infer roblox launch uris
+            
             if (Args.Length >= 1)
             {
                 string arg = Args[0];
@@ -106,7 +108,7 @@ namespace Bloxstrap
                 }
             }
 
-            // parse
+            
             for (int i = startIdx; i < Args.Length; i++)
             {
                 string arg = Args[i];
@@ -146,7 +148,7 @@ namespace Bloxstrap
             }
 
             if (VersionFlag.Active)
-                RobloxLaunchMode = LaunchMode.Unknown; // determine in bootstrapper
+                RobloxLaunchMode = LaunchMode.Unknown; 
 
             if (PlayerFlag.Active)
                 ParsePlayer(PlayerFlag.Data);
@@ -196,7 +198,7 @@ namespace Bloxstrap
             }
             else
             {
-                // likely a local path
+                
                 App.Logger.WriteLine(LOG_IDENT, "Got Roblox Studio local place file");
                 RobloxLaunchArgs = $"-task EditFile -localPlaceFile \"{data}\"";
             }

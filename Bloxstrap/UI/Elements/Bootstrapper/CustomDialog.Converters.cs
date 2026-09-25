@@ -7,7 +7,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 {
     public partial class CustomDialog
     {
-        // https://stackoverflow.com/a/2961702
+        
         private static T? ConvertValue<T>(string input) where T : struct
         {
             try
@@ -78,7 +78,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             if (value == null)
                 return null;
 
-            // dynamic resource name
+            
             if (value.StartsWith('{') && value.EndsWith('}'))
                 return value[1..^1];
 

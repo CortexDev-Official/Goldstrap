@@ -15,7 +15,7 @@ namespace Bloxstrap.UI.Animations
             element.Opacity = 0;
             element.RenderTransformOrigin = new Point(0.5, 0.5);
 
-            // gentle upward drift + slight horizontal slide reads smoother than a big lateral jump
+            
             double slideOffset = slideFromRight ? 24 : -24;
             var translate = new TranslateTransform { X = slideOffset, Y = 12 };
             var scale = new ScaleTransform(0.985, 0.985);
@@ -25,10 +25,10 @@ namespace Bloxstrap.UI.Animations
             transformGroup.Children.Add(scale);
             element.RenderTransform = transformGroup;
 
-            // exponential ease-out: fast start, silky landing
+            
             var ease = new ExponentialEase { EasingMode = EasingMode.EaseOut, Exponent = 6 };
 
-            // fade completes faster than movement so content is readable almost immediately
+            
             element.BeginAnimation(UIElement.OpacityProperty,
                 new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(durationMs * 0.6)) { EasingFunction = ease });
 

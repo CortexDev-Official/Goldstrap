@@ -139,25 +139,7 @@
                             Grid.ColumnSpan="2"
                             Visibility="Collapsed" />
                         <VisualStateManager.VisualStateGroups>
-                            <!--
-                            <VisualStateGroup Name="CommonStates">
-                                <VisualStateGroup.Transitions>
-                                    <VisualTransition GeneratedDuration="0:0:0.16" />
-                                </VisualStateGroup.Transitions>
-                                <VisualState Name="Normal" />
-                                <VisualState Name="MouseOver">
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Opacity)"
-                                            From="0.0"
-                                            To="0.5"
-                                            Duration="0:0:.16" />
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState Name="Pressed" />
-                                <VisualState Name="Disabled" />
-                            </VisualStateGroup>
-                            -->
+                            
                             <VisualStateGroup x:Name="SelectionStates">
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
@@ -293,25 +275,7 @@
                             Grid.ColumnSpan="2"
                             Visibility="Collapsed" />
                         <VisualStateManager.VisualStateGroups>
-                            <!--
-                            <VisualStateGroup Name="CommonStates">
-                                <VisualStateGroup.Transitions>
-                                    <VisualTransition GeneratedDuration="0:0:0.16" />
-                                </VisualStateGroup.Transitions>
-                                <VisualState Name="Normal" />
-                                <VisualState Name="MouseOver">
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Opacity)"
-                                            From="0.0"
-                                            To="0.5"
-                                            Duration="0:0:.16" />
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState Name="Pressed" />
-                                <VisualState Name="Disabled" />
-                            </VisualStateGroup>
-                            -->
+                            
                             <VisualStateGroup x:Name="SelectionStates">
                                 <VisualState x:Name="Selected">
                                     <Storyboard>

@@ -106,7 +106,7 @@
                         VerticalAlignment="{TemplateBinding VerticalAlignment}"
                         Background="{TemplateBinding Background}">
 
-                        <!--  In order to trigger the Rendered event we need to display the NotifyIcon control  -->
+                        
                         <ContentPresenter Content="{TemplateBinding Tray}" Visibility="Hidden" />
 
                         <Grid
@@ -119,7 +119,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <!--  Custom application icon  -->
+                            
                             <Image
                                 x:Name="Icon"
                                 Grid.Column="0"
@@ -129,7 +129,7 @@
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Source="{TemplateBinding Icon}" />
 
-                            <!--  Main application title  -->
+                            
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
@@ -141,10 +141,10 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <!--  Additional header content  -->
+                            
                             <ContentPresenter Grid.Column="0" Content="{TemplateBinding Header}" />
 
-                            <!--  Navigation buttons - Close, Restore, Maximize, Minimize  -->
+                            
                             <Grid
                                 Grid.Column="1"
                                 HorizontalAlignment="Right"

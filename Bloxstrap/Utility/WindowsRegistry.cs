@@ -143,6 +143,34 @@ namespace Bloxstrap.Utility
             apisKey.SetValueSafe(keyName, clientPath);
         }
 
+        public static void RemoveRobloxStartupEntry()
+        {
+            const string LOG_IDENT = "WindowsRegistry::RemoveRobloxStartupEntry";
+            const string valueName = "RobloxPlayerBeta";
+
+            try
+            {
+                using var runKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+
+                if (runKey?.GetValue(valueName) is not string entry)
+                    return;
+
+                if (!entry.Contains(App.RobloxPlayerAppName, StringComparison.OrdinalIgnoreCase))
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Leaving '{valueName}' alone, it doesn't point at Roblox");
+                    return;
+                }
+
+                App.Logger.WriteLine(LOG_IDENT, $"Removing startup entry '{entry}'");
+                runKey.DeleteValue(valueName);
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Failed to remove startup entry");
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
+        }
+
         public static void Unregister(string key)
         {
             try

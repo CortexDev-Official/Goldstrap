@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 #nullable enable
 
@@ -21,9 +21,9 @@ using Wpf.Ui.Mvvm.Interfaces;
 namespace Wpf.Ui.Services.Internal;
 
 // NOTE:
-// This class is taped combining many weird tricks
-// and workarounds. Please don't judge me,
-// I'm just a student with a bit of free time
+
+
+
 
 /// <summary>
 /// Internal navigation service.
@@ -345,10 +345,10 @@ internal sealed class NavigationService : IDisposable
 
         _navigationServiceItems = serviceItemCollection.ToArray();
 
-        // Should we precache here? It can be intensive cause the update can be fired multiple times during initialization
-        //if (Precache)
-        //{
-        //}
+        
+        
+        
+        
     }
 
     /// <summary>
@@ -373,10 +373,10 @@ internal sealed class NavigationService : IDisposable
 
         _frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
 
-        _frame.Navigating -= OnFrameNavigating; // Unsafe, but doubling can be catastrophic
+        _frame.Navigating -= OnFrameNavigating; 
         _frame.Navigating += OnFrameNavigating;
 
-        _frame.Navigated -= OnFrameNavigated; // Unsafe, but doubling can be catastrophic
+        _frame.Navigated -= OnFrameNavigated; 
         _frame.Navigated += OnFrameNavigated;
     }
 
@@ -487,11 +487,11 @@ internal sealed class NavigationService : IDisposable
         if (_navigationServiceItems.Length - 1 < serviceItemId)
             return false;
 
-        // The navigation item is the same, skip the navigation
+        
         if (_currentPageIndex == serviceItemId)
             return false;
 
-        // An empty navigation item may be just a button, but as navigation fails, so return false.
+        
         if (_navigationServiceItems[serviceItemId].Type == null &&
             _navigationServiceItems[serviceItemId].Source == null)
             return false;
@@ -520,10 +520,10 @@ internal sealed class NavigationService : IDisposable
         if (_navigationServiceItems.Length - 1 < serviceItemId)
             return false;
 
-        // Navigate internally, with cache enabled, instance does exist so reuse it
+        
         if (_navigationServiceItems[serviceItemId].Instance != null)
         {
-            // Sometimes a user may want to update the context of a page that is already in the cache.
+            
             if (dataContext != null && _navigationServiceItems[serviceItemId].Instance is FrameworkElement)
                 ((FrameworkElement)_navigationServiceItems[serviceItemId].Instance).DataContext = dataContext;
 
@@ -544,7 +544,7 @@ internal sealed class NavigationService : IDisposable
             return true;
         }
 
-        // Navigate internally, with cache enabled, instance does not exist so create it using type
+        
         if (_navigationServiceItems[serviceItemId].Type != null)
         {
             _navigationServiceItems[serviceItemId].Instance = CreateFrameworkElementInstance(_navigationServiceItems[serviceItemId].Type, dataContext);
@@ -555,7 +555,7 @@ internal sealed class NavigationService : IDisposable
                 {
                     PageId = serviceItemId,
                     Cache = true,
-                    DataContext = null // DataContext used 
+                    DataContext = null 
                 });
 
 #if DEBUG
@@ -566,7 +566,7 @@ internal sealed class NavigationService : IDisposable
             return true;
         }
 
-        // Navigate internally, with cache enabled, instance does not exist so create it using source
+        
         if (_navigationServiceItems[serviceItemId].Source != null)
         {
             _frame.Navigate(
@@ -601,7 +601,7 @@ internal sealed class NavigationService : IDisposable
         if (_navigationServiceItems.Length - 1 < serviceItemId)
             return false;
 
-        // Navigate internally, without cache, based on type
+        
         if (_navigationServiceItems[serviceItemId].Type != null)
         {
             _frame.Navigate(
@@ -614,7 +614,7 @@ internal sealed class NavigationService : IDisposable
                 {
                     PageId = serviceItemId,
                     Cache = false,
-                    DataContext = null // DataContext set above by activator
+                    DataContext = null 
                 });
 #if DEBUG
             System.Diagnostics.Debug.WriteLine(
@@ -644,7 +644,7 @@ internal sealed class NavigationService : IDisposable
             return true;
         }
 
-        // Wait... this should not happen...
+        
         return false;
     }
 
@@ -712,11 +712,11 @@ internal sealed class NavigationService : IDisposable
         if (TransitionDuration > 0 && e.Content != null)
             Transitions.ApplyTransition(e.Content, TransitionType, TransitionDuration);
 
-        // If we are using the MVVM model,
-        // do not perform internal operations on DataContext and Instances.
+        
+        
         if (_pageService != null)
         {
-            // Instance and datacontext determined by the service, notify and leave
+            
             NotifyFrameContentAboutEnter();
 
             return;
@@ -724,7 +724,7 @@ internal sealed class NavigationService : IDisposable
 
         if (e.ExtraData is not NavigationServiceExtraData extraData)
         {
-            // Instance determined by the frame, context not provided, notify and leave
+            
             NotifyFrameContentAboutEnter();
 
             return;
@@ -732,13 +732,13 @@ internal sealed class NavigationService : IDisposable
 
         if (!_currentActionIdentifier.Equals(_currentActionIdentifier))
         {
-            // Only god knows what's broken, but notify anyway and then leave.
+            
             NotifyFrameContentAboutEnter();
 
             return;
         }
 
-        // DataContext provided by the frame extra data, set.
+        
         if (extraData.DataContext != null && _frame.Content is FrameworkElement)
         {
             ((FrameworkElement)_frame.Content).DataContext = extraData.DataContext;
@@ -749,33 +749,33 @@ internal sealed class NavigationService : IDisposable
 
         if (!extraData.Cache)
         {
-            // Instance determined by the frame, context set from extra data, but without cache, notify and leave
+            
             NotifyFrameContentAboutEnter();
 
             return;
         }
 
-        // We make sure that pageId exists, if it is wrong, the fault lies earlier.
+        
         if (_navigationServiceItems.Length - 1 < extraData.PageId || extraData.PageId < 0)
         {
-            // Only god knows what's broken, but notify anyway and then leave.
+            
             NotifyFrameContentAboutEnter();
 
             return;
         }
 
-        // If an instance already exists, do not overwrite it.
+        
         if (_navigationServiceItems[extraData.PageId].Instance != null)
         {
-            // Instance determined by the frame, context set from extra data, with cache, but instance cached, notify and leave
+            
             NotifyFrameContentAboutEnter();
 
             return;
         }
 
-        // Finally, the navigation took place internally,
-        // the context was set from extra data, the cache has to be saved,
-        // so we save it, notify it and this is the end of the method
+        
+        
+        
         _navigationServiceItems[extraData.PageId].Instance = _frame.Content;
 
         NotifyFrameContentAboutEnter();

@@ -1,9 +1,9 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Based on VirtualizingWrapPanel created by S. Bäumlisberger licensed under MIT license.
-// https://github.com/sbaeumlisberger/VirtualizingWrapPanel
+
 // Copyright (C) S. Bäumlisberger, Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 #nullable enable
 
@@ -105,9 +105,7 @@ public abstract class VirtualizingPanelBase : VirtualizingPanel, IScrollInfo
             if (_itemsOwner is not null)
                 return _itemsOwner;
 
-            /* Use reflection to access internal method because the public 
-                 * GetItemsOwner method does always return the itmes control instead 
-                 * of the real items owner for example the group item when grouping */
+            
             MethodInfo getItemsOwnerInternalMethod = typeof(ItemsControl).GetMethod(
                 "GetItemsOwnerInternal",
                 BindingFlags.Static | BindingFlags.NonPublic,
@@ -142,8 +140,7 @@ public abstract class VirtualizingPanelBase : VirtualizingPanel, IScrollInfo
             if (_itemContainerGenerator is not null)
                 return _itemContainerGenerator;
 
-            /* Because of a bug in the framework the ItemContainerGenerator 
-                 * is null until InternalChildren accessed at least one time. */
+            
             var children = InternalChildren;
             _itemContainerGenerator = (IRecyclingItemContainerGenerator)base.ItemContainerGenerator;
 
@@ -298,7 +295,7 @@ public abstract class VirtualizingPanelBase : VirtualizingPanel, IScrollInfo
         else if ((pos.X + rectangle.Width) > (Offset.X + Viewport.Width))
         {
             var notVisibleX = (pos.X + rectangle.Width) - (Offset.X + Viewport.Width);
-            var maxScrollX = pos.X - Offset.X; // keep left of the visual visible
+            var maxScrollX = pos.X - Offset.X; 
             scrollAmountX = Math.Min(notVisibleX, maxScrollX);
         }
 
@@ -309,7 +306,7 @@ public abstract class VirtualizingPanelBase : VirtualizingPanel, IScrollInfo
         else if ((pos.Y + rectangle.Height) > (Offset.Y + Viewport.Height))
         {
             var notVisibleY = (pos.Y + rectangle.Height) - (Offset.Y + Viewport.Height);
-            var maxScrollY = pos.Y - Offset.Y; // keep top of the visual visible
+            var maxScrollY = pos.Y - Offset.Y; 
             scrollAmountY = Math.Min(notVisibleY, maxScrollY);
         }
 
@@ -485,8 +482,7 @@ public abstract class VirtualizingPanelBase : VirtualizingPanel, IScrollInfo
     /// <inheritdoc />
     protected override Size MeasureOverride(Size availableSize)
     {
-        /* Sometimes when scrolling the scrollbar gets hidden without any reason. In this case the "IsMeasureValid" 
-         * property of the ScrollOwner is false. To prevent a infinite circle the mesasure call is ignored. */
+        
         if (ScrollOwner != null)
         {
             bool verticalScrollBarGotHidden = ScrollOwner.VerticalScrollBarVisibility == ScrollBarVisibility.Auto
@@ -514,11 +510,10 @@ public abstract class VirtualizingPanelBase : VirtualizingPanel, IScrollInfo
 
         if (groupItem != null)
         {
-            /* If the ItemsOwner is a group item the availableSize is ifinity. 
-             * Therfore the vieport size provided by the group item is used. */
+            
             var viewportSize = groupItem.Constraints.Viewport.Size;
             var headerSize = groupItem.HeaderDesiredSizes.PixelSize;
-            double availableWidth = Math.Max(viewportSize.Width - 5, 0); // left margin of 5 dp
+            double availableWidth = Math.Max(viewportSize.Width - 5, 0); 
             double availableHeight = Math.Max(viewportSize.Height - headerSize.Height, 0);
             availableSize = new Size(availableWidth, availableHeight);
 
@@ -530,7 +525,7 @@ public abstract class VirtualizingPanelBase : VirtualizingPanel, IScrollInfo
             Offset = groupItem.Constraints.Viewport.Location;
             Viewport = groupItem.Constraints.Viewport.Size;
             CacheLength = groupItem.Constraints.CacheLength;
-            CacheLengthUnit = groupItem.Constraints.CacheLengthUnit; // can be Item or Pixel
+            CacheLengthUnit = groupItem.Constraints.CacheLengthUnit; 
         }
         else
         {
@@ -541,7 +536,7 @@ public abstract class VirtualizingPanelBase : VirtualizingPanel, IScrollInfo
 
             UpdateScrollInfo(desiredSize, extent);
             CacheLength = GetCacheLength(ItemsOwner);
-            CacheLengthUnit = GetCacheLengthUnit(ItemsOwner); // can be Page, Item or Pixel
+            CacheLengthUnit = GetCacheLengthUnit(ItemsOwner); 
         }
 
         ItemRange = UpdateItemRange();
@@ -566,7 +561,7 @@ public abstract class VirtualizingPanelBase : VirtualizingPanel, IScrollInfo
         {
             var child = (UIElement)ItemContainerGenerator.GenerateNext(out bool isNewlyRealized);
 
-            if (isNewlyRealized || /*recycled*/!InternalChildren.Contains(child))
+            if (isNewlyRealized || !InternalChildren.Contains(child))
             {
                 if (childIndex >= InternalChildren.Count)
                     AddInternalChild(child);

@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.ComponentModel;
@@ -251,15 +251,15 @@ public class NavigationItem : System.Windows.Controls.Primitives.ButtonBase, IUr
     {
         if (Keyboard.Modifiers is not ModifierKeys.None)
         {
-            // We handle Left/Up/Right/Down keys for keyboard navigation only,
-            // so no modifiers are needed.
+            
+            
             return;
         }
 
         switch (e.Key)
         {
-            // We use Direction Left/Up/Right/Down instead of Previous/Next to make sure
-            // that the KeyboardNavigation.DirectionalNavigation property works correctly.
+            
+            
             case Key.Left:
                 MoveFocus(this, FocusNavigationDirection.Left);
                 e.Handled = true;
@@ -283,7 +283,7 @@ public class NavigationItem : System.Windows.Controls.Primitives.ButtonBase, IUr
             case Key.Space:
             case Key.Enter:
 
-                // Item doesn't define a page, skip navigation.
+                
                 if (PageSource == null && PageType == null)
                     break;
 
@@ -298,7 +298,7 @@ public class NavigationItem : System.Windows.Controls.Primitives.ButtonBase, IUr
                 break;
         }
 
-        // If it is simply treated as a button, pass the information about the click on.
+        
         if (!e.Handled)
             base.OnKeyDown(e);
 
@@ -364,12 +364,12 @@ public class NavigationItem : System.Windows.Controls.Primitives.ButtonBase, IUr
         if (baseUri == null)
         {
             // TODO: Force extracting BaseUri for Designer
-            // This is a hackery solution that needs to be refined.
+            
 
             if (!DesignerHelper.IsInDesignMode)
                 throw new UriFormatException("Unable to resolve absolute URI for selected page");
 
-            // The navigation simply prints a blank page during the design process.
+            
             PageType = typeof(System.Windows.Controls.Page);
 
             return null;

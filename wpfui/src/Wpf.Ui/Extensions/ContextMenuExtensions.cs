@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System.Windows;
 using System.Windows.Controls;
@@ -37,9 +37,9 @@ internal static class ContextMenuExtensions
         if (Theme.GetAppTheme() == ThemeType.Dark)
             UnsafeNativeMethods.ApplyWindowDarkMode(source.Handle);
 
-        // Needs more work with the Popup service
+        
 
-        //if (Background.Apply(source.Handle, BackgroundType.Mica))
-        //    contextMenu.Background = Brushes.Transparent;
+        
+        
     }
 }

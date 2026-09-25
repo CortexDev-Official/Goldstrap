@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.ComponentModel;
@@ -224,16 +224,16 @@ public class MessageBox : System.Windows.Window
 
     // TODO: Window height match content height.
 
-    //protected override void OnContentChanged(object oldContent, object newContent)
-    //{
-    //    System.Diagnostics.Debug.WriteLine("New content");
-    //    System.Diagnostics.Debug.WriteLine(newContent.GetType());
+    
+    
+    
+    
 
-    //    if (newContent != null && newContent.GetType() == typeof(System.Windows.Controls.Grid))
-    //        Height = (newContent as System.Windows.Controls.Grid).ActualHeight;
+    
+    
 
-    //    base.OnContentChanged(oldContent, newContent);
-    //}
+    
+    
 
     private void SetWindowStartupLocation()
     {

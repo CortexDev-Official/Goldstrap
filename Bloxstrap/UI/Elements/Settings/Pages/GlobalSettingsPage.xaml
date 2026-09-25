@@ -41,15 +41,21 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Slider Grid.Column="0" Margin="0,0,8,0" Minimum="1" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding GraphicsQuality, Mode=TwoWay}" />
+                        <Slider Grid.Column="0" Margin="0,0,8,0" Minimum="0" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding GraphicsQuality, Mode=TwoWay}" />
                         <Border Margin="0,-4,0,0" Grid.Column="1" Width="30" BorderBrush="{ui:ThemeResource SolidBackgroundFillColorSecondarybrush}" Background="{ui:ThemeResource SolidBackgroundFillColorSecondarybrush}" BorderThickness="1" CornerRadius="4">
                             <TextBlock HorizontalAlignment="Center" Padding="4" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding GraphicsQuality, Mode=TwoWay}" />
                         </Border>
                     </Grid>
                 </controls:OptionControl>
 
-        <controls:OptionControl 
-            Header="{x:Static resources:Strings.Menu_GPSEditor_FramerateCap_Title}" 
+        <Border Margin="0,8,0,0" Padding="10,8" CornerRadius="4" Background="#33C8962E" BorderBrush="#C8962E" BorderThickness="1"
+                Visibility="{Binding QualityOverrideVisibility}">
+            <TextBlock TextWrapping="Wrap" FontSize="13"
+                       Text="The fastflag DFIntDebugFRMQualityLevelOverride is enabled. It forces Roblox's graphics quality and locks the in-game quality slider, ignoring the setting above. Moving the slider above will remove it." />
+        </Border>
+
+        <controls:OptionControl
+            Header="{x:Static resources:Strings.Menu_GPSEditor_FramerateCap_Title}"
             Description="{x:Static resources:Strings.Menu_GPSEditor_FramerateCap_Description}">
             <ui:TextBox Margin="5,0,0,0" Padding="10,5,10,5" Width="200" Text="{Binding FramerateCap, Mode=TwoWay}" PreviewTextInput="ValidateUInt32" />
         </controls:OptionControl>

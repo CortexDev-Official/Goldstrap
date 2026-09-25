@@ -2,9 +2,9 @@
 
 namespace Bloxstrap.RobloxInterfaces
 {
-    // i am 100% sure there is a much, MUCH better way to handle this
-    // matt wrote this so this is effectively a black box to me right now
-    // i'll likely refactor this at some point
+    
+    
+    
     public class ApplicationSettings
     {
         private string _applicationName;
@@ -91,7 +91,7 @@ namespace Bloxstrap.RobloxInterfaces
 
                 return (T?)converter.ConvertFromString(value);
             }
-            catch (NotSupportedException) // boohoo
+            catch (NotSupportedException) 
             {
                 return default;
             }
@@ -102,7 +102,7 @@ namespace Bloxstrap.RobloxInterfaces
             return GetAsync<T>(name).GetAwaiter().GetResult();
         }
 
-        // _cache[applicationName][channelName]
+        
         private static Dictionary<string, Dictionary<string, ApplicationSettings>> _cache = new();
 
         public static ApplicationSettings PCDesktopClient => GetSettings("PCDesktopClient");

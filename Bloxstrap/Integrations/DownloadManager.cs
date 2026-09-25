@@ -30,7 +30,9 @@ namespace Bloxstrap.Integrations
 
                 try
                 {
-                    var response = await App.HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
+                    using var response = await App.HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
+                    response.EnsureSuccessStatusCode();
+
                     await using var stream = await response.Content.ReadAsStreamAsync(token);
                     await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.ReadWrite, FileShare.Delete);
 

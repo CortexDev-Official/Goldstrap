@@ -1,8 +1,8 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
-// This Source Code is partially based on the source code provided by the .NET Foundation.
+
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Windows;
@@ -31,7 +31,7 @@ internal static class DpiHelper
     /// <summary>
     /// Occurs when application DPI is changed.
     /// </summary>
-    //public static event EventHandler<DpiChangedEventArgs> DpiChanged;
+    
 
     /// <summary>
     /// Gets DPI of the selected <see cref="Window"/>.
@@ -60,16 +60,16 @@ internal static class DpiHelper
     }
 
     // TODO: Look into utilizing preprocessor symbols for more functionality
-    // ----
-    // There is an opportunity to check against NET46 if we can use
-    // VisualTreeHelper in this class. We are currently not utilizing
-    // it because it is not available in .NET Framework 4.6 (available
-    // starting 4.6.2). For now, there is no need to overcomplicate this
-    // solution for some infrequent DPI calculations. However, if this
-    // becomes more central to various implementations, we may want to
-    // look into fleshing it out a bit further.
-    // ----
-    // Reference: https://docs.microsoft.com/en-us/dotnet/standard/frameworks
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     /// <summary>
     /// Gets the DPI values from <see cref="SystemParameters"/>.

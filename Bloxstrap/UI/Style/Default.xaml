@@ -8,15 +8,11 @@
     <Thickness x:Key="InfoBarPadding">14,16,14,16</Thickness>
     <Thickness x:Key="InfoBarBorderThemeThickness">1</Thickness>
 
-    <!-- ═══════════════════════════════════════════════════
-         BUTTON POLISH — Slightly rounder + more breathing room
-     ═══════════════════════════════════════════════════ -->
+    
     <Thickness x:Key="ButtonPadding">12,7,12,8</Thickness>
     <CornerRadius x:Key="ControlCornerRadius">6,6,6,6</CornerRadius>
 
-    <!-- ═══════════════════════════════════════════════════
-         GOLD BUTTON HOVER — Standard WPF Button
-     ═══════════════════════════════════════════════════ -->
+    
     <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
         <Setter Property="Background">
@@ -50,52 +46,24 @@
                         Height="{TemplateBinding Height}"
                         MinWidth="{TemplateBinding MinWidth}"
                         MinHeight="{TemplateBinding MinHeight}"
+                        Padding="{TemplateBinding Padding}"
                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                         VerticalAlignment="{TemplateBinding VerticalAlignment}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding Border.CornerRadius}">
-                        <Grid>
-                            <!-- animated hover layer: fades instead of snapping -->
-                            <Border x:Name="HoverOverlay"
-                                    Background="{DynamicResource GoldHoverBrush}"
-                                    CornerRadius="{TemplateBinding Border.CornerRadius}"
-                                    Opacity="0" />
-                            <ContentPresenter
-                                x:Name="ContentPresenter"
-                                Margin="{TemplateBinding Padding}"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Content="{TemplateBinding Content}"
-                                TextElement.Foreground="{TemplateBinding Foreground}" />
-                        </Grid>
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource GoldHoverBrush}" />
                             <Setter Property="BorderBrush" Value="{DynamicResource GoldPrimaryBrush}" />
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="HoverOverlay" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut" />
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="HoverOverlay" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut" />
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="{DynamicResource GoldPressedBrush}" />
@@ -113,9 +81,7 @@
         </Setter>
     </Style>
 
-    <!-- ═══════════════════════════════════════════════════
-         GOLD BUTTON HOVER — WPF UI Button
-     ═══════════════════════════════════════════════════ -->
+    
     <Style x:Key="DefaultUiButtonStyle" TargetType="{x:Type ui:Button}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
         <Setter Property="Background">
@@ -174,39 +140,33 @@
                         Height="{TemplateBinding Height}"
                         MinWidth="{TemplateBinding MinWidth}"
                         MinHeight="{TemplateBinding MinHeight}"
+                        Padding="{TemplateBinding Padding}"
                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                         VerticalAlignment="{TemplateBinding VerticalAlignment}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding Border.CornerRadius}">
-                        <Grid>
-                            <!-- animated hover layer: fades instead of snapping -->
-                            <Border x:Name="HoverOverlay"
-                                    Background="{DynamicResource GoldHoverBrush}"
-                                    CornerRadius="{TemplateBinding Border.CornerRadius}"
-                                    Opacity="0" />
-                            <Grid Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <ui:SymbolIcon
-                                    x:Name="ControlIcon"
-                                    Grid.Column="0"
-                                    Margin="{StaticResource ButtonIconMargin}"
-                                    VerticalAlignment="Center"
-                                    Filled="{TemplateBinding IconFilled}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    FontWeight="{TemplateBinding FontWeight}"
-                                    Foreground="{TemplateBinding IconForeground}"
-                                    Symbol="{TemplateBinding Icon}" />
-                                <ContentPresenter
-                                    x:Name="ContentPresenter"
-                                    Grid.Column="1"
-                                    Content="{TemplateBinding Content}"
-                                    TextElement.Foreground="{TemplateBinding Foreground}" />
-                            </Grid>
+                        <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ui:SymbolIcon
+                                x:Name="ControlIcon"
+                                Grid.Column="0"
+                                Margin="{StaticResource ButtonIconMargin}"
+                                VerticalAlignment="Center"
+                                Filled="{TemplateBinding IconFilled}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding IconForeground}"
+                                Symbol="{TemplateBinding Icon}" />
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Grid.Column="1"
+                                Content="{TemplateBinding Content}"
+                                TextElement.Foreground="{TemplateBinding Foreground}" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -215,32 +175,9 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsPressed" Value="False" />
                             </MultiTrigger.Conditions>
+                            <Setter TargetName="ContentBorder" Property="Background" Value="{DynamicResource GoldHoverBrush}" />
                             <Setter TargetName="ContentBorder" Property="BorderBrush" Value="{DynamicResource GoldPrimaryBrush}" />
                         </MultiTrigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="HoverOverlay" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut" />
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="HoverOverlay" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut" />
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
-                        </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True" />
@@ -271,12 +208,12 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <!--  TRANSPARENT  -->
+            
             <Trigger Property="Appearance" Value="Transparent">
                 <Setter Property="Background" Value="Transparent" />
             </Trigger>
 
-            <!--  PRIMARY  -->
+            
             <Trigger Property="Appearance" Value="Primary">
                 <Setter Property="Background">
                     <Setter.Value>
@@ -311,7 +248,7 @@
                 </Setter>
             </Trigger>
 
-            <!--  DARK  -->
+            
             <Trigger Property="Appearance" Value="Dark">
                 <Setter Property="Background">
                     <Setter.Value>
@@ -340,7 +277,7 @@
                 </Setter>
             </Trigger>
 
-            <!--  LIGHT  -->
+            
             <Trigger Property="Appearance" Value="Light">
                 <Setter Property="Background">
                     <Setter.Value>
@@ -369,7 +306,7 @@
                 </Setter>
             </Trigger>
 
-            <!--  INFO  -->
+            
             <Trigger Property="Appearance" Value="Info">
                 <Setter Property="Background">
                     <Setter.Value>
@@ -393,7 +330,7 @@
                 </Setter>
             </Trigger>
 
-            <!--  DANGER  -->
+            
             <Trigger Property="Appearance" Value="Danger">
                 <Setter Property="Background">
                     <Setter.Value>
@@ -412,7 +349,7 @@
                 </Setter>
             </Trigger>
 
-            <!--  SUCCESS  -->
+            
             <Trigger Property="Appearance" Value="Success">
                 <Setter Property="Background">
                     <Setter.Value>
@@ -452,9 +389,7 @@
         </Style.Triggers>
     </Style>
 
-    <!-- ═══════════════════════════════════════════════════
-         GOLD INFO BAR — Custom styled with gold accents
-     ═══════════════════════════════════════════════════ -->
+    
     <Style x:Key="HyperlinkInfoBarStyle" TargetType="{x:Type ui:InfoBar}">
         <Setter Property="Background" Value="{DynamicResource MainWindowBackgroundBrush}" />
         <Setter Property="Foreground">
@@ -571,9 +506,7 @@
         </Setter>
     </Style>
 
-    <!-- ═══════════════════════════════════════════════════
-         GOLD CARD EXPANDER — Elegant with subtle gold border
-     ═══════════════════════════════════════════════════ -->
+    
     <Style x:Key="NoUserExpansionCardExpanderStyle" TargetType="{x:Type ui:CardExpander}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
         <Setter Property="Background" Value="{DynamicResource MainWindowBackgroundBrush}" />
@@ -725,9 +658,7 @@
         </Setter>
     </Style>
 
-    <!-- ═══════════════════════════════════════════════════
-         TEXT EDITOR — Gold-accented with rounded corners
-     ═══════════════════════════════════════════════════ -->
+    
     <Style x:Key="NewTextEditor" TargetType="{x:Type avalonedit:TextEditor}">
         <Setter Property="Foreground" Value="{DynamicResource NewTextEditorForeground}" />
         <Setter Property="Background" Value="{DynamicResource NewTextEditorBackground}" />
@@ -772,9 +703,7 @@
         </Setter>
     </Style>
 
-    <!-- ═══════════════════════════════════════════════════
-         GOLD LINK BUTTON — For hyperlink-style actions
-     ═══════════════════════════════════════════════════ -->
+    
     <Style x:Key="HyperlinkGoldStyle" TargetType="{x:Type ui:Button}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource GoldPrimaryBrush}" />
@@ -784,9 +713,7 @@
         <Setter Property="Padding" Value="4,2" />
     </Style>
 
-    <!-- ═══════════════════════════════════════════════════
-         IMPLICIT STYLE OVERRIDES — Apply gold hover to all buttons
-     ═══════════════════════════════════════════════════ -->
+    
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButtonStyle}">
         <Setter Property="anim:ButtonPressBehavior.PressEnabled" Value="True" />
     </Style>

@@ -70,7 +70,7 @@ namespace Bloxstrap.UI.ViewModels.Editor
                 App.Logger.WriteLine(LOG_IDENT, "Failed to save custom theme");
                 App.Logger.WriteException(LOG_IDENT, ex);
 
-                //Frontend.ShowMessageBox($"Failed to save theme: {ex.Message}", MessageBoxImage.Error, MessageBoxButton.OK);
+                
                 ThemeSavedCallback.Invoke(false, ex.Message);
             }
         }

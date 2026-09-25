@@ -1,9 +1,9 @@
 ﻿namespace Bloxstrap.Enums
 {
-    // https://learn.microsoft.com/en-us/windows/win32/msi/error-codes
-    // https://i-logic.com/serial/errorcodes.htm
-    // https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/705fb797-2175-4a90-b5a3-3918024b10b8
-    // just the ones that we're interested in
+    
+    
+    
+    
 
     public enum ErrorCode
     {

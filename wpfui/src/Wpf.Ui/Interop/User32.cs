@@ -1,15 +1,15 @@
-﻿// This Source Code is partially based on reverse engineering of the Windows Operating System,
-// and is intended for use on Windows systems only.
-// This Source Code is partially based on the source code provided by the .NET Foundation.
+﻿
+
+
 // This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski.
-// All Rights Reserved.
+
 
 // NOTE
-// I split unmanaged code stuff into the NativeMethods library.
-// If you have suggestions for the code below, please submit your changes there.
-// https://github.com/lepoco/nativemethods
+
+
+
 
 using System;
 using System.ComponentModel;
@@ -164,7 +164,7 @@ internal static class User32
         /// In a Maximize button.
         /// </summary>
         HTMAXBUTTON = 9,
-        // ZOOM = 9,
+        
 
         /// <summary>
         /// In the left border of a resizable window (the user can click the mouse to resize the window horizontally).
@@ -181,7 +181,7 @@ internal static class User32
         /// </summary>
         HTTOP = 12,
 
-        // From 10.0.22000.0\um\WinUser.h
+        
         HTTOPLEFT = 13,
         HTTOPRIGHT = 14,
         HTBOTTOM = 15,
@@ -364,7 +364,7 @@ internal static class User32
     /// </summary>
     public enum MSGFLT
     {
-        // Win7 versions of this enum:
+        
 
         /// <summary>
         /// Resets the window message filter for hWnd to the default. Any message allowed globally or process-wide will get through, but any message not included in those two categories, and which comes from a lower privileged process, will be blocked.
@@ -381,9 +381,9 @@ internal static class User32
         /// </summary>
         DISALLOW = 2,
 
-        // Vista versions of this enum:
-        // ADD = 1,
-        // REMOVE = 2,
+        
+        
+        
     }
 
     /// <summary>
@@ -515,7 +515,7 @@ internal static class User32
         NCMOUSELEAVE = 0x02A2,
 
         TABLET_DEFBASE = 0x02C0,
-        //WM_TABLET_MAXOFFSET = 0x20,
+        
 
         TABLET_ADDED = TABLET_DEFBASE + 8,
         TABLET_DELETED = TABLET_DEFBASE + 9,
@@ -566,7 +566,7 @@ internal static class User32
         /// This is the hard-coded message value used by WinForms for Shell_NotifyIcon.
         /// It's relatively safe to reuse.
         /// </summary>
-        TRAYMOUSEMESSAGE = 0x800, //WM_USER + 1024
+        TRAYMOUSEMESSAGE = 0x800, 
         APP = 0x8000,
     }
 
@@ -635,8 +635,8 @@ internal static class User32
         STATICEDGE = 0x00020000,
         APPWINDOW = 0x00040000,
         LAYERED = 0x00080000,
-        NOINHERITLAYOUT = 0x00100000, // Disable inheritence of mirroring by children
-        LAYOUTRTL = 0x00400000, // Right to left mirroring
+        NOINHERITLAYOUT = 0x00100000, 
+        LAYOUTRTL = 0x00400000, 
         COMPOSITED = 0x02000000,
         NOACTIVATE = 0x08000000,
         OVERLAPPEDWINDOW = (WINDOWEDGE | CLIENTEDGE),
@@ -1021,7 +1021,7 @@ internal static class User32
         if (IntPtr.Zero == ret)
         {
             throw new Exception("Unable to create a window");
-            // HRESULT.ThrowLastError();
+            
         }
 
         return ret;
@@ -1455,7 +1455,7 @@ internal static class User32
     /// <returns>The return value specifies the previous state of the menu item (it is either MF_DISABLED, MF_ENABLED, or MF_GRAYED). If the menu item does not exist, the return value is -1 (<see cref="MF.DOES_NOT_EXIST"/>).</returns>
     public static MF EnableMenuItem([In] IntPtr hMenu, [In] SC uIDEnableItem, [In] MF uEnable)
     {
-        // Returns the previous state of the menu item, or -1 if the menu item does not exist.
+        
         int iRet = _EnableMenuItem(hMenu, uIDEnableItem, uEnable);
         return (MF)iRet;
     }
@@ -1499,7 +1499,7 @@ internal static class User32
     {
         if (!_SetWindowPos(hWnd, hWndInsertAfter, x, y, cx, cy, uFlags))
         {
-            // If this fails it's never worth taking down the process.  Let the caller deal with the error if they want.
+            
             return false;
         }
 

@@ -34,7 +34,7 @@ namespace Bloxstrap.Models.Entities
             Uri thumbnailsUrl = UrlBuilder.BuildApiUrl("thumbnails", $"v1/games/icons?universeIds={ids}&returnPolicy=PlaceHolder&size=128x128&format=Png&isCircular=false");
             ApiArrayResponse<GameDetailResponse> gameDetailResponse;
 
-            // some universes can't be viewed by logged out user (ex. 18+)
+            
             if (App.Cookies.Loaded)
                 gameDetailResponse = await Http.AuthGetJson<ApiArrayResponse<GameDetailResponse>>(gameDetailsUrl);
             else

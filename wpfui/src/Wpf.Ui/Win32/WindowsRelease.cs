@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 namespace Wpf.Ui.Win32;
 
@@ -13,7 +13,7 @@ internal enum WindowsRelease
     /// <summary>
     /// Windows 95.
     /// </summary>
-    Windows95 = 950, // The good old days
+    Windows95 = 950, 
 
     /// <summary>
     /// Windows 98.

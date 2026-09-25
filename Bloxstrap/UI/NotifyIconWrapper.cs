@@ -6,7 +6,7 @@ namespace Bloxstrap.UI
 {
     public class NotifyIconWrapper : IDisposable
     {
-        // lol who needs properly structured mvvm and xaml when you have the absolute catastrophe that this is
+        
 
         private bool _disposing = false;
 
@@ -76,12 +76,12 @@ namespace Bloxstrap.UI
                 TimeSpan _serverUptime = DateTime.UtcNow - serverTime.Value;
 
                 if (_serverUptime.TotalMinutes == 0)
-                    serverUptime = "0 minutes"; // :sob:
+                    serverUptime = "0 minutes"; 
                 else
                     serverUptime = Time.FormatTimeSpan(_serverUptime);
             }
             else
-                serverUptime = Strings.Common_Unknown; // this should never happen
+                serverUptime = Strings.Common_Unknown; 
 
             ShowAlert(
                 title,
@@ -96,7 +96,7 @@ namespace Bloxstrap.UI
         }
         #endregion
 
-        // we may need to create our own handler for this, because this sorta sucks
+        
         public void ShowAlert(string caption, string message, int duration, EventHandler? clickHandler)
         {
             string id = Guid.NewGuid().ToString()[..8];

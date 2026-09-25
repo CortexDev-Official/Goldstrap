@@ -17,7 +17,7 @@
         All this in order to use the appearance of the picker compatible with MS Office.
     -->
 
-    <!--  HINT: Day button style  -->
+    
     <Style x:Key="DefaultCalendarDayButtonStyle" TargetType="CalendarDayButton">
         <Setter Property="MinWidth" Value="30" />
         <Setter Property="MinHeight" Value="30" />
@@ -191,7 +191,7 @@
         </Setter>
     </Style>
 
-    <!--  HINT: Month/year/decade button style  -->
+    
     <Style x:Key="DefaultCalendarButtonStyle" TargetType="CalendarButton">
         <Setter Property="MinWidth" Value="40" />
         <Setter Property="MinHeight" Value="40" />
@@ -325,7 +325,7 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <!--  HINT: Header with title and navigation buttons  -->
+                            
                             <Grid Grid.Row="0" Margin="8,0,8,14">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -391,7 +391,7 @@
                                 </controls:Button>
                             </Grid>
 
-                            <!--  HINT: Day picker  -->
+                            
                             <Grid
                                 x:Name="PART_MonthView"
                                 Grid.Row="1"
@@ -486,7 +486,7 @@
         </Setter>
     </Style>
 
-    <!--  https://developer.microsoft.com/en-us/fluentui#/controls/web/datepicker  -->
+    
 
     <Style x:Key="DefaultCalendarStyle" TargetType="{x:Type Calendar}">
         <Setter Property="CalendarButtonStyle" Value="{StaticResource DefaultCalendarButtonStyle}" />

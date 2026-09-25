@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Mark Feldman, Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.ComponentModel;
@@ -139,7 +139,7 @@ public class Arc : System.Windows.Shapes.Shape
 
         control.IsLargeArc = Math.Abs(control.EndAngle - control.StartAngle) > 180;
 
-        // Force complete new layout pass
+        
         control.InvalidateVisual();
     }
 }

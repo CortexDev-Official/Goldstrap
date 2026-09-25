@@ -40,11 +40,11 @@ namespace Bloxstrap.Extensions
 
             if (decoder.Frames.Count > 0)
             {
-                // Pick the largest frame for crispest rendering
+                
                 return decoder.Frames.OrderByDescending(f => f.PixelWidth).First();
             }
 
-            // Should never happen, but just in case
+            
             stream.Seek(0, SeekOrigin.Begin);
             return BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
         }

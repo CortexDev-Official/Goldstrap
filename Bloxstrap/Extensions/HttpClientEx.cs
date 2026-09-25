@@ -62,7 +62,7 @@ namespace Bloxstrap.Extensions
 
         public static async Task<T?> GetFromJsonWithRetriesAsync<T>(this HttpClient client, Uri url, int retries, CancellationToken token) where T : class
         {
-            HttpResponseMessage response = await GetWithRetriesAsync(client, url, retries, token);
+            using HttpResponseMessage response = await GetWithRetriesAsync(client, url, retries, token);
             response.EnsureSuccessStatusCode();
 
             using var stream = await response.Content.ReadAsStreamAsync(token);
@@ -71,7 +71,7 @@ namespace Bloxstrap.Extensions
 
         public static async Task<T?> PostFromJsonWithRetriesAsync<T>(this HttpClient client, Uri url, HttpContent? content, int retries, CancellationToken token) where T : class
         {
-            HttpResponseMessage response = await PostWithRetriesAsync(client, url, content, retries, token);
+            using HttpResponseMessage response = await PostWithRetriesAsync(client, url, content, retries, token);
             response.EnsureSuccessStatusCode();
 
             using var stream = await response.Content.ReadAsStreamAsync(token);

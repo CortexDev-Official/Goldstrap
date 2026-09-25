@@ -43,9 +43,9 @@ namespace Bloxstrap.Integrations
             _rpcClient.OnConnectionEstablished += (_, e) =>
                 App.Logger.WriteLine(LOG_IDENT, "Established connection with Discord RPC");
 
-            //spams log as it tries to connect every ~15 sec when discord is closed so not now
-            //_rpcClient.OnConnectionFailed += (_, e) =>
-            //    App.Logger.WriteLine(LOG_IDENT, "Failed to establish connection with Discord RPC");
+            
+            
+            
 
             _rpcClient.OnClose += (_, e) =>
                 App.Logger.WriteLine(LOG_IDENT, $"Lost connection to Discord RPC - {e.Reason} ({e.Code})");
@@ -67,7 +67,7 @@ namespace Bloxstrap.Integrations
                 return;
             }
 
-            // a lot of repeated code here, could this somehow be cleaned up?
+            
 
             if (message.Command == "SetLaunchData")
             {
@@ -222,11 +222,11 @@ namespace Bloxstrap.Integrations
             else if (presenceData.TimestampEnd is not null)
                 _currentPresence.Timestamps.EndUnixMilliseconds = presenceData.TimestampEnd * 1000;
 
-            // set these to start fetching
+            
             ulong? smallImgFetch = null;
             ulong? largeImgFetch = null;
 
-            // only set small image if account display is disabled, doesnt make sense to override it if it is true
+            
             if (presenceData.SmallImage is not null && !App.Settings.Prop.ShowAccountOnRichPresence)
             {
                 if (presenceData.SmallImage.Clear)
@@ -346,7 +346,7 @@ namespace Bloxstrap.Integrations
 
             App.Logger.WriteLine(LOG_IDENT, $"Setting presence for Place ID {placeId}");
 
-            // preserve time spent playing if we're teleporting between places in the same universe
+            
             var timeStarted = activity.TimeJoined;
 
             if (activity.RootActivity is not null)
@@ -383,7 +383,7 @@ namespace Bloxstrap.Integrations
                 var userDetails = await UserDetails.Fetch(activity.UserId);
 
                 smallImage = userDetails.Thumbnail.ImageUrl ?? "";
-                smallImageText = $"Playing on {userDetails.Data.DisplayName} (@{userDetails.Data.Name})"; // i.e. "axell (@Axelan_se)"
+                smallImageText = $"Playing on {userDetails.Data.DisplayName} (@{userDetails.Data.Name})"; 
             }
 
             if (!_activityWatcher.InGame || placeId != activity.PlaceId)
@@ -420,7 +420,7 @@ namespace Bloxstrap.Integrations
                 }
             };
 
-            // this is used for configuration from BloxstrapRPC
+            
             _originalPresence = _currentPresence.Clone();
 
             if (_messageQueue.Any())

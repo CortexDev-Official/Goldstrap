@@ -37,13 +37,13 @@ namespace Bloxstrap
 
             string? url = null;
             string rawPlaceLancherUrl = null!;
-            GameJoinData joinData = new(); // by default its unknown
+            GameJoinData joinData = new(); 
 
             if (!launchCommandLine.StartsWith("roblox-player:"))
-                return joinData; // its either empty or deeplink start, those arent supported (yet?)
+                return joinData; 
 
             Match urlMatch = Regex.Match(launchCommandLine, placelauncherPattern);
-            if (!urlMatch.Success || urlMatch.Groups.Count != 3) return joinData; // the regex failed
+            if (!urlMatch.Success || urlMatch.Groups.Count != 3) return joinData; 
 
             rawPlaceLancherUrl = urlMatch.Groups[1].Value;
             joinData.PlaceLauncherUrl = rawPlaceLancherUrl;
@@ -56,7 +56,7 @@ namespace Bloxstrap
 
             App.Logger.WriteLine(LOG_IDENT, "Detecting join type");
 
-            // yuck
+            
             switch (typeMatch.Groups[1].Value)
             {
                 case "RequestGame":

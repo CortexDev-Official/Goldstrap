@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 #nullable enable
 
@@ -111,7 +111,7 @@ public class ClientAreaBorder : System.Windows.Controls.Border, IThemeControl
 
         if (newWindow is not null)
         {
-            newWindow.StateChanged -= OnWindowStateChanged; // Unsafe
+            newWindow.StateChanged -= OnWindowStateChanged; 
             newWindow.StateChanged += OnWindowStateChanged;
         }
 
@@ -154,7 +154,7 @@ public class ClientAreaBorder : System.Windows.Controls.Border, IThemeControl
                 theme = uiWindow.DefaultBorderThemeOverwrite;
         }
 
-        // SystemParameters.WindowGlassBrush
+        
 
         Brush brush = new SolidColorBrush(theme == ThemeType.Light ? Color.FromArgb(255, 200, 200, 200) : Color.FromArgb(255, 58, 58, 58));
 
@@ -174,7 +174,7 @@ public class ClientAreaBorder : System.Windows.Controls.Border, IThemeControl
     private (double factorX, double factorY) GetDpi()
     {
         if (PresentationSource.FromVisual(this) is { } source)
-            return (source.CompositionTarget.TransformToDevice.M11, // Possible null reference
+            return (source.CompositionTarget.TransformToDevice.M11, 
                 source.CompositionTarget.TransformToDevice.M22);
 
         var systemDPi = DpiHelper.GetSystemDpi();

@@ -32,17 +32,14 @@
         <Setter Property="Padding" Value="12" />
         <Setter Property="TextElement.FontWeight" Value="Regular" />
         <Setter Property="WindowStyle" Value="SingleBorderWindow" />
-        <!--<Setter Property="AllowsTransparency" Value="False" />-->
+        
         <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
         <Setter Property="ResizeMode" Value="CanResize" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
-                <!--
-                    CaptionHeight removes the white block at the top of the application window.
-                    GlassFrameThickness must be at least -1, otherwise the transparency for Mica will not work.
-                -->
+                
                 <WindowChrome
                     CaptionHeight="1"
                     CornerRadius="0"

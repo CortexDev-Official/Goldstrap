@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Windows;
@@ -49,7 +49,7 @@ internal class SnapLayoutButton
         _visual = button ?? throw new InvalidOperationException($"Parameter button of the {typeof(SnapLayoutButton)} cannot be null.");
 
         // TODO: If application is DPI aware, the scale can vary depends on the screen
-        // Should also react to DPI change and adjust the Size
+        
 
         if (button.IsLoaded)
             UpdateScale(dpiScale);
@@ -63,11 +63,11 @@ internal class SnapLayoutButton
 
     public void UpdateScale(double dpiScale)
     {
-        // If the screen is scaled, the pixels/dots do not reflect the rendered size
+        
         var renderedWidth = _visual.ActualWidth * dpiScale;
         var renderedHeight = _visual.ActualHeight * dpiScale;
 
-        // Well, the one pixel button is probably not correct
+        
         if (renderedWidth < 1 || renderedHeight < 1)
             _renderedSize = new Size(0d, 0d);
         else
@@ -116,13 +116,13 @@ internal class SnapLayoutButton
     /// </summary>
     public bool IsMouseOver(IntPtr positionPointer)
     {
-        // This method will be invoked very often and must be as simple as possible.
+        
 
-        // Pointer carries no data
+        
         if (positionPointer == IntPtr.Zero)
             return false;
 
-        // Invalid button size
+        
         if (_renderedSize.Height == 0 && _renderedSize.Width == 0)
             return false;
 
@@ -131,21 +131,21 @@ internal class SnapLayoutButton
         if (positionWords < 1)
             return false;
 
-        // The low-order word specifies the x-coordinate of the cursor.The coordinate is relative to the upper-left corner of the screen.
+        
         var positionX = positionWords & 0xffff;
-        // The high-order word specifies the y-coordinate of the cursor.The coordinate is relative to the upper-left corner of the screen.
+        
         var positionY = positionWords >> 0x0010;
 
-        // The screen has no negative positions
+        
         if (positionX < 0 || positionY < 0)
             return false;
 
-        // Button area on screen
+        
         Rect rect;
 
         try
         {
-            // Can throw exception during translation
+            
             rect = new Rect(
                 _visual.PointToScreen(new Point()),
                 _renderedSize);
@@ -158,10 +158,10 @@ internal class SnapLayoutButton
         catch
         {
 #endif
-            return false; // or not to false, that is the question
+            return false; 
         }
 
-        // Whether the cursor is inside the button area
+        
         return rect.Contains(new Point(positionX, positionY));
     }
 }

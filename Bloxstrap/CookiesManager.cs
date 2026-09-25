@@ -33,7 +33,7 @@ namespace Bloxstrap
         {
             string? host = request.RequestUri?.Host;
 
-            // basic host validation in case we accidentally send authenticated request somewhere unwanted
+            
             if (host is null)
                 throw new ArgumentNullException("Host cannot be null");
 
@@ -62,7 +62,7 @@ namespace Bloxstrap
             try
             {
                 Uri apiUrl = UrlBuilder.BuildApiUrl("users", "v1/users/authenticated");
-                HttpResponseMessage response = await AuthGet(apiUrl);
+                using HttpResponseMessage response = await AuthGet(apiUrl);
                 response.EnsureSuccessStatusCode();
 
                 string content = await response.Content.ReadAsStringAsync();
@@ -83,7 +83,7 @@ namespace Bloxstrap
         {
             const string LOG_IDENT = "CookiesManager::LoadCookies";
 
-            // we use the status to infrom user about it in the menu
+            
             if (!Enabled)
             {
                 State = CookieState.NotAllowed;
@@ -112,9 +112,9 @@ namespace Bloxstrap
                 if (cookies.Version != SupportedVersion)
                     App.Logger.WriteLine(LOG_IDENT, $"Unknown cookie version: {cookies.Version}");
 
-                // here we got the raw bytes data which we have to decrypt with user scope
-                // from that we get raw cookies data in roblox's format
-                // in our case we will regex it since all we need is auth cookie
+                
+                
+                
                 byte[] encryptedData = Convert.FromBase64String(cookies.Cookies);
                 byte[] unencryptedData = ProtectedData.Unprotect(encryptedData, null, DataProtectionScope.CurrentUser);
 
@@ -129,9 +129,9 @@ namespace Bloxstrap
                 }
 
                 string authCookie = authCookieMatch.Groups[1].Value;
-                AuthCookie = authCookie; // could use better naming
+                AuthCookie = authCookie; 
 
-                // we test the cookie to see if its valid
+                
                 AuthenticatedUser? user = await GetAuthenticated();
                 if (user is null || user.Id == 0)
                 {

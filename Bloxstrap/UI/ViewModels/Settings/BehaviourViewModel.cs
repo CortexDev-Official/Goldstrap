@@ -23,7 +23,7 @@
             }
         }
 
-        // guh
+        
         private bool _cookieLoadingFailed;
         public bool CookieLoadingFailed
         {
@@ -92,7 +92,7 @@
                 if (value)
                     CleanerItems.Add("RobloxLogs");
                 else
-                    CleanerItems.Remove("RobloxLogs"); // should we try catch it?
+                    CleanerItems.Remove("RobloxLogs"); 
             }
         }
 

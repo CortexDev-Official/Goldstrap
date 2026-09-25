@@ -18,20 +18,25 @@ namespace Bloxstrap
         public Dictionary<string, string> PresetPaths = new()
         {
             { "Rendering.FramerateCap", "{UserSettings}/int[@name='FramerateCap']" },
-            { "Rendering.SavedQualityLevel", "{UserSettings}/token[@name='SavedQualityLevel']" }, // 0 is automatic
+            { "Rendering.SavedQualityLevel", "{UserSettings}/token[@name='SavedQualityLevel']" }, 
+
             
+            
+            { "Rendering.GraphicsQualityLevel", "{UserSettings}/int[@name='GraphicsQualityLevel']" }, 
+            { "Rendering.MaxQualityEnabled", "{UserSettings}/bool[@name='MaxQualityEnabled']" },
+
             { "User.MouseSensitivity", "{UserSettings}/float[@name='MouseSensitivity']"},
             { "User.VREnabled", "{UserSettings}/bool[@name='VREnabled']"},
 
-            // mostly accessibility
+            
             { "UI.Transparency", "{UserSettings}/float[@name='PreferredTransparency']" },
             { "UI.ReducedMotion", "{UserSettings}/bool[@name='ReducedMotion']" },
             { "UI.FontSize", "{UserSettings}/token[@name='PreferredTextSize']" }
         };
 
-        // we are making it easier for ourselves
-        // basically replacing {...} with a path
-        // might expand in the future (studio support)
+        
+        
+        
         public Dictionary<string, string> RootPaths = new()
         {
             { "UserSettings", "//Item[@class='UserGameSettings']/Properties" },
@@ -63,15 +68,76 @@ namespace Bloxstrap
             return GetValue(PresetPaths[prefix]);
         }
 
+        /// <summary>
+        /// Values changed by the user since the last save, keyed by their resolved xpath.
+        /// Only these get written back to disk, so that settings roblox itself changed
+        /// while Goldstrap was open (graphics quality, volume, etc) don't get reverted.
+        /// </summary>
+        private readonly Dictionary<string, string> _pendingChanges = new();
+
+        public bool Changed => _pendingChanges.Count > 0;
+
         public void SetValue(string path, object? value)
         {
-            path = ResolvePath(path);
-
-            XElement? element = Document?.XPathSelectElement(path);
-            if (element is null)
+            if (value is null)
                 return;
 
-            element.Value = value?.ToString()!;
+            path = ResolvePath(path);
+
+            string stringValue = value is bool boolean
+                ? boolean.ToString().ToLowerInvariant() 
+                : Convert.ToString(value, CultureInfo.InvariantCulture) ?? string.Empty;
+
+            if (!ApplyValue(path, stringValue))
+                return;
+
+            _pendingChanges[path] = stringValue;
+        }
+
+        /// <summary>
+        /// Writes a value into the in-memory document, creating the element if it doesn't exist yet.
+        /// Returns false if the document isn't loaded or the path can't be created.
+        /// </summary>
+        private bool ApplyValue(string resolvedPath, string value)
+        {
+            const string LOG_IDENT = "GBSEditor::ApplyValue";
+
+            if (Document is null)
+                return false;
+
+            try
+            {
+                XElement? element = Document.XPathSelectElement(resolvedPath);
+
+                if (element is null)
+                {
+                    
+                    
+                    var match = Regex.Match(resolvedPath, @"^(?<parent>.*)/(?<type>[A-Za-z0-9_]+)\[@name='(?<name>[^']+)'\]$");
+
+                    if (!match.Success)
+                        return false;
+
+                    XElement? parent = Document.XPathSelectElement(match.Groups["parent"].Value);
+
+                    if (parent is null)
+                        return false;
+
+                    element = new XElement(match.Groups["type"].Value, new XAttribute("name", match.Groups["name"].Value));
+                    parent.Add(element);
+                }
+
+                element.Value = value;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"Failed to apply value at {resolvedPath}");
+                App.Logger.WriteException(LOG_IDENT, ex);
+
+                return false;
+            }
         }
 
         public string? GetValue(string path)
@@ -148,23 +214,57 @@ namespace Bloxstrap
 
             App.Logger.WriteLine(LOG_IDENT, $"Loading from {FileLocation}...");
 
-            // since the file gets created after roblox starts it might not exist yet
-            // this safeguard should only run once, that being when the user first installs Goldstrap
+            
+            
             if (!File.Exists(FileLocation))
                 CreateTemplate();
+
+            _pendingChanges.Clear();
+
+            if (ReloadDocument())
+                Loaded = true;
+            else
+                App.Logger.WriteLine(LOG_IDENT, "Failed to load!");
+        }
+
+        /// <summary>
+        /// Re-reads the document from disk, but only when there's nothing unsaved to lose.
+        /// </summary>
+        public void RefreshIfUnchanged()
+        {
+            if (!Loaded || Changed)
+                return;
+
+            ReloadDocument();
+        }
+
+        /// <summary>
+        /// Re-reads the document from disk, discarding any unapplied in-memory state.
+        /// Returns false only if the file exists but couldn't be read.
+        /// </summary>
+        private bool ReloadDocument()
+        {
+            const string LOG_IDENT = "GBSEditor::ReloadDocument";
+
+            
+            if (!File.Exists(FileLocation))
+                return Document is not null;
 
             try
             {
                 using var reader = XmlReader.Create(FileLocation, new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit });
-                Document = XDocument.Load(reader);
-                Loaded = true;
 
+                Document = XDocument.Load(reader);
                 previousReadOnlyState = GetReadOnly();
+
+                return true;
             }
             catch (Exception ex)
             {
-                App.Logger.WriteLine(LOG_IDENT, "Failed to load!");
+                App.Logger.WriteLine(LOG_IDENT, $"Failed to read {FileLocation}");
                 App.Logger.WriteException(LOG_IDENT, ex);
+
+                return false;
             }
         }
 
@@ -172,14 +272,37 @@ namespace Bloxstrap
         {
             string LOG_IDENT = "GBSEditor::Save";
 
+            if (!Loaded)
+                return;
+
+            if (!Changed)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Nothing changed, not saving");
+                return;
+            }
+
             App.Logger.WriteLine(LOG_IDENT, $"Saving to {FileLocation}...");
 
             try
             {
+                
+                
+                
+                if (!ReloadDocument())
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "Failed to re-read the file, aborting save to avoid overwriting it");
+                    return;
+                }
+
+                foreach (var pair in _pendingChanges)
+                    ApplyValue(pair.Key, pair.Value);
+
                 SetReadOnly(false, true);
                 Document?.Save(FileLocation);
 
                 SetReadOnly(previousReadOnlyState);
+
+                _pendingChanges.Clear();
             }
             catch (Exception ex)
             {

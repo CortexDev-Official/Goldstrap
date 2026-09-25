@@ -4,8 +4,8 @@ using Bloxstrap.UI.Elements.Bootstrapper.Base;
 
 namespace Bloxstrap.UI.Elements.Bootstrapper
 {
-    // windows: https://youtu.be/VpduiruysuM?t=18
-    // mac: https://youtu.be/ncHhbcVDRgQ?t=63
+    
+    
 
     public partial class LegacyDialog2008 : WinFormsDialogBase
     {

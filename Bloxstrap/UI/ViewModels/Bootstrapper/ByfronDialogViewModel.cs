@@ -6,7 +6,7 @@ namespace Bloxstrap.UI.ViewModels.Bootstrapper
 {
     public class ByfronDialogViewModel : BootstrapperDialogViewModel
     {
-        // Using dark theme for default values.
+        
         public ImageSource ByfronLogoLocation { get; set; } = new BitmapImage(new Uri("pack://application:,,,/Resources/BootstrapperStyles/ByfronDialog/ByfronLogoDark.jpg"));
         public Thickness DialogBorder { get; set; } = new Thickness(0);
         public Brush Background { get; set; } = Brushes.Black;

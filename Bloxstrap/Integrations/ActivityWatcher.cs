@@ -6,9 +6,9 @@
         private const string GameMessageEntry                = "[FLog::Output] [BloxstrapRPC]";
         private const string GameJoiningEntry                = "[FLog::Output] ! Joining game";
 
-        // these entries are technically volatile!
-        // they only get printed depending on their configured FLog level, which could change at any time
-        // while levels being changed is fairly rare, please limit the number of varying number of FLog types you have to use, if possible
+        
+        
+        
 
         private const string GameTeleportingEntry            = "[FLog::UgcExperienceController] UgcExperienceController: doTeleport: joinScriptUrl";
         private const string GameJoiningUniverseEntry        = "[FLog::GameJoinLoadTime] Report game_join_loadtime:";
@@ -64,16 +64,16 @@
         {
             const string LOG_IDENT = "ActivityWatcher::Start";
 
-            // okay, here's the process:
-            //
-            // - tail the latest log file from %localappdata%\roblox\logs
-            // - check for specific lines to determine player's game activity as shown below:
-            //
-            // - get the place id, job id and machine address from '! Joining game '{{JOBID}}' place {{PLACEID}} at {{MACHINEADDRESS}}' entry
-            // - confirm place join with 'serverId: {{MACHINEADDRESS}}|{{MACHINEPORT}}' entry
-            // - check for leaves/disconnects with 'Time to disconnect replication data: {{TIME}}' entry
-            //
-            // we'll tail the log file continuously, monitoring for any log entries that we need to determine the current game activity
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
             try
             {
@@ -152,18 +152,18 @@
 
             _logEntriesRead += 1;
 
-            // debug stats to ensure that the log reader is working correctly
-            // if more than 1000 log entries have been read, only log per 100 to save on spam
+            
+            
             if (_logEntriesRead <= 1000 && _logEntriesRead % 50 == 0)
                 App.Logger.WriteLine(LOG_IDENT, $"Read {_logEntriesRead} log entries");
             else if (_logEntriesRead % 100 == 0)
                 App.Logger.WriteLine(LOG_IDENT, $"Read {_logEntriesRead} log entries");
 
-            // get the log message from the read line
+            
             int logMessageIdx = entry.IndexOf(' ');
             if (logMessageIdx == -1)
             {
-                // likely a log message that spanned multiple lines
+                
                 return;
             }
 
@@ -186,7 +186,7 @@
 
             if (!InGame && Data.PlaceId == 0)
             {
-                // We are not in a game, nor are in the process of joining one
+                
                 if (logMessage.StartsWith(GameJoiningEntry))
                 {
                     Match match = Regex.Match(logMessage, GameJoiningEntryPattern);
@@ -220,7 +220,7 @@
             }
             else if (!InGame && Data.PlaceId != 0)
             {
-                // We are not confirmed to be in a game, but we are in the process of joining one
+                
 
                 if (logMessage.StartsWith(GameJoiningUniverseEntry))
                 {
@@ -290,7 +290,7 @@
             }
             else if (InGame && Data.PlaceId != 0)
             {
-                // We are confirmed to be in a game
+                
 
                 if (logMessage.StartsWith(GameDisconnectedEntry))
                 {
@@ -417,7 +417,7 @@
 
                     Data.StartTime = DateTime.ParseExact(startTime, "yyyyMMdd'T'HHmmss'Z'", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
-                    // ip should be fetched by now
+                    
                     if (App.Settings.Prop.ShowServerDetails && Data.MachineAddressValid)
                         _ = Data.QueryServerLocation();
 

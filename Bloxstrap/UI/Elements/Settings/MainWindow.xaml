@@ -8,7 +8,6 @@
              xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
              xmlns:resources="clr-namespace:Bloxstrap.Resources"
              xmlns:dmodels="clr-namespace:Bloxstrap.UI.ViewModels.Settings"
-             xmlns:controls="clr-namespace:Bloxstrap.UI.Elements.Controls"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance dmodels:MainWindowViewModel, IsDesignTimeCreatable=True}"
              Title="{x:Static resources:Strings.Menu_Title}"
@@ -36,9 +35,11 @@
             Message="{x:Static resources:Strings.Menu_AlreadyRunning_Caption}"
             Icon="Info20" Timeout="10000" Margin="200,0,200,20" Grid.RowSpan="10" Panel.ZIndex="10" />
 
-        <controls:GoldSaveToast
-            x:Name="SettingsSavedToast"
-            Grid.RowSpan="10" Panel.ZIndex="9" />
+        <ui:Snackbar
+            x:Name="SettingsSavedSnackbar"
+            Title="{x:Static resources:Strings.Menu_SettingsSaved_Title}"
+            Message="{x:Static resources:Strings.Menu_SettingsSaved_Message}"
+            Appearance="Success" Icon="CheckmarkCircle32" Timeout="3000" Margin="200,0,200,20" Grid.RowSpan="10" Panel.ZIndex="9" />
 
         <ui:TitleBar Padding="8" x:Name="RootTitleBar" Grid.Row="0" ForceShutdown="False" MinimizeToTray="False" UseSnapLayout="True" Title="{x:Static resources:Strings.Menu_Title}" Icon="pack://application:,,,/Goldstrap.ico" />
         <Grid x:Name="RootGrid" Grid.Row="1" Margin="12,12,0,0" Visibility="Visible">
@@ -81,7 +82,7 @@
             </Grid>
         </Grid>
 
-        <!-- ═══════════════ Gold Status Bar ═══════════════ -->
+        
         <StatusBar x:Name="RootStatusBar" Grid.Row="2" Padding="14,10" BorderThickness="0,1,0,0">
             <StatusBar.Background>
                 <SolidColorBrush Color="{DynamicResource ApplicationBackgroundColor}" Opacity="0" />

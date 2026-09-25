@@ -11,7 +11,7 @@ using Bloxstrap.UI.Utility;
 
 namespace Bloxstrap.UI.Elements.Dialogs
 {
-    // wpfui does have its own messagebox control but it SUCKS so heres this instead
+    
 
     /// <summary>
     /// Interaction logic for FluentMessageBox.xaml
@@ -89,7 +89,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
                     break;
             }
 
-            // we're doing the width manually for this because ye
+            
 
             if (ButtonThree.Visibility == Visibility.Visible)
                 Width = 356;
@@ -98,10 +98,10 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
             double textWidth = Math.Ceiling(Rendering.GetTextWidth(MessageTextBlock));
 
-            // offset to account for box size
+            
             textWidth += 40;
 
-            // offset to account for icon
+            
             if (image != MessageBoxImage.None)
                 textWidth += 50;
 
@@ -119,7 +119,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
             };
         }
 
-        // reuse existing strings
+        
         private static string GetTextForResult(MessageBoxResult result)
         {
             switch (result)

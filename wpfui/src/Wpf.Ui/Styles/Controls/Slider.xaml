@@ -44,7 +44,7 @@
         </Setter>
     </Style>
 
-    <!--  Template when the orientation of the Slider is Horizontal.  -->
+    
     <ControlTemplate x:Key="UiHorizontalSlider" TargetType="{x:Type Slider}">
         <Grid>
             <Grid.RowDefinitions>
@@ -118,7 +118,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!--  Template when the orientation of the Slider is Vertical.  -->
+    
     <ControlTemplate x:Key="UiVerticalSlider" TargetType="{x:Type Slider}">
         <Grid>
             <Grid.ColumnDefinitions>

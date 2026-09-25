@@ -41,7 +41,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            // refresh datacontext on page load to synchronize with editor page
+            
             
             if (!_initialLoad)
             {

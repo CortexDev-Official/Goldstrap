@@ -18,11 +18,11 @@ namespace Bloxstrap.Utility
         {
             const string LOG_IDENT = "Thumbnails::GetThumbnailUrlsAsync";
             const int RETRIES = 5;
-            const int RETRY_TIME_INCREMENT = 500; // ms
+            const int RETRY_TIME_INCREMENT = 500; 
 
             string?[] urls = new string?[requests.Count];
 
-            // assign unique request ids to each request
+            
             for (int i = 0; i < requests.Count; i++)
                 requests[i].RequestId = i.ToString();
 
@@ -68,7 +68,7 @@ namespace Bloxstrap.Utility
         {
             const string LOG_IDENT = "Thumbnails::GetThumbnailUrlAsync";
             const int RETRIES = 5;
-            const int RETRY_TIME_INCREMENT = 500; // ms
+            const int RETRY_TIME_INCREMENT = 500; 
 
             request.RequestId = "0";
 

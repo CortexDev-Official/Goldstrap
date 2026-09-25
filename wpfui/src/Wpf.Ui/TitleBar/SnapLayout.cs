@@ -1,7 +1,7 @@
 ﻿// This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
-// All Rights Reserved.
+
 
 using System;
 using System.Windows;
@@ -120,17 +120,17 @@ internal sealed class SnapLayout : IThemeControl
         switch (mouseNotification)
         {
             case Interop.User32.WM.MOVE:
-                // Adjust [Size] of the buttons if the DPI is changed
+                
                 break;
 
-            // Mouse leaves the window
+            
             case Interop.User32.WM.NCMOUSELEAVE:
                 _buttons[0].RemoveHover(DefaultButtonBackground);
                 _buttons[1].RemoveHover(DefaultButtonBackground);
 
                 break;
 
-            // Left button clicked down
+            
             case Interop.User32.WM.NCLBUTTONDOWN:
                 if (_buttons[0].IsMouseOver(lParam))
                 {
@@ -148,7 +148,7 @@ internal sealed class SnapLayout : IThemeControl
 
                 break;
 
-            // Left button clicked up
+            
             case Interop.User32.WM.NCLBUTTONUP:
                 if (_buttons[0].IsClickedDown && _buttons[0].IsMouseOver(lParam))
                 {
@@ -168,7 +168,7 @@ internal sealed class SnapLayout : IThemeControl
 
                 break;
 
-            // Hit test, for determining whether the mouse cursor is over one of the buttons
+            
             case Interop.User32.WM.NCHITTEST:
                 if (_buttons[0].IsMouseOver(lParam))
                 {

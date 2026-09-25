@@ -1,15 +1,15 @@
-﻿// This Source Code is partially based on reverse engineering of the Windows Operating System,
-// and is intended for use on Windows systems only.
-// This Source Code is partially based on the source code provided by the .NET Foundation.
+﻿
+
+
 // This Source Code Form is subject to the terms of the MIT License.
 // If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
 // Copyright (C) Leszek Pomianowski.
-// All Rights Reserved.
+
 
 // NOTE
-// I split unmanaged code stuff into the NativeMethods library.
-// If you have suggestions for the code below, please submit your changes there.
-// https://github.com/lepoco/nativemethods
+
+
+
 
 using System;
 using System.Runtime.InteropServices;
@@ -30,10 +30,10 @@ internal static class Shell32
     public enum DOGIF
     {
         DEFAULT = 0x0000,
-        TRAVERSE_LINK = 0x0001, // if the item is a link get the target
-        NO_HDROP = 0x0002, // don't fallback and use CF_HDROP clipboard format
-        NO_URL = 0x0004, // don't fallback and use URL clipboard format
-        ONLY_IF_ONE = 0x0008, // only return the item if there is one item in the array
+        TRAVERSE_LINK = 0x0001, 
+        NO_HDROP = 0x0002, 
+        NO_URL = 0x0004, 
+        ONLY_IF_ONE = 0x0008, 
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ internal static class Shell32
         /// <summary>
         /// 0x00000004. The szTip member is valid.
         /// </summary>
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x80)] // 128
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x80)] 
         public string szTip;
 
         /// <summary>
@@ -124,22 +124,22 @@ internal static class Shell32
 
         public uint dwStateMask;
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x100)] // 256
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x100)] 
         public string szInfo;
 
         /// <summary>
         /// Prior to Vista this was a union of uTimeout and uVersion.  As of Vista, uTimeout has been deprecated.
         /// </summary>
-        public uint uVersion; // Used with Shell_NotifyIcon flag NIM_SETVERSION.
+        public uint uVersion; 
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x40)] // 64
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x40)] 
         public string szInfoTitle;
 
         public uint dwInfoFlags;
 
         public Guid guidItem;
 
-        // Vista only
+        
         IntPtr hBalloonIcon;
     }
 

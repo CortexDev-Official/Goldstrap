@@ -263,8 +263,8 @@
                                     <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
                                 </Setter.Value>
                             </Setter>
-                            <!--<Setter TargetName="ElementIcon" Property="Filled" Value="True" /> -->
-                            <!--<Setter TargetName="ElementIcon" Property="Foreground" Value="{DynamicResource SystemAccentBrush}" />-->
+                            
+                            
                         </Trigger>
                         <Trigger Property="Icon" Value="Empty">
                             <Setter TargetName="ElementIcon" Property="Visibility" Value="Collapsed" />
@@ -304,7 +304,7 @@
     </Style>
 
     <Style TargetType="{x:Type controls:NavigationCompact}">
-        <!--<Setter Property="ItemStyle" Value="{StaticResource UiNavigationCompactItemStyle}" />-->
+        
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Margin" Value="4" />
         <Setter Property="Width" Value="40" />
