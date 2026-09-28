@@ -234,7 +234,7 @@
         <controls:OptionControl
             Header="{x:Static resources:Strings.Menu_Appearance_LaunchSound_Volume}"
             Description="{Binding LaunchSoundVolumeText, Mode=OneWay}">
-            <Slider Width="220" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding LaunchSoundVolume, Mode=TwoWay}" HorizontalAlignment="Right" />
+            <Slider Width="220" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding LaunchSoundVolume, Mode=TwoWay}" HorizontalAlignment="Right" Style="{DynamicResource GoldSliderStyle}" />
         </controls:OptionControl>
     </StackPanel>
 </ui:UiPage>

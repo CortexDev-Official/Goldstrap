@@ -55,6 +55,8 @@ namespace Bloxstrap
 
         public static readonly JsonManager<Settings> Settings = new();
 
+        public static readonly ProfileManager Profile = new();
+
         public static readonly JsonManager<State> State = new();
 
         public static readonly JsonManager<RobloxState> RobloxState = new();

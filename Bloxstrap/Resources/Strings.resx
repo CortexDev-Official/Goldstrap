@@ -1883,4 +1883,55 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Appearance.LaunchSound.PreviewFailed" xml:space="preserve">
     <value>The sound preview could not be played.</value>
   </data>
+  <data name="Profile.Welcome" xml:space="preserve">
+    <value>Welcome, {0}</value>
+  </data>
+  <data name="Profile.DefaultUsername" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Profile.Tooltip" xml:space="preserve">
+    <value>Open profile settings</value>
+  </data>
+  <data name="Profile.Avatar.Title" xml:space="preserve">
+    <value>Change avatar</value>
+  </data>
+  <data name="Profile.Avatar.Description" xml:space="preserve">
+    <value>Pick an image to show next to your name.</value>
+  </data>
+  <data name="Profile.Avatar.Choose" xml:space="preserve">
+    <value>Choose image</value>
+  </data>
+  <data name="Profile.Avatar.Filter" xml:space="preserve">
+    <value>Images|*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.webp|All files|*.*</value>
+  </data>
+  <data name="Profile.Username.Title" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Profile.Username.Description" xml:space="preserve">
+    <value>Up to 20 characters. Leave empty to use User.</value>
+  </data>
+  <data name="Profile.Username.Placeholder" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Profile.Verified.Title" xml:space="preserve">
+    <value>Verified badge</value>
+  </data>
+  <data name="Profile.Verified.Description" xml:space="preserve">
+    <value>Show a decorative blue check next to your name.</value>
+  </data>
+  <data name="Profile.Font.Title" xml:space="preserve">
+    <value>Username font</value>
+  </data>
+  <data name="Profile.Font.Description" xml:space="preserve">
+    <value>Font used for the welcome text.</value>
+  </data>
+  <data name="Profile.Font.Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="Profile.Streak.Title" xml:space="preserve">
+    <value>Daily streak</value>
+  </data>
+  <data name="Profile.Streak.Format" xml:space="preserve">
+    <value>{0} day streak</value>
+  </data>
 </root>

@@ -22,6 +22,9 @@
     <SolidColorBrush x:Key="SeparatorBrush" Color="#15383028" />
 
     
+    <SolidColorBrush x:Key="ProfilePopupBackgroundBrush" Color="#F2161310" />
+
+    
     <SolidColorBrush x:Key="NewTextEditorBackground" Color="#191714" />
     <SolidColorBrush x:Key="NewTextEditorForeground" Color="#F0EDE6" />
     <SolidColorBrush x:Key="NewTextEditorLink" Color="#D4A847" />

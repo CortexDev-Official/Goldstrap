@@ -8,6 +8,7 @@
         xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
         xmlns:models="clr-namespace:Bloxstrap.UI.ViewModels"
         xmlns:resources="clr-namespace:Bloxstrap.Resources"
+        xmlns:controls="clr-namespace:Bloxstrap.UI.Elements.Controls"
         mc:Ignorable="d"
         Title="Goldstrap"
         MinWidth="0"
@@ -39,10 +40,13 @@
                 <Grid VerticalAlignment="Center" Margin="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,32">
+                    <controls:ProfileWidget Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,24" />
+
+                    <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,32">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -57,9 +61,8 @@
                         </StackPanel>
                     </Grid>
 
-                    <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Center">
                         <ui:Hyperlink Icon="QuestionCircle48" Content="{x:Static resources:Strings.About_Title}" Margin="0,0,0,8" Command="{Binding LaunchAboutCommand, Mode=OneTime}" HorizontalAlignment="Center" />
-                        <ui:Hyperlink Icon="Chat48" Content="{x:Static resources:Strings.LaunchMenu_Discord}" NavigateUri="https://discord.gg/xSsamjAU84" HorizontalAlignment="Center" />
                     </StackPanel>
                 </Grid>
             </Border>

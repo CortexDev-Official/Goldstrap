@@ -1,0 +1,121 @@
+<UserControl x:Class="Bloxstrap.UI.Elements.Controls.ProfileWidget"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+             xmlns:controls="clr-namespace:Bloxstrap.UI.Elements.Controls"
+             xmlns:resources="clr-namespace:Bloxstrap.Resources"
+             mc:Ignorable="d"
+             d:DesignHeight="60" d:DesignWidth="320"
+             HorizontalAlignment="Left">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+    </UserControl.Resources>
+
+    <StackPanel HorizontalAlignment="Left">
+        <Button x:Name="ProfileButton"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                BorderThickness="0"
+                Padding="6,4"
+                Cursor="Hand"
+                ToolTip="{x:Static resources:Strings.Profile_Tooltip}"
+                Click="ProfileButton_Click">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Grid Width="40" Height="40">
+                    <Ellipse Fill="{DynamicResource GoldHoverBrush}"
+                             Stroke="{DynamicResource GoldPrimaryBrush}"
+                             StrokeThickness="1" />
+
+                    <Grid>
+                        <Grid.Clip>
+                            <EllipseGeometry Center="20,20" RadiusX="20" RadiusY="20" />
+                        </Grid.Clip>
+
+                        <ui:SymbolIcon Symbol="Person24"
+                                       FontSize="20"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource GoldPrimaryBrush}">
+                            <ui:SymbolIcon.Style>
+                                <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasAvatar}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ui:SymbolIcon.Style>
+                        </ui:SymbolIcon>
+
+                        <Image Source="{Binding AvatarSource}"
+                               Stretch="UniformToFill"
+                               RenderOptions.BitmapScalingMode="HighQuality">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding HasAvatar}" Value="True" />
+                                                <Condition Binding="{Binding IsAvatarAnimated}" Value="False" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+
+                        <Image gif:AnimationBehavior.SourceUri="{Binding AvatarUri}"
+                               Stretch="UniformToFill"
+                               RenderOptions.BitmapScalingMode="HighQuality">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsAvatarAnimated}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </Grid>
+                </Grid>
+
+                <TextBlock Margin="8,0,0,0"
+                           MaxWidth="180"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           TextTrimming="CharacterEllipsis"
+                           Text="{Binding WelcomeText}"
+                           FontFamily="{Binding UsernameFont}" />
+
+                <Image Width="16" Height="16"
+                       Margin="4,0,0,0"
+                       VerticalAlignment="Center"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="/Resources/verified.png"
+                       Visibility="{Binding IsVerified, Converter={StaticResource BooleanToVisibility}}" />
+            </StackPanel>
+        </Button>
+
+        <Popup x:Name="ProfilePopup"
+               PlacementTarget="{Binding ElementName=ProfileButton}"
+               Placement="Bottom"
+               HorizontalOffset="0"
+               VerticalOffset="4"
+               StaysOpen="False"
+               AllowsTransparency="True"
+               PopupAnimation="None"
+               Opened="ProfilePopup_Opened"
+               Closed="ProfilePopup_Closed">
+            <controls:ProfilePopup />
+        </Popup>
+    </StackPanel>
+</UserControl>

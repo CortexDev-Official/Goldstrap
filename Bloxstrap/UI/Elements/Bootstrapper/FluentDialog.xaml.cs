@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
 using System.Windows.Threading;
-using XamlAnimatedGif;
 
 namespace Bloxstrap.UI.Elements.Bootstrapper
 {
@@ -18,8 +17,6 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
     public partial class FluentDialog : IBootstrapperDialog
     {
         private readonly FluentDialogViewModel _viewModel;
-        private readonly DispatcherTimer _gifSwapTimer = new();
-        private bool _gifIsPrimary = true;
 
         public Bloxstrap.Bootstrapper? Bootstrapper { get; set; }
 
@@ -105,10 +102,6 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         {
             InitializeComponent();
 
-            _gifSwapTimer.Interval = TimeSpan.FromSeconds(5);
-            _gifSwapTimer.Tick += GifSwapTimerTick;
-            _gifSwapTimer.Start();
-
             string version = Utilities.GetRobloxVersionStr(Bootstrapper?.IsStudioLaunch ?? false);
             string channel = Deployment.Channel;
             _viewModel = new FluentDialogViewModel(this, aero, version);
@@ -128,16 +121,8 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         private void UiWindow_Closing(object sender, CancelEventArgs e)
         {
-            _gifSwapTimer.Stop();
             if (!_isClosing)
                 Bootstrapper?.Cancel();
-        }
-
-        private void GifSwapTimerTick(object? sender, EventArgs e)
-        {
-            _gifIsPrimary = !_gifIsPrimary;
-            GifImage1.Visibility = _gifIsPrimary ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            GifImage2.Visibility = _gifIsPrimary ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
         }
 
         #region IBootstrapperDialog Methods

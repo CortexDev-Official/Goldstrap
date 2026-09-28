@@ -5173,5 +5173,107 @@ namespace Bloxstrap.Resources {
                 return ResourceManager.GetString("Menu.Appearance.LaunchSound.PreviewFailed", resourceCulture);
             }
         }
+
+        public static string Profile_Welcome {
+            get {
+                return ResourceManager.GetString("Profile.Welcome", resourceCulture);
+            }
+        }
+
+        public static string Profile_DefaultUsername {
+            get {
+                return ResourceManager.GetString("Profile.DefaultUsername", resourceCulture);
+            }
+        }
+
+        public static string Profile_Tooltip {
+            get {
+                return ResourceManager.GetString("Profile.Tooltip", resourceCulture);
+            }
+        }
+
+        public static string Profile_Avatar_Title {
+            get {
+                return ResourceManager.GetString("Profile.Avatar.Title", resourceCulture);
+            }
+        }
+
+        public static string Profile_Avatar_Description {
+            get {
+                return ResourceManager.GetString("Profile.Avatar.Description", resourceCulture);
+            }
+        }
+
+        public static string Profile_Avatar_Choose {
+            get {
+                return ResourceManager.GetString("Profile.Avatar.Choose", resourceCulture);
+            }
+        }
+
+        public static string Profile_Avatar_Filter {
+            get {
+                return ResourceManager.GetString("Profile.Avatar.Filter", resourceCulture);
+            }
+        }
+
+        public static string Profile_Username_Title {
+            get {
+                return ResourceManager.GetString("Profile.Username.Title", resourceCulture);
+            }
+        }
+
+        public static string Profile_Username_Description {
+            get {
+                return ResourceManager.GetString("Profile.Username.Description", resourceCulture);
+            }
+        }
+
+        public static string Profile_Username_Placeholder {
+            get {
+                return ResourceManager.GetString("Profile.Username.Placeholder", resourceCulture);
+            }
+        }
+
+        public static string Profile_Verified_Title {
+            get {
+                return ResourceManager.GetString("Profile.Verified.Title", resourceCulture);
+            }
+        }
+
+        public static string Profile_Verified_Description {
+            get {
+                return ResourceManager.GetString("Profile.Verified.Description", resourceCulture);
+            }
+        }
+
+        public static string Profile_Font_Title {
+            get {
+                return ResourceManager.GetString("Profile.Font.Title", resourceCulture);
+            }
+        }
+
+        public static string Profile_Font_Description {
+            get {
+                return ResourceManager.GetString("Profile.Font.Description", resourceCulture);
+            }
+        }
+
+        public static string Profile_Font_Default {
+            get {
+                return ResourceManager.GetString("Profile.Font.Default", resourceCulture);
+            }
+        }
+
+        public static string Profile_Streak_Title {
+            get {
+                return ResourceManager.GetString("Profile.Streak.Title", resourceCulture);
+            }
+        }
+
+        public static string Profile_Streak_Format {
+            get {
+                return ResourceManager.GetString("Profile.Streak.Format", resourceCulture);
+            }
+        }
     }
 }

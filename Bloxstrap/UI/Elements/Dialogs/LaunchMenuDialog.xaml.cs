@@ -35,6 +35,9 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
             DataContext = viewModel;
 
+            App.Profile.Load();
+            App.Profile.RegisterDailyOpen();
+
             InitializeComponent();
             Random Chance = new();
             if (Chance.Next(0, 10000) == 1)

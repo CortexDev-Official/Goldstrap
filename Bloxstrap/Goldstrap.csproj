@@ -7,9 +7,9 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Goldstrap.ico</ApplicationIcon>
-    <Version>0.0.5</Version>
-    <FileVersion>0.0.5.0</FileVersion>
-    <InformationalVersion>0.0.5-alpha</InformationalVersion>
+    <Version>0.0.6</Version>
+    <FileVersion>0.0.6.0</FileVersion>
+    <InformationalVersion>0.0.6-alpha</InformationalVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
@@ -26,8 +26,9 @@
   <ItemGroup>
     <Resource Include="Goldstrap.ico" />
     <Resource Include="Resources\GoldstrapLogo.png" />
-    <Resource Include="Resources\Loading.GIF" />
-    <Resource Include="Resources\2Loading.GIF" />
+    <Resource Include="Resources\*GIF.gif" />
+    <Resource Include="Resources\verified*.png" />
+    <Resource Include="Resources\ProfileFonts\*.ttf" />
     <Resource Include="Resources\BootstrapperStyles\TerminalDialog\Powershell.png" />
     <Resource Include="Resources\BootstrapperStyles\TwentyFiveDialog\PlayerLogo.png" />
     <Resource Include="Resources\BootstrapperStyles\TwentyFiveDialog\Roblox.png" />

@@ -88,7 +88,7 @@
         <controls:MarkdownTextBlock MarkdownText="A collection of experimental settings. Be careful while using them, as they may or may not work as intended." TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Bootstrapper_AllowCookieAccess_Title}"
-            Description="{Binding Source={x:Static resources:Strings.Menu_Bootstrapper_AllowCookieAccess_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/fishstrap/fishstrap'}">
+            Description="{Binding Source={x:Static resources:Strings.Menu_Bootstrapper_AllowCookieAccess_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://docs.goldstrap.xyz/#account'}">
             
             <StackPanel Orientation="Horizontal">
                 <ui:SymbolIcon Symbol="Warning20" Margin="0,2,8,0" Foreground="Orange">

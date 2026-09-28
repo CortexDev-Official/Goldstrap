@@ -8,7 +8,6 @@
     xmlns:resources="clr-namespace:Bloxstrap.Resources"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:vms="clr-namespace:Bloxstrap.UI.ViewModels.Bootstrapper"
-    xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
     Width="500"
     Height="280"
     MinHeight="0"
@@ -45,7 +44,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Border
@@ -76,36 +74,8 @@
                 Text="{Binding Message, Mode=OneWay}"
                 TextWrapping="Wrap" />
 
-            <Border
-                Grid.Row="2"
-                Width="28"
-                Height="28"
-                Margin="0,0,8,4"
-                HorizontalAlignment="Right"
-                CornerRadius="6"
-                ClipToBounds="True"
-                Background="Transparent">
-                <Grid>
-                    <Image
-                        x:Name="GifImage1"
-                        Width="28"
-                        Height="28"
-                        RenderOptions.BitmapScalingMode="HighQuality"
-                        Stretch="UniformToFill"
-                        gif:AnimationBehavior.SourceUri="/Resources/Loading.GIF" />
-                    <Image
-                        x:Name="GifImage2"
-                        Width="28"
-                        Height="28"
-                        RenderOptions.BitmapScalingMode="HighQuality"
-                        Stretch="UniformToFill"
-                        gif:AnimationBehavior.SourceUri="/Resources/2Loading.GIF"
-                        Visibility="Collapsed" />
-                </Grid>
-            </Border>
-
             <ProgressBar
-                Grid.Row="3"
+                Grid.Row="2"
                 Margin="0,0,0,16"
                 Style="{DynamicResource SquareProgressBarStyle}"
                 IsIndeterminate="{Binding ProgressIndeterminate, Mode=OneWay}"
@@ -113,7 +83,7 @@
                 Value="{Binding ProgressValue, Mode=OneWay}" />
 
             <Button
-                Grid.Row="4"
+                Grid.Row="3"
                 Width="120"
                 Padding="4"
                 HorizontalAlignment="Center"
