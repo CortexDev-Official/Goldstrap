@@ -47,6 +47,63 @@ If you found any bugs, please [open an issue here][repo-new-issue]
 
 </div>
 
+## Built with
+
+Goldstrap is a .NET 6 WPF application. Full dependency list: [`Bloxstrap/Goldstrap.csproj`](Bloxstrap/Goldstrap.csproj).
+
+- [Wpf.Ui](https://github.com/lepoco/wpfui) — Fluent controls and window chrome (submodule `wpfui`)
+- CommunityToolkit.Mvvm — ViewModels and commands
+- XamlAnimatedGif — animated GIFs (loading, profile)
+- NAudio — launch sound playback
+- AvalonEdit — FastFlag / settings editor
+- DiscordRichPresence — Discord rich presence
+- Markdig — Markdown rendering in the UI
+- SharpZipLib — Roblox package extraction
+- TagLibSharp — audio metadata
+- SharpVectors.Wpf — SVG rendering
+- securifybv.ShellLink — shortcut creation
+- Microsoft.Windows.CsWin32 — Win32 P/Invoke generation
+
+## Architecture
+
+- **`App.OnStartup`** parses the launch arguments and decides what to run (installer, bootstrapper, watcher, settings or the menu).
+- **`Bootstrapper`** downloads and repairs the Roblox client, applies mods and FastFlags, then launches it.
+- **`Watcher`** runs alongside Roblox for rich presence, server info and cleanup.
+- **`Integrations/`** holds optional features (Discord RPC, activity tracking, window handling, launch sound).
+- **`UI/`** is the WPF layer (Wpf.Ui) with pages, dialogs and the `ProfileWidget`.
+- Settings and state are JSON files handled by **`JsonManager<T>`**: `Settings.json`, `State.json`, `RobloxState.json` and `Profile.json`.
+
+## Building from source
+
+```
+git clone --recurse-submodules https://github.com/CortexDev-Official/Goldstrap
+cd Goldstrap
+dotnet build -c Release
+```
+
+Run it:
+
+```
+dotnet run --project Bloxstrap/Goldstrap.csproj
+```
+
+Single-file release build:
+
+```
+dotnet publish Bloxstrap/Goldstrap.csproj -p:PublishSingleFile=true -r win-x64 -c Release --self-contained false
+```
+
+Requirements: Windows 10+, the .NET 6 SDK, and the .NET 6 Desktop Runtime to run.
+
+## Differences from Fishstrap
+
+Goldstrap is forked from [Fishstrap](https://github.com/returnrqt/fishstrap) and adds:
+
+- A local **user profile** (avatar, username, badge, font, daily streak)
+- A reworked **Launch Sound** (MP3/WAV, volume, preview)
+- **Roblox app settings** (background app + app theme)
+- Restored Fishstrap's standard Save notification, refreshed gold theming, and a passing security/bug audit
+
 [banner-light]: https://github.com/CortexDev-Official/Goldstrap/raw/main/Images/Goldstrap-Gold.png#gh-light-mode-only
 [banner-dark]:  https://github.com/CortexDev-Official/Goldstrap/raw/main/Images/Goldstrap-Gold.png#gh-dark-mode-only
 
