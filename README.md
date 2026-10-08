@@ -102,8 +102,7 @@ Goldstrap is forked from [Fishstrap](https://github.com/returnrqt/fishstrap) and
 - A local **user profile** (avatar, username, badge, font, daily streak)
 - A reworked **Launch Sound** (MP3/WAV, volume, preview)
 - **Roblox app settings** (background app + app theme)
-- refreshed gold theming, and a passing security/bug audit
-- And more
+- Restored Fishstrap's standard Save notification, refreshed gold theming, and a passing security/bug audit
 
 [banner-light]: https://github.com/CortexDev-Official/Goldstrap/raw/main/Images/Goldstrap-Gold.png#gh-light-mode-only
 [banner-dark]:  https://github.com/CortexDev-Official/Goldstrap/raw/main/Images/Goldstrap-Gold.png#gh-dark-mode-only

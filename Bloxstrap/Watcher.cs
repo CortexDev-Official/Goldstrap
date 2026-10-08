@@ -82,6 +82,8 @@ namespace Bloxstrap
             _notifyIcon = new(this);
         }
 
+        public bool Started => _lock.IsAcquired && _watcherData is not null;
+
         public void KillRobloxProcess() => CloseProcess(_watcherData!.ProcessId, true);
 
         public void CloseProcess(int pid, bool force = false)

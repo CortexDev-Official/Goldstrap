@@ -238,6 +238,9 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             if (result == null)
                 throw new Exception($"{xmlElement.Name} Source Uri is null");
 
+            if (result.IsAbsoluteUri && result.Scheme != Uri.UriSchemeFile)
+                throw new Exception(String.Format(Strings.CustomTheme_Errors_ElementAttributeBlacklistedUriScheme, xmlElement.Name, name, result.Scheme));
+
             return result;
         }
 

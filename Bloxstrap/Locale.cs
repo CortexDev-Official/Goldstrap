@@ -21,7 +21,7 @@ namespace Bloxstrap
             { "ar", "العربية" }, 
             { "bg", "Български" }, 
 #if QA_BUILD
-            { "bn", "বাংলা" }, // Bengali
+            { "bn", "বাংলা" },
 #endif
             { "bs", "Bosanski" }, 
             { "cs", "Čeština" }, 
@@ -29,20 +29,20 @@ namespace Bloxstrap
             { "da", "Dansk" }, 
             { "es-ES", "Español" }, 
 #if QA_BUILD
-            { "el", "Ελληνικά" }, // Greek
+            { "el", "Ελληνικά" },
 #endif
             { "fa", "فارسی" }, 
             { "fi", "Suomi" }, 
             { "fil", "Filipino" }, 
             { "fr", "Français" }, 
 #if QA_BUILD
-            { "he", "עברית‎" }, // Hebrew
-            { "hi", "Hindi (Latin)" }, // Hindi
+            { "he", "עברית‎" },
+            { "hi", "Hindi (Latin)" },
 #endif
             { "hr", "Hrvatski" }, 
             { "hu", "Magyar" }, 
 #if QA_BUILD
-            { "is", "Íslenska" }, // Icelandic
+            { "is", "Íslenska" },
 #endif
             { "id", "Bahasa Indonesia" }, 
             { "it", "Italiano" }, 
@@ -53,8 +53,8 @@ namespace Bloxstrap
             { "ms", "Malay" }, 
             { "nl", "Nederlands" }, 
 #if QA_BUILD
-            { "et", "Eesti Keel" }, // Estonian
-            { "no", "Bokmål" }, // Norwegian
+            { "et", "Eesti Keel" },
+            { "no", "Bokmål" },
 #endif
             { "pl", "Polski" }, 
 #if QA_BUILD

@@ -3096,6 +3096,24 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User profile.
+        /// </summary>
+        public static string Menu_Appearance_Profile_Title {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.Profile.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show the profile row in the launch menu with your avatar, display name, verified badge, font and daily streak..
+        /// </summary>
+        public static string Menu_Appearance_Profile_Description {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.Profile.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preview.
         /// </summary>
         public static string Menu_Appearance_Preview {

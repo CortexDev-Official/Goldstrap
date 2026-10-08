@@ -372,6 +372,12 @@ namespace Bloxstrap.Integrations
                 }
 
                 activity.UniverseDetails = UniverseDetails.LoadFromCache(activity.UniverseId);
+
+                if (activity.UniverseDetails is null)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Universe {activity.UniverseId} is not available");
+                    return false;
+                }
             }
 
             var universeDetails = activity.UniverseDetails!;

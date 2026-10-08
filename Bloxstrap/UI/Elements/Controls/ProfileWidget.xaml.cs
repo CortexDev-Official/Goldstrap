@@ -29,7 +29,10 @@ namespace Bloxstrap.UI.Elements.Controls
         private void ProfilePopup_Opened(object sender, EventArgs e)
         {
             if (ProfilePopup.Child is ProfilePopup popup)
+            {
                 popup.PlayOpenAnimation();
+                popup.CaptureBackdrop();
+            }
         }
 
         private void ProfilePopup_Closed(object sender, EventArgs e)

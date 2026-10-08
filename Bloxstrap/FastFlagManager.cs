@@ -12,7 +12,7 @@ namespace Bloxstrap
 
         public override string FileLocation => Path.Combine(Paths.Modifications, "ClientSettings\\ClientAppSettings.json");
 
-        public bool Changed => !OriginalProp.SequenceEqual(Prop);
+        public bool Changed => Prop.Any(x => !OriginalProp.TryGetValue(x.Key, out object? value) || value?.ToString() != x.Value?.ToString()) || OriginalProp.Keys.Any(x => !Prop.ContainsKey(x));
 
         public static IReadOnlyDictionary<string, string> PresetFlags = new Dictionary<string, string>
         {
@@ -165,10 +165,10 @@ namespace Bloxstrap
             base.Load(alertFailure);
 
             
-            OriginalProp = new(Prop);
-
             if (GetPreset("Rendering.ManualFullscreen") != "False")
                 SetPreset("Rendering.ManualFullscreen", "False");
+
+            OriginalProp = new(Prop);
         }
     }
 }

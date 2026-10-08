@@ -132,6 +132,16 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
+        public bool EnableProfileFeature
+        {
+            get => App.Settings.Prop.EnableProfileFeature;
+            set
+            {
+                App.Settings.Prop.EnableProfileFeature = value;
+                OnPropertyChanged(nameof(EnableProfileFeature));
+            }
+        }
+
         public static List<string> Languages => Locale.GetLanguages();
 
         public string SelectedLanguage
@@ -494,7 +504,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             zipStream.Finish();
             memStream.Position = 0;
 
-            using var outputStream = File.OpenWrite(dialog.FileName);
+            using var outputStream = File.Create(dialog.FileName);
             memStream.CopyTo(outputStream);
 
             Process.Start("explorer.exe", $"/select,\"{dialog.FileName}\"");

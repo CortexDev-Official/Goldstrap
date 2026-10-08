@@ -6,7 +6,6 @@
 // Copyright (C) Leszek Pomianowski.
 
 
-// NOTE
 
 
 

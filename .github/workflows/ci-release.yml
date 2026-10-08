@@ -1,4 +1,5 @@
 name: CI (Release)
+
 on: [push, pull_request]
 
 jobs:
@@ -12,22 +13,22 @@ jobs:
 
     - uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Goldstrap.sln
 
     - name: Build
-      run: dotnet build -c Release --no-restore
+      run: dotnet build Goldstrap.sln -c Release --no-restore
 
     - name: Publish
-      run: dotnet publish -p:PublishSingleFile=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Release --self-contained false .\Bloxstrap\Goldstrap.csproj
+      run: dotnet publish Bloxstrap/Goldstrap.csproj -p:PublishSingleFile=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Release --self-contained false
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v7
       with:
-        path: .\Bloxstrap\bin\Release\net6.0-windows\win-x64\publish\Goldstrap.exe
-        archive: false
+        name: Goldstrap
+        path: Bloxstrap/bin/Release/net6.0-windows/win-x64/publish/Goldstrap.exe
 
   release:
     needs: build
@@ -37,17 +38,19 @@ jobs:
       contents: write
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v8
+    - name: Download artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: Goldstrap
+        path: release
 
-
-      - name: Create release
-        uses: softprops/action-gh-release@v3
-        with:
-          draft: true
-          files: Goldstrap.exe
-          name: Goldstrap ${{ github.ref_name }}
-          fail_on_unmatched_files: true
+    - name: Create release
+      uses: softprops/action-gh-release@v3
+      with:
+        draft: true
+        name: Goldstrap ${{ github.ref_name }}
+        files: release/**/Goldstrap.exe
+        fail_on_unmatched_files: true
 
   release-test:
     needs: build
@@ -57,14 +60,16 @@ jobs:
       contents: write
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v8
+    - name: Download artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: Goldstrap
+        path: release
 
-
-      - name: Create release
-        uses: softprops/action-gh-release@v3
-        with:
-          draft: true
-          files: Goldstrap.exe
-          name: Goldstrap ${{ github.ref_name }}
-          fail_on_unmatched_files: true
+    - name: Create release
+      uses: softprops/action-gh-release@v3
+      with:
+        draft: true
+        name: Goldstrap ${{ github.ref_name }}
+        files: release/**/Goldstrap.exe
+        fail_on_unmatched_files: true

@@ -17,7 +17,6 @@
             Margin="8"
             MinWidth="320"
             MaxWidth="360"
-            Padding="16"
             CornerRadius="{DynamicResource ControlCornerRadius}"
             Background="{DynamicResource ProfilePopupBackgroundBrush}"
             BorderBrush="{DynamicResource CardBorderBrush}"
@@ -26,7 +25,17 @@
             <DropShadowEffect Color="#000000" BlurRadius="26" ShadowDepth="5" Direction="270" Opacity="0.55" />
         </Border.Effect>
 
-        <StackPanel>
+        <Grid>
+            <Border x:Name="BackdropLayer"
+                    CornerRadius="{DynamicResource ControlCornerRadius}"
+                    Opacity="0.65"
+                    IsHitTestVisible="False">
+                <Border.Background>
+                    <ImageBrush x:Name="BackdropBrush" Stretch="Fill" />
+                </Border.Background>
+            </Border>
+
+            <StackPanel Margin="16">
             <Grid Margin="0,0,0,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -151,6 +160,7 @@
                                Text="{Binding StreakText}" />
                 </StackPanel>
             </controls:OptionControl>
-        </StackPanel>
+            </StackPanel>
+        </Grid>
     </Border>
 </UserControl>

@@ -329,7 +329,7 @@ namespace Bloxstrap
                 }
 
                 
-                if (App.Settings.Prop.CleanerOptions != CleanerOptions.Never)
+                if (watcher.Started && App.Settings.Prop.CleanerOptions != CleanerOptions.Never)
                     Cleaner.DoCleaning();
 
                 App.Terminate();

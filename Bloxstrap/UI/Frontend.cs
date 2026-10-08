@@ -115,7 +115,7 @@ namespace Bloxstrap.UI
 
         public static void ShowBalloonTip(string title, string message, System.Windows.Forms.ToolTipIcon icon = System.Windows.Forms.ToolTipIcon.None, int timeout = 5)
         {
-            using var notifyIcon = new System.Windows.Forms.NotifyIcon
+            var notifyIcon = new System.Windows.Forms.NotifyIcon
             {
                 Icon = Properties.Resources.IconGoldstrap,
                 Text = App.ProjectName,

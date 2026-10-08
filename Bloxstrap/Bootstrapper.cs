@@ -1003,7 +1003,7 @@ namespace Bloxstrap
                 if (App.LaunchSettings.TestModeFlag.Active)
                     args += " -testmode";
 
-                if (ipl.IsAcquired || true)
+                if (ipl.IsAcquired)
                     Process.Start(Paths.Process, args);
             }
 
@@ -1124,9 +1124,10 @@ namespace Bloxstrap
 
                 File.Copy(Paths.Process, downloadLocation, true);
 #else
-                var asset = releaseInfo.Assets?.FirstOrDefault();
+                var asset = releaseInfo.Assets?.FirstOrDefault(x => x.Name.Equals($"{App.ProjectName}.exe", StringComparison.OrdinalIgnoreCase));
+
                 if (asset is null)
-                    throw new Exception("No update assets found in release info");
+                    throw new Exception($"No {App.ProjectName}.exe asset found in release info");
 
                 string downloadLocation = Path.Combine(Paths.TempUpdates, asset.Name);
 
@@ -1136,10 +1137,19 @@ namespace Bloxstrap
 
                 if (!File.Exists(downloadLocation))
                 {
+                    string partialLocation = downloadLocation + ".partial";
+
+                    if (File.Exists(partialLocation))
+                        File.Delete(partialLocation);
+
                     var response = await App.HttpClient.GetAsync(asset.BrowserDownloadUrl);
 
-                    await using var fileStream = new FileStream(downloadLocation, FileMode.OpenOrCreate, FileAccess.Write);
-                    await response.Content.CopyToAsync(fileStream);
+                    await using (var fileStream = new FileStream(partialLocation, FileMode.Create, FileAccess.Write))
+                        await response.Content.CopyToAsync(fileStream);
+
+                    VerifyUpdateFile(partialLocation, releaseInfo.TagName);
+
+                    File.Move(partialLocation, downloadLocation, true);
                 }
 #endif
 
@@ -1182,6 +1192,23 @@ namespace Bloxstrap
             }
 
             return false;
+        }
+
+        private static void VerifyUpdateFile(string path, string tag)
+        {
+            var fileInfo = new FileInfo(path);
+
+            if (!fileInfo.Exists || fileInfo.Length == 0)
+                throw new Exception("Downloaded update file is empty");
+
+            Version? fileVersion = Utilities.ParseVersionSafe(FileVersionInfo.GetVersionInfo(path).FileVersion ?? "");
+            Version? tagVersion = Utilities.GetVersionFromString(tag);
+
+            if (fileVersion is null ||
+                fileVersion.Major != tagVersion.Major ||
+                fileVersion.Minor != tagVersion.Minor ||
+                fileVersion.Build != tagVersion.Build)
+                throw new Exception($"Downloaded update file does not match {tag}");
         }
         #endregion
 

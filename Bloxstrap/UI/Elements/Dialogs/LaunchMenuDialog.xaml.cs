@@ -35,10 +35,19 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
             DataContext = viewModel;
 
-            App.Profile.Load();
-            App.Profile.RegisterDailyOpen();
+            bool profileEnabled = App.Settings.Prop.EnableProfileFeature;
+
+            if (profileEnabled)
+            {
+                App.Profile.Load();
+                App.Profile.RegisterDailyOpen();
+            }
 
             InitializeComponent();
+
+            if (!profileEnabled)
+                ProfileWidgetControl.Visibility = Visibility.Collapsed;
+
             Random Chance = new();
             if (Chance.Next(0, 10000) == 1)
             {

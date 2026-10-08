@@ -50,12 +50,30 @@ namespace Bloxstrap.Models.Entities
 
             foreach (string strId in ids.Split(','))
             {
-                long id = long.Parse(strId);
+                if (!long.TryParse(strId, out long id))
+                    continue;
+
+                GameDetailResponse? details = gameDetailResponse.Data.FirstOrDefault(x => x.Id == id);
+
+                if (details is null)
+                {
+                    App.Logger.WriteLine("UniverseDetails::FetchBulk", $"Universe {id} is not available from the games API");
+                    continue;
+                }
+
+                ThumbnailResponse? thumbnail = universeThumbnailResponse.Data.FirstOrDefault(x => x.TargetId == id);
+
+                thumbnail ??= new ThumbnailResponse
+                {
+                    RequestId = id.ToString(CultureInfo.InvariantCulture),
+                    TargetId = id,
+                    State = "Error"
+                };
 
                 _cache.Add(new UniverseDetails
                 {
-                    Data = gameDetailResponse.Data.Where(x => x.Id == id).First(),
-                    Thumbnail = universeThumbnailResponse.Data.Where(x => x.TargetId == id).First(),
+                    Data = details,
+                    Thumbnail = thumbnail
                 });
             }
         }

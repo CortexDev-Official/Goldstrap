@@ -12,13 +12,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             Task.Run(() => LoadChannelDeployInfo(App.Settings.Prop.Channel));
         }
         
-        private bool ValidateDomain(string domain)
-        {
-            const string domainPattern = @"^([a-zA-Z0-9.-]+)\.([a-zA-Z0-9]+)$";
-
-            return Regex.IsMatch(domain, domainPattern);
-        }
-
         private async Task LoadChannelDeployInfo(string channel)
         {
             ShowLoadingError = false;
@@ -116,7 +109,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (value.Equals("libstanpreg.so", StringComparison.OrdinalIgnoreCase))
                     Frontend.ShowMessageBox("libstanpreg.so is real.", MessageBoxImage.Hand);
 
-                if (ValidateDomain(value))
+                if (Deployment.IsValidRobloxDomain(value))
                     App.Settings.Prop.RobloxDomain = value;
                 else
                     Frontend.ShowMessageBox(Strings.Menu_Channel_RobloxDomain_InvalidDomain, MessageBoxImage.Warning, MessageBoxButton.OK);

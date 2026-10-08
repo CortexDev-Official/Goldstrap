@@ -33,11 +33,15 @@ namespace Bloxstrap
                 if (ex.NativeErrorCode != (int)ErrorCode.CO_E_APPNOTFOUND)
                     throw;
 
-                Process.Start(new ProcessStartInfo
+                var runDllStartInfo = new ProcessStartInfo
                 {
-                    FileName = "rundll32.exe",
-                    Arguments = $"shell32,OpenAs_RunDLL \"{website}\""
-                });
+                    FileName = "rundll32.exe"
+                };
+
+                runDllStartInfo.ArgumentList.Add("shell32,OpenAs_RunDLL");
+                runDllStartInfo.ArgumentList.Add(website);
+
+                Process.Start(runDllStartInfo);
             }
         }
 

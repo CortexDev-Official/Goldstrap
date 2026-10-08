@@ -1,4 +1,5 @@
 name: CI (Debug)
+
 on: [push, pull_request]
 
 jobs:
@@ -12,19 +13,19 @@ jobs:
 
     - uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Goldstrap.sln
 
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build Goldstrap.sln -c Debug --no-restore
 
     - name: Publish
-      run: dotnet publish -p:PublishSingleFile=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Debug --self-contained false .\Bloxstrap\Goldstrap.csproj
+      run: dotnet publish Bloxstrap/Goldstrap.csproj -p:PublishSingleFile=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Debug --self-contained false
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v7
       with:
-        path: .\Bloxstrap\bin\Debug\net6.0-windows\win-x64\publish\Goldstrap.exe
-        archive: false
+        name: Goldstrap-Debug
+        path: Bloxstrap/bin/Debug/net6.0-windows/win-x64/publish/Goldstrap.exe

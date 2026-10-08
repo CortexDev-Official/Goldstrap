@@ -368,7 +368,6 @@
                 </Setter>
             </Trigger>
 
-            <!--  CAUTION  -->
             <Trigger Property="Appearance" Value="Caution">
                 <Setter Property="Background">
                     <Setter.Value>

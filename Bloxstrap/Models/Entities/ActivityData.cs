@@ -116,7 +116,7 @@ namespace Bloxstrap.Models.Entities
 
             await serverQuerySemaphore.WaitAsync();
 
-            if (GlobalCache.ServerLocation.TryGetValue(MachineAddress, out string? location))
+            if (GlobalCache.ServerLocation.TryGetValue(MachineAddress, out string? location) && location is not null)
             {
                 serverQuerySemaphore.Release();
                 return location;
@@ -148,7 +148,6 @@ namespace Bloxstrap.Models.Entities
                 App.Logger.WriteLine(LOG_IDENT, $"Failed to get server location for {MachineAddress}");
                 App.Logger.WriteException(LOG_IDENT, ex);
 
-                GlobalCache.ServerLocation[MachineAddress] = location;
                 serverQuerySemaphore.Release();
 
                 Frontend.ShowConnectivityDialog(

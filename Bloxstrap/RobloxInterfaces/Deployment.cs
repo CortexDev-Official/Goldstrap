@@ -34,7 +34,28 @@ namespace Bloxstrap.RobloxInterfaces
 
         public static string BinaryType = "WindowsPlayer";
 
-        public static string RobloxDomain => App.Settings.Prop.RobloxDomain;
+        public static string RobloxDomain
+        {
+            get
+            {
+                string domain = App.Settings.Prop.RobloxDomain;
+
+                if (IsValidRobloxDomain(domain))
+                    return domain;
+
+                App.Logger.WriteLine("Deployment::RobloxDomain", $"Ignoring invalid Roblox domain '{domain}'");
+
+                return DefaultRobloxDomain;
+            }
+        }
+
+        public static bool IsValidRobloxDomain(string? domain)
+        {
+            if (String.IsNullOrWhiteSpace(domain))
+                return false;
+
+            return Regex.IsMatch(domain, @"^([a-zA-Z0-9.-]+)\.([a-zA-Z0-9]+)$");
+        }
 
         public static bool IsDefaultChannel => Channel.Equals(DefaultChannel, StringComparison.OrdinalIgnoreCase) || Channel.Equals("live", StringComparison.OrdinalIgnoreCase);
         public static bool IsDefaultRobloxDomain => RobloxDomain.Equals(DefaultRobloxDomain, StringComparison.OrdinalIgnoreCase);
