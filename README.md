@@ -1,5 +1,5 @@
 > [!CAUTION]
-> The only official place to download Goldstrap is this GitHub repository.
+> The only official place to download Goldstrap is this GitHub repository And https://goldstrap.app .
 > Any other websites offering downloads or claiming to be us are not controlled
 > by us, do not download from them.
 
