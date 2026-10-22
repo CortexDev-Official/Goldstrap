@@ -40,7 +40,7 @@ namespace Bloxstrap.UI.Animations
             var transform = element.RenderTransform as ScaleTransform ?? new ScaleTransform(1, 1);
             element.RenderTransform = transform;
 
-            var anim = new DoubleAnimation(0.96, TimeSpan.FromMilliseconds(110))
+            var anim = new DoubleAnimation(0.97, TimeSpan.FromMilliseconds(140))
             {
                 EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
             };
@@ -54,9 +54,9 @@ namespace Bloxstrap.UI.Animations
             if (element.RenderTransform is not ScaleTransform transform) return;
 
             
-            var anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(330))
+            var anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(260))
             {
-                EasingFunction = new ElasticEase { EasingMode = EasingMode.EaseOut, Oscillations = 1, Springiness = 6 }
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
             };
             transform.BeginAnimation(ScaleTransform.ScaleXProperty, anim);
             transform.BeginAnimation(ScaleTransform.ScaleYProperty, anim);

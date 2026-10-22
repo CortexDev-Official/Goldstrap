@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 
 using Bloxstrap.UI.Elements.Bootstrapper;
 using Bloxstrap.UI.Elements.Dialogs;
@@ -29,8 +29,8 @@ namespace Bloxstrap.UI
 
             string info = String.Format(
                 Strings.Dialog_PlayerError_HelpInformation,
-                $"https://github.com/{App.ProjectRepository}/wiki/Roblox-crashes-or-does-not-launch",
-                $"https://github.com/{App.ProjectRepository}/wiki/Switching-between-Roblox-and-Bloxstrap"
+                "https://wiki.goldstrap.app/troubleshooting#no-launch",
+                "https://wiki.goldstrap.app/install#uninstall"
             );
 
             ShowMessageBox($"{topLine}\n\n{info}", MessageBoxImage.Error);

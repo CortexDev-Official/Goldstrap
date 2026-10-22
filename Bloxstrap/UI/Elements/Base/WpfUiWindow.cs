@@ -89,21 +89,23 @@ namespace Bloxstrap.UI.Elements.Base
             }
             else
             {
-                this.WindowBackdropType = BackgroundType.Mica;
+                this.WindowBackdropType = Wpf.Ui.Appearance.Background.IsSupported(BackgroundType.Mica)
+                    ? BackgroundType.Mica
+                    : BackgroundType.Acrylic;
 
                 if (isDark)
                 {
                     this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(8, 30, 26, 20));
                     this.Background = IsBootstrapperDialogWindow ?
                         Brushes.Transparent :
-                        new SolidColorBrush(Color.FromArgb(80, 30, 26, 20));
+                        new SolidColorBrush(Color.FromArgb(64, 30, 26, 20));
                 }
                 else
                 {
                     this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(14, 251, 247, 238));
                     this.Background = IsBootstrapperDialogWindow ?
                         Brushes.Transparent :
-                        new SolidColorBrush(Color.FromArgb(80, 251, 247, 238));
+                        new SolidColorBrush(Color.FromArgb(64, 251, 247, 238));
                 }
             }
 

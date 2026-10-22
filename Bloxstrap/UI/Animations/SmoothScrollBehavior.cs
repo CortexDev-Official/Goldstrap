@@ -28,7 +28,7 @@ namespace Bloxstrap.UI.Animations
             if (sender is not ScrollViewer sv || sv.ScrollableHeight <= 0)
                 return;
 
-            double delta = -e.Delta * 1.1;
+            double delta = -e.Delta * 1.0;
             double target = Math.Max(0, Math.Min(sv.ScrollableHeight, sv.VerticalOffset + delta));
 
             if (!_states.TryGetValue(sv, out var state))
@@ -51,12 +51,12 @@ namespace Bloxstrap.UI.Animations
             private DateTime _startTime;
             private double _from;
             private double _to;
-            private const double DURATION_MS = 120;
+            private const double DURATION_MS = 170;
 
             public ScrollState(ScrollViewer sv)
             {
                 _sv = sv;
-                _ease = new PowerEase { EasingMode = EasingMode.EaseOut, Power = 1.1 };
+                _ease = new PowerEase { EasingMode = EasingMode.EaseOut, Power = 1.6 };
             }
 
             public void ScrollTo(double target)

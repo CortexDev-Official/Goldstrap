@@ -1,4 +1,4 @@
-﻿using System.Windows.Input;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 
 using Bloxstrap.Resources;
@@ -9,7 +9,7 @@ namespace Bloxstrap.UI.ViewModels.Dialogs
     {
         public string Text => String.Format(
             Strings.Uninstaller_Text, 
-            "https://github.com/bloxstraplabs/bloxstrap/wiki/Roblox-crashes-or-does-not-launch",
+            "https://wiki.goldstrap.app/troubleshooting#no-launch",
             Paths.Base
         );
 

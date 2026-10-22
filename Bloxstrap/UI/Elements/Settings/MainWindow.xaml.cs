@@ -81,13 +81,6 @@ namespace Bloxstrap.UI.Elements.Settings
             }
 
             
-            this.Loaded += (s, e) =>
-            {
-                Dispatcher.InvokeAsync(() =>
-                {
-                    BuildSearchIndexAutomatically();
-                }, System.Windows.Threading.DispatcherPriority.Background);
-            };
         }
 
         public void LoadState()
@@ -177,7 +170,7 @@ namespace Bloxstrap.UI.Elements.Settings
                 App.SoftTerminate();
         }
 
-        private void BuildSearchIndexAutomatically()
+        private List<SearchBarItem> BuildSearchIndex()
         {
             _searchIndex = new List<SearchBarItem>();
 
@@ -205,6 +198,8 @@ namespace Bloxstrap.UI.Elements.Settings
                     }
                 }
             }
+
+            return _searchIndex!;
         }
 
         private static IEnumerable<T> FindLogicalChildren<T>(DependencyObject depObj) where T : DependencyObject
@@ -242,7 +237,9 @@ namespace Bloxstrap.UI.Elements.Settings
                     return;
                 }
 
-                var selectedSetting = _searchIndex?.FirstOrDefault(x => x.DisplayName.Equals(currentText, StringComparison.OrdinalIgnoreCase));
+                _searchIndex ??= BuildSearchIndex();
+
+                var selectedSetting = _searchIndex.FirstOrDefault(x => x.DisplayName.Equals(currentText, StringComparison.OrdinalIgnoreCase));
 
                 if (selectedSetting is not null)
                 {

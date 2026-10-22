@@ -30,6 +30,17 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.UseFastFlagManager = value;
         }
 
+        public bool UncapFramerate
+        {
+            get => App.FastFlags.GetValue("DFIntTaskSchedulerTargetFps") is not null;
+            set
+            {
+                App.FastFlags.SetValue("DFIntTaskSchedulerTargetFps", value ? "240" : null);
+                App.GlobalSettings.SetPreset("Rendering.FramerateCap", value ? 240 : -1);
+                OnPropertyChanged(nameof(UncapFramerate));
+            }
+        }
+
         public IReadOnlyDictionary<MSAAMode, string?> MSAALevels => FastFlagManager.MSAAModes;
 
         public MSAAMode SelectedMSAALevel

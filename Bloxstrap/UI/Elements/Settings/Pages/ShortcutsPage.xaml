@@ -1,4 +1,4 @@
-﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.Settings.Pages.ShortcutsPage"
+<ui:UiPage x:Class="Bloxstrap.UI.Elements.Settings.Pages.ShortcutsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -19,8 +19,8 @@
 
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Shortcuts_ExtractIcons_Title}" 
-            Description="{Binding Source={x:Static resources:Strings.Menu_Shortcuts_ExtractIcons_Description}, Converter={StaticResource StringFormatConverter},ConverterParameter='https://github.com/bloxstraplabs/bloxstrap/wiki/Using-Roblox-icons-for-your-shortcuts'}"
-            HelpLink="https://github.com/bloxstraplabs/bloxstrap/wiki/Using-Roblox-icons-for-your-shortcuts"
+            Description="{Binding Source={x:Static resources:Strings.Menu_Shortcuts_ExtractIcons_Description}, Converter={StaticResource StringFormatConverter},ConverterParameter='https://wiki.goldstrap.app/shortcuts#icons'}"
+            HelpLink="https://wiki.goldstrap.app/shortcuts#icons"
             Margin="0,0,0,16">
             <ui:ToggleSwitch IsChecked="{Binding ExtractIconsTask.NewState, Mode=TwoWay}" />
         </controls:OptionControl>

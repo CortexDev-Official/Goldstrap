@@ -550,10 +550,6 @@ namespace Bloxstrap
 
                     if (App.Settings.Prop.BootstrapperStyle == BootstrapperStyle.ClassicFluentDialog)
                         App.Settings.Prop.BootstrapperStyle = BootstrapperStyle.FluentDialog;
-
-                    _ = int.TryParse(App.FastFlags.GetPreset("Rendering.Framerate"), out int x);
-                    if (x == 0)
-                        App.FastFlags.SetPreset("Rendering.Framerate", null);
                 }
 
                 if (Utilities.CompareVersions(existingVer, "2.8.0") == VersionComparison.LessThan)
@@ -658,7 +654,7 @@ namespace Bloxstrap
             {
 #pragma warning disable CS0162 // Unreachable code detected
                 if (OpenReleaseNotes)
-                    Utilities.ShellExecute($"https://wiki.goldstrap.app/patch-notes/v{currentVer.Replace(".", "-")}");
+                    Utilities.ShellExecute($"https://github.com/{App.ProjectRepository}/releases/tag/v{currentVer}");
 #pragma warning restore CS0162 // Unreachable code detected
             }
             else

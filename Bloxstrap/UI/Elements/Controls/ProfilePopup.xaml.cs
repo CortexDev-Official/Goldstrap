@@ -62,14 +62,14 @@ namespace Bloxstrap.UI.Elements.Controls
 
         public void PlayOpenAnimation()
         {
-            var ease = new CubicEase { EasingMode = EasingMode.EaseOut };
+            var ease = new QuarticEase { EasingMode = EasingMode.EaseOut };
 
             PopupRoot.BeginAnimation(OpacityProperty,
-                new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(300)) { EasingFunction = ease });
+                new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(420)) { EasingFunction = ease });
 
             if (PopupRoot.RenderTransform is TranslateTransform transform)
                 transform.BeginAnimation(TranslateTransform.YProperty,
-                    new DoubleAnimation(12, 0, TimeSpan.FromMilliseconds(300)) { EasingFunction = ease });
+                    new DoubleAnimation(16, 0, TimeSpan.FromMilliseconds(420)) { EasingFunction = ease });
         }
 
         private void UsernameBox_LostFocus(object sender, RoutedEventArgs e) => CommitUsername();

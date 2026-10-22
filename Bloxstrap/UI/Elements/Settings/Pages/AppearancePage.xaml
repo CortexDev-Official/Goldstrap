@@ -1,4 +1,4 @@
-﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.Settings.Pages.AppearancePage"
+<ui:UiPage x:Class="Bloxstrap.UI.Elements.Settings.Pages.AppearancePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -62,7 +62,7 @@
                 <ui:TextBox PlaceholderText="Roblox" Width="200" Text="{Binding WindowTitle, Mode=TwoWay}" />
             </controls:OptionControl>
 
-            <controls:OptionControl Header="{x:Static resources:Strings.Menu_Appearance_RobloxIcon_Title}" Description="{x:Static resources:Strings.Menu_Appearance_RobloxIcon_Description}" HelpLink="https://wiki.goldstrap.app/manual/appearance/#custom-icons">
+            <controls:OptionControl Header="{x:Static resources:Strings.Menu_Appearance_RobloxIcon_Title}" Description="{x:Static resources:Strings.Menu_Appearance_RobloxIcon_Description}" HelpLink="https://wiki.goldstrap.app/appearance#roblox-window">
                 <Grid Width="200" HorizontalAlignment="Right">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -186,7 +186,7 @@
             <ui:TextBox PlaceholderText="Goldstrap" Width="200" Text="{Binding Title, Mode=TwoWay}" />
         </controls:OptionControl>
 
-        <controls:OptionControl x:Name="IconSelector" Header="{x:Static resources:Strings.Menu_Appearance_Icon_Title}" Description="{x:Static resources:Strings.Menu_Appearance_Icon_Description}" HelpLink="https://wiki.goldstrap.app/manual/appearance/#custom-icons">
+        <controls:OptionControl x:Name="IconSelector" Header="{x:Static resources:Strings.Menu_Appearance_Icon_Title}" Description="{x:Static resources:Strings.Menu_Appearance_Icon_Description}" HelpLink="https://wiki.goldstrap.app/appearance#bootstrapper">
             <Grid Width="200" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

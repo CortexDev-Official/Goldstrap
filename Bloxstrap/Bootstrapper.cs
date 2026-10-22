@@ -66,6 +66,7 @@ namespace Bloxstrap
         private long _totalDownloadedBytes = 0;
         private long _totalPackagedBytes = 0;
         private readonly System.Collections.Concurrent.ConcurrentDictionary<string, long> _packageDownloadedBytes = new();
+        private DateTime _lastProgressUpdate = DateTime.MinValue;
         private bool _packageExtractionSuccess = true;
 
         private bool _mustUpgrade => App.LaunchSettings.ForceFlag.Active || App.State.Prop.ForceReinstall || String.IsNullOrEmpty(AppData.State.VersionGuid) || !File.Exists(AppData.ExecutablePath);
@@ -1892,7 +1893,7 @@ namespace Bloxstrap
                     {
                         Frontend.ShowConnectivityDialog(
                             Strings.Dialog_Connectivity_UnableToDownload,
-                            String.Format(Strings.Dialog_Connectivity_UnableToDownloadReason, "[https://github.com/bloxstraplabs/bloxstrap/wiki/Bloxstrap-is-unable-to-download-Roblox](https://github.com/bloxstraplabs/bloxstrap/wiki/Bloxstrap-is-unable-to-download-Roblox)"),
+                            String.Format(Strings.Dialog_Connectivity_UnableToDownloadReason, "[https://wiki.goldstrap.app/troubleshooting#downloads](https://wiki.goldstrap.app/troubleshooting#downloads)"),
                             MessageBoxImage.Error,
                             ex
                         );
@@ -1921,9 +1922,19 @@ namespace Bloxstrap
         private void RefreshTotalDownloaded()
         {
             long total = 0;
+
             foreach (var kv in _packageDownloadedBytes)
                 total += kv.Value;
+
             Interlocked.Exchange(ref _totalDownloadedBytes, total);
+
+            DateTime now = DateTime.UtcNow;
+
+            if (now - _lastProgressUpdate < TimeSpan.FromMilliseconds(80) && total != _totalPackagedBytes)
+                return;
+
+            _lastProgressUpdate = now;
+
             UpdateProgressBar();
         }
 

@@ -106,9 +106,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => App.Settings.Prop.RobloxDomain;
             set
             {
-                if (value.Equals("libstanpreg.so", StringComparison.OrdinalIgnoreCase))
-                    Frontend.ShowMessageBox("libstanpreg.so is real.", MessageBoxImage.Hand);
-
                 if (Deployment.IsValidRobloxDomain(value))
                     App.Settings.Prop.RobloxDomain = value;
                 else

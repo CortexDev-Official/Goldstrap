@@ -3114,6 +3114,24 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uncapped frame rate.
+        /// </summary>
+        public static string Menu_FastFlags_Performance_Uncap_Title {
+            get {
+                return ResourceManager.GetString("Menu.FastFlags.Performance.Uncap.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raises Roblox's frame rate limit to 240 FPS. Graphics quality and textures are left untouched, so you only see more frames on displays that can show them..
+        /// </summary>
+        public static string Menu_FastFlags_Performance_Uncap_Description {
+            get {
+                return ResourceManager.GetString("Menu.FastFlags.Performance.Uncap.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preview.
         /// </summary>
         public static string Menu_Appearance_Preview {

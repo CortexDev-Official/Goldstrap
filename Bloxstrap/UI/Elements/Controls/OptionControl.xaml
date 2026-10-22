@@ -20,7 +20,7 @@
             <StackPanel Grid.Column="0" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontSize="14" Text="{Binding Header, ElementName=Control}" VerticalAlignment="Center" />
-                    <Border Margin="6,0,0,0" Padding="5,1,5,2" CornerRadius="4" Background="#C8962E" VerticalAlignment="Center"
+                    <Border Margin="6,0,0,0" Padding="5,1,5,2" CornerRadius="4" Background="{DynamicResource GoldPrimaryBrush}" VerticalAlignment="Center"
                             ToolTipService.InitialShowDelay="200" ToolTipService.ShowDuration="10000">
                         <Border.Style>
                             <Style TargetType="Border">
@@ -34,7 +34,7 @@
                         <Border.ToolTip>
                             <ToolTip Content="This feature is in Beta... and may still have some bugs"
                                      FontSize="12" Background="#CC1E1E1E" Foreground="White"
-                                     BorderBrush="#C8962E" BorderThickness="1" Padding="10,6" HasDropShadow="False" />
+                                     BorderBrush="{DynamicResource GoldPrimaryBrush}" BorderThickness="1" Padding="10,6" HasDropShadow="False" />
                         </Border.ToolTip>
                         <TextBlock Text="Beta" FontSize="9" FontWeight="SemiBold" Foreground="White" />
                     </Border>
